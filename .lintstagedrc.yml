@@ -1,0 +1,3 @@
+'*': npm run lint:fs
+'**/*.scss': npm run lint:css
+'**/*.{ts,tsx}': npm run lint:js
