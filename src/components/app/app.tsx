@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { Home } from 'components/home/home';
-import { AppRoute } from 'common/enums/enums';
+import { Home } from '~/components/home/home';
+import { AppRoute } from '~/common/enums/enums';
+import { Route, Routes } from '../common/common';
 
 export const App: FC = () => {
   return (

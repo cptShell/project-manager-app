@@ -3,7 +3,7 @@ import {
   ContentType,
   HttpHeader,
   StorageKey,
-} from 'common/enums/enums';
+} from '~/common/enums/enums';
 import { Storage } from '../storage/storage.service';
 
 type Constructor = {

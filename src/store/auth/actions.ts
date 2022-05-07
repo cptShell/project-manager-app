@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { StorageKey } from 'common/enums/enums';
-import { AsyncThunkConfig, SignInUserDto } from 'common/types/types';
+import { StorageKey } from '~/common/enums/enums';
+import { AsyncThunkConfig, SignInUserDto } from '~/common/types/types';
 import { ActionType } from './common';
 
 export const signIn = createAsyncThunk<void, SignInUserDto, AsyncThunkConfig>(

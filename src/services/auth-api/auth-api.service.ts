@@ -3,9 +3,9 @@ import {
   AuthApiPath,
   ContentType,
   HttpMethod,
-} from 'common/enums/enums';
-import { SignInUserDto } from 'common/types/types';
-import { Http } from 'services/http/http.service';
+} from '~/common/enums/enums';
+import { SignInUserDto } from '~/common/types/types';
+import { Http } from '~/services/http/http.service';
 
 type Constructor = {
   http: Http;

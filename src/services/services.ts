@@ -1,4 +1,4 @@
-import { ENV } from 'common/enums/enums';
+import { ENV } from '~/common/enums/enums';
 import { AuthApi } from './auth-api/auth-api.service';
 import { Http } from './http/http.service';
 import { Storage } from './storage/storage.service';
