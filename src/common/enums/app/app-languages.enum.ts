@@ -1,3 +1,4 @@
 export enum AppLanguage {
-  EN= 'en',
+  EN = 'en',
+  RU = 'ru',
 }

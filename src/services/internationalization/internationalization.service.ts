@@ -1,7 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next, I18nextProvider } from 'react-i18next';
 import { AppLanguage } from '~/common/enums/enums';
-import { ENMessagesMap } from '~/locales/locales';
+import { ENMessagesMap, RUMessagesMap } from '~/locales/locales';
 
 export class Internationalization {
   #instance: typeof i18n;
@@ -18,6 +18,9 @@ export class Internationalization {
         [AppLanguage.EN]: {
           translation: ENMessagesMap,
         },
+        [AppLanguage.RU]: {
+          translation: RUMessagesMap,
+        },
       },
     });
   }
@@ -26,7 +29,7 @@ export class Internationalization {
     return this.#instance;
   }
 
-  get provider(): typeof I18nextProvider{
+  get provider(): typeof I18nextProvider {
     return I18nextProvider;
   }
 }
