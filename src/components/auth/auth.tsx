@@ -1,15 +1,18 @@
 import { FC } from 'react';
-import { SignIn } from './sign-in';
-import { SignUp } from './sign-up';
+import { useLocation } from 'react-router-dom';
+import { AppRoute } from '~/common/enums/enums';
+import { SignIn } from './components/sign-in';
+import { SignUp } from './components/sign-up';
 
 export const Auth: FC = () => {
-  fetch('https://sheltered-reaches-82853.herokuapp.com/').then((res) =>
-    console.log(res),
-  );
-  return (
-    <div>
-      <SignUp />
-      <SignIn />
-    </div>
-  );
+  const { pathname } = useLocation();
+
+  const getForm = (path: string): JSX.Element => {
+    if (path === AppRoute.SIGN_UP) {
+      return <SignUp />;
+    }
+    return <SignIn />;
+  };
+
+  return getForm(pathname);
 };
