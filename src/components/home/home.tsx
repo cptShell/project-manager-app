@@ -1,5 +1,6 @@
 import { FC } from 'react';
+import { FormattedMessage } from '~/components/common/common';
 
 export const Home: FC = () => {
-  return <div>Hello</div>;
+  return <FormattedMessage message="main.title" />;
 };
