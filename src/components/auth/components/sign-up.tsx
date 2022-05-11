@@ -3,8 +3,11 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { SignUpUserDto } from '~/common/types/types';
 import { signUpUser } from '~/validation-schemas/validation-schemas';
+import { useAppDispatch } from '~/hooks/hooks';
+import { auth } from '~/store/actions';
 
 export const SignUp: FC = () => {
+  const dispatch = useAppDispatch();
   const { register, handleSubmit, formState } = useForm<SignUpUserDto>({
     resolver: joiResolver(signUpUser),
   });
@@ -14,8 +17,8 @@ export const SignUp: FC = () => {
     password: passwordError,
   } = formState.errors;
 
-  const submit = (userDto: SignUpUserDto): void => {
-    console.log(userDto);
+  const submit = async (userDto: SignUpUserDto): Promise<void> => {
+    dispatch(auth.signUp(userDto));
   };
 
   return (

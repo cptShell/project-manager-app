@@ -1,4 +1,4 @@
-import { extraArgument } from 'store/store';
+import { extraArgument } from '~/store/store';
 import { AppDispatch } from './app-dispatch.type';
 import { RootState } from './root-state.type';
 
