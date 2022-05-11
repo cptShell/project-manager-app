@@ -1,0 +1,43 @@
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  background: rgb(118 139 231);
+}
+
+.logo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px;
+  width: 150px;
+  justify-content: center;
+}
+
+.date {
+  font: 32px sans-serif;
+}
+
+.github-wrapper {
+  display: flex;
+  width: 630px;
+}
+
+.github {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+
+.github-img {
+  width: 75px;
+}
+
+.github-name {
+  width: 85px;
+  font-weight: 700;
+}
