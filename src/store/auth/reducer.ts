@@ -2,13 +2,15 @@ import { createReducer } from '@reduxjs/toolkit';
 import { signIn } from './actions';
 
 type State = {
-  // user
+  token: string;
 };
 
-const initialState: State = {};
+const initialState: State = {
+  token: '',
+};
 
 export const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(signIn.fulfilled, (/*state, action*/) => {
-    // state.user = action.payload;
+  builder.addCase(signIn.fulfilled, (state, action) => {
+    state.token = action.payload;
   });
 });
