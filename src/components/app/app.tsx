@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { Home } from '~/components/home/home';
 import { Main } from '~/components/main/main';
 import { Board } from '~/components/board/board';
-import { Auth } from '~/components/auth/auth';
 import { NotFound } from '~/components/not-found-page/not-found-page';
 import { AppRoute } from '~/common/enums/enums';
 import { Route, Routes } from '../common/common';
