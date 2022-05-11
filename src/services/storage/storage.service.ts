@@ -1,4 +1,4 @@
-import { StorageKey } from 'common/enums/enums';
+import { StorageKey } from '~/common/enums/enums';
 
 type Constructor = {
   storage: globalThis.Storage;
