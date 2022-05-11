@@ -1,7 +1,5 @@
 import { FC } from 'react';
 
 export const Home: FC = () => {
-  return (
-    <>Hola!</>
-  );
+  return <div>Hello</div>;
 };
