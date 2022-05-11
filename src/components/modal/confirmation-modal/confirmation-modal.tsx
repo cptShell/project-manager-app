@@ -7,19 +7,18 @@ interface Props {
 }
 
 export const ConfirmationModal: FC<Props> = ({ callback, onResolve }) => {
-  const confirm = (e: React.MouseEvent, resp: boolean): void => {
-    if (resp) {
-      callback();
-    }
+  const confirm = (e: React.MouseEvent): void => {
+    callback();
     onResolve(e);
   };
+  const close = (e: React.MouseEvent): void => onResolve(e);
 
   return (
     <div className={styles.container}>
       <p>Are You Sure?</p>
       <div className={styles.btns}>
-        <button onClick={(e): void => confirm(e, true)}>Yes</button>
-        <button onClick={(e): void => confirm(e, false)}>No</button>
+        <button onClick={confirm}>Yes</button>
+        <button onClick={close}>No</button>
       </div>
     </div>
   );
