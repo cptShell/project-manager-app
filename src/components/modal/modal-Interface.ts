@@ -2,9 +2,7 @@ export const switchModal: CallableFunction = (state: boolean, setState: React.Di
   return (e?: React.MouseEvent) => {
     const isRightTarget = e?.target === e?.currentTarget;
     if (isRightTarget) {
-      state ?
-      setState(false) :
-      setState(true);
+      setState(!state);
     }
   };
 };

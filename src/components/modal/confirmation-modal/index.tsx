@@ -6,7 +6,7 @@ interface Props {
   onResolve: CallableFunction
 }
 
-export const ConfirmationMod: FC<Props> = ({ callback, onResolve }) => {
+export const ConfirmationModal: FC<Props> = ({ callback, onResolve }) => {
   const confirm = (e: React.MouseEvent, resp: boolean): void => {
     if (resp) {
       callback();
