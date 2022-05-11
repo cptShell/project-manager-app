@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import css from './styles.module.scss';
+import styles from './styles.module.scss';
 
 interface Props {
   callback: CallableFunction,
@@ -15,9 +15,9 @@ export const ConfirmationMod: FC<Props> = ({ callback, onResolve }) => {
   };
 
   return (
-    <div className={css.container}>
+    <div className={styles.container}>
       <p>Are You Sure?</p>
-      <div className={css.btns}>
+      <div className={styles.btns}>
         <button onClick={(e): void => confirm(e, true)}>Yes</button>
         <button onClick={(e): void => confirm(e, false)}>No</button>
       </div>

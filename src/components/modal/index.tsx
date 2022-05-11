@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { createPortal } from 'react-dom';
 
-import css from './styles.module.scss';
+import styles from './styles.module.scss';
 
 type Props = {
   children: JSX.Element,
@@ -10,7 +10,7 @@ type Props = {
 
 export const Modal: FC<Props> = ({ children, onClick }) => {
   return createPortal(
-    <div className={css.wrapper} onClick={(e): void => {onClick(e);}}>
+    <div className={styles.wrapper} onClick={(e): void => {onClick(e);}}>
       {children}
     </div>,
     document.body,
