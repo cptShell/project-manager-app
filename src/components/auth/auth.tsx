@@ -2,8 +2,8 @@ import { FC } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { AppRoute, StorageKey } from '~/common/enums/enums';
 import { storage } from '~/services/services';
-import { SignIn } from './components/sign-in';
-import { SignUp } from './components/sign-up';
+import { SignInForm } from './components/sign-in-form';
+import { SignUpForm } from './components/sign-up-form';
 
 export const Auth: FC = () => {
   const { pathname } = useLocation();
@@ -15,9 +15,9 @@ export const Auth: FC = () => {
 
   const getForm = (path: string): JSX.Element => {
     if (path === AppRoute.SIGN_UP) {
-      return <SignUp />;
+      return <SignUpForm />;
     }
-    return <SignIn />;
+    return <SignInForm />;
   };
 
   return getForm(pathname);

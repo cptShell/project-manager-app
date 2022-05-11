@@ -4,9 +4,11 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { SignUpUserDto } from '~/common/types/types';
 import { signUpUser } from '~/validation-schemas/validation-schemas';
 import { useAppDispatch } from '~/hooks/hooks';
-import { auth } from '~/store/actions';
+import { auth as authActions } from '~/store/actions';
+import { InputName } from '~/common/enums/enums';
+import { TextInput } from './text-input';
 
-export const SignUp: FC = () => {
+export const SignUpForm: FC = () => {
   const dispatch = useAppDispatch();
   const { register, handleSubmit, formState } = useForm<SignUpUserDto>({
     resolver: joiResolver(signUpUser),
@@ -17,28 +19,25 @@ export const SignUp: FC = () => {
     password: passwordError,
   } = formState.errors;
 
-  const submit = async (userDto: SignUpUserDto): Promise<void> => {
-    dispatch(auth.signUp(userDto));
+  const submit = (userDto: SignUpUserDto): void => {
+    dispatch(authActions.signUp(userDto));
   };
 
   return (
     <form onSubmit={handleSubmit(submit)}>
       <h2>Sign Up</h2>
-      <label>
-        <p>Name</p>
-        <input type="text" {...register('name')} />
-        {nameError && <span>{nameError.message}</span>}
-      </label>
-      <label>
-        <p>Login</p>
-        <input type="text" {...register('login')} />
-        {loginError && <span>{loginError.message}</span>}
-      </label>
-      <label>
-        <p>Password</p>
-        <input type="text" {...register('password')} />
-        {passwordError && <span>{passwordError.message}</span>}
-      </label>
+      <TextInput
+        formRegisterValues={register(InputName.NAME)}
+        errorMessage={nameError?.message}
+      />
+      <TextInput
+        formRegisterValues={register(InputName.LOGIN)}
+        errorMessage={loginError?.message}
+      />
+      <TextInput
+        formRegisterValues={register(InputName.PASSWORD)}
+        errorMessage={passwordError?.message}
+      />
       <button>Sign Up</button>
     </form>
   );

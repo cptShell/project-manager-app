@@ -1,2 +1,2 @@
-export { UserAuthValidationMessage } from './user-auth-message';
-export { UserAuthValidationRule } from './user-auth-rule.enum';
+export { UserAuthValidationMessage } from './user-validation-message.enum';
+export { UserAuthValidationRule } from './user-validation-rule.enum';
