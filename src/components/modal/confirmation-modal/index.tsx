@@ -1,12 +1,12 @@
 import { FC } from 'react';
 import css from './styles.module.scss';
 
-interface confirmationMod {
+interface Props {
   callback: CallableFunction,
   onResolve: CallableFunction
 }
 
-export const ConfirmationMod: FC<confirmationMod> = ({ callback, onResolve }) => {
+export const ConfirmationMod: FC<Props> = ({ callback, onResolve }) => {
   const confirm = (e: React.MouseEvent, resp: boolean): void => {
     if (resp) {
       callback();

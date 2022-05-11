@@ -12,8 +12,8 @@ export const switchModal: CallableFunction = (state: boolean, setState: React.Di
 // EXAMPLE OF PARENT COMPONENT
 
 // export const Example: FC = () => {
-  // const [isModal, setIsModal] = useState(false);
-  // const handleClick = switchModal(isModal, setIsModal);
+//   const [isModal, setIsModal] = useState(false);
+//   const handleClick = switchModal(isModal, setIsModal);
 //   return (
 //     <>
 //       <button type='button' onClick={(e) => {handleClick(e)}} />
