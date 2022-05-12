@@ -1,11 +1,16 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { StorageKey } from '~/common/enums/enums';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { StorageKey, UserActions } from '~/common/enums/enums';
 import {
   AsyncThunkConfig,
   SignInUserDto,
+  SignUpResponseDto,
   SignUpUserDto,
 } from '~/common/types/types';
 import { ActionType } from './common';
+
+export const addUser = createAction<SignUpResponseDto>(UserActions.ADD);
+
+export const removeUser = createAction(UserActions.REMOVE);
 
 export const signIn = createAsyncThunk<string, SignInUserDto, AsyncThunkConfig>(
   ActionType.SIGN_IN,
@@ -22,11 +27,17 @@ export const signIn = createAsyncThunk<string, SignInUserDto, AsyncThunkConfig>(
 export const signUp = createAsyncThunk<void, SignUpUserDto, AsyncThunkConfig>(
   ActionType.SIGN_UP,
   async (payload, { extra, dispatch }) => {
-    const { authApi } = extra;
+    const { authApi, storage } = extra;
     const { login, password } = payload;
 
-    await authApi.signUp(payload);
+    try {
+      const signUpResponseDto = await authApi.signUp(payload);
+      dispatch(addUser(signUpResponseDto));
+      storage.setItem(StorageKey.USER, JSON.stringify(signUpResponseDto));
 
-    return dispatch(signIn({ login, password }));
+      return dispatch(signIn({ login, password }));
+    } catch (error) {
+      console.log(error);
+    }
   },
 );

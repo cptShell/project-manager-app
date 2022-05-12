@@ -3,13 +3,21 @@ import { Home } from '~/components/home/home';
 import { Main } from '~/components/main/main';
 import { Board } from '~/components/board/board';
 import { NotFound } from '~/components/not-found-page/not-found-page';
-import { AppRoute } from '~/common/enums/enums';
+import { AppRoute, StorageKey } from '~/common/enums/enums';
 import { Route, Routes } from '../common/common';
 import { Auth } from '~/components/auth/auth';
+import { storage } from '~/services/services';
 
 export const App: FC = () => {
-  //const token = storage.getItem(StorageKey.TOKEN);
-  //TODO: add logic for no-rendering sign-in/sign-up routes while user is unauthorized
+  const user = storage.getItem(StorageKey.USER);
+  if (!user) {
+    storage.remove(StorageKey.TOKEN);
+  }
+  const token = storage.getItem(StorageKey.TOKEN);
+
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const isAuth = Boolean(token && user);
+  //TODO: add logic for sign-in/sign-up/logout button into header
 
   return (
     <Routes>
