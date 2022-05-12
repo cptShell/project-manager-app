@@ -1,24 +1,10 @@
 import { FC } from 'react';
+import { CONTRIBUTORS } from '~/common/constants/constants';
 import styles from './styles.module.scss';
 import RSLogo from '~/assets/images/rs-logo.svg';
 import GithubLogo from '~/assets/images/github-logo.svg';
 
 export const Footer: FC = () => {
-  const CONTRIBUTORS = [
-    {
-      name: 'Yauheni Maslousky',
-      link: 'https://github.com/cptshell',
-    },
-    {
-      name: 'Oleksii Romanovskyi',
-      link: 'https://github.com/aelxrmoan',
-    },
-    {
-      name: 'Nikolay Potopa',
-      link: 'https://github.com/Nazeroth',
-    },
-];
-
   return (
     <div className={styles['wrapper']}>
       <div className={styles['github']}>
