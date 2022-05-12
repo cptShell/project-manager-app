@@ -4,25 +4,25 @@ import RSLogo from '~/assets/images/rs-logo.svg';
 import GithubLogo from '~/assets/images/github-logo.svg';
 
 export const Footer: FC = () => {
-  const githubData = {
-    user1: {
+  const CONTRIBUTORS = [
+    {
       name: 'Yauheni Maslousky',
       link: 'https://github.com/cptshell',
     },
-    user2: {
+    {
       name: 'Oleksii Romanovskyi',
       link: 'https://github.com/aelxrmoan',
     },
-    user3: {
+    {
       name: 'Nikolay Potopa',
       link: 'https://github.com/Nazeroth',
     },
-  };
+];
 
   return (
     <div className={styles['wrapper']}>
       <div className={styles['github']}>
-        {Object.values(githubData).map((user, index) => {
+        {Object.values(CONTRIBUTORS).map((user, index) => {
           return (
             <a
               key={index}

@@ -6,7 +6,7 @@ a {
 .wrapper {
   display: flex;
   justify-content: space-between;
-  background: rgb(118 139 231);
+  background: var(--footer-background-color);
 }
 
 .logo-wrapper {
