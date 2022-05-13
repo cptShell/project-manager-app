@@ -70,7 +70,7 @@ export class Http {
         message: response?.statusText,
         code: response?.status,
       }));
-      throw new Error(JSON.stringify(parsedException));
+      throw new Error(parsedException.message);
     }
     return response;
   }

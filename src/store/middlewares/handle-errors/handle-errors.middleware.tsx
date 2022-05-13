@@ -6,10 +6,7 @@ const handleError: Middleware =
   (action): void => {
     if (action.error) {
       const { message } = action.error;
-      const customError = JSON.parse(message);
-      if (customError.code === 404) {
-        alert('User not Found');
-      }
+      alert(message);
     }
     return next(action);
   };
