@@ -10,8 +10,10 @@ type Props = {
 };
 
 export const Modal: FC<Props> = ({ children, isOpen, onClose }) => {
+  if (!isOpen) {
+    return null;
+  }
   return createPortal(
-    isOpen &&
     <div className={styles.wrapper} onClick={onClose}>
       <div className={styles.innerWrapper}>
         {children}

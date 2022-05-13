@@ -17,7 +17,7 @@ export const ConfirmationModal: FC<Props> = ({ onConfirm, onClose, isOpen }) => 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className={styles.container}>
-        <p>Are You Sure?</p>
+        <h3>Are You Sure?</h3>
         <div className={styles.btns}>
           <button onClick={handleConfirm}>Yes</button>
           <button onClick={onClose}>No</button>
