@@ -8,12 +8,12 @@ export const Footer: FC = () => {
   return (
     <div className={styles['wrapper']}>
       <div className={styles['github']}>
-        {Object.values(CONTRIBUTORS).map((user, index) => {
+        {CONTRIBUTORS.map(({ name, link }, index) => {
           return (
             <a
               key={index}
               className={styles['github']}
-              href={user.link}
+              href={link}
               target="_blank"
             >
               <img
@@ -21,7 +21,7 @@ export const Footer: FC = () => {
                 src={GithubLogo}
                 alt="Github logo"
               />
-              <p className={styles['github-name']}>{user.name}</p>
+              <p className={styles['github-name']}>{name}</p>
             </a>
           );
         })}

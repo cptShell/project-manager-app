@@ -1,4 +1,6 @@
-export const CONTRIBUTORS = [
+import { Contributor } from '../types/types';
+
+export const CONTRIBUTORS: Array<Contributor> = [
   {
     name: 'Yauheni Maslousky',
     link: 'https://github.com/cptshell',
