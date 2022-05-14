@@ -42,11 +42,6 @@ export class AuthApi {
   getAuthenticatedUser(): Promise<UserDto> {
     return this.#http.load(
       `${this.#apiPrefix}${AuthApiPath.AUTHENTICATED_USER}`,
-      {
-        method: HttpMethod.GET,
-        hasAuth: false,
-        contentType: ContentType.JSON,
-      },
     );
   }
 }
