@@ -1,1 +1,1 @@
-export { ExceptionName } from './custom-exception-name.enum';
+export { ExceptionName } from './exception-name.enum';
