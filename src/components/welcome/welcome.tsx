@@ -1,21 +1,9 @@
 import { FC } from 'react';
-import { AppRoute } from '~/common/enums/enums';
-import { NavigationLink } from '~/common/types/navigation/navigation-link';
+import { AUTH_BUTTONS_DATA } from './common/constants/constants';
 import { PageButton } from './components/page-button';
 
-const authButtonsData: Array<NavigationLink> = [
-  {
-    to: AppRoute.SIGN_IN,
-    title: 'Sign in',
-  },
-  {
-    to: AppRoute.SIGN_UP,
-    title: 'Sign up',
-  },
-];
-
 export const Welcome: FC = () => {
-  const authButtons = authButtonsData.map(({ to, title }) => {
+  const authButtons = AUTH_BUTTONS_DATA.map(({ to, title }) => {
     return (
       <li>
         <PageButton path={to} title={title} />
