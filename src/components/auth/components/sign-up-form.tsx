@@ -5,10 +5,12 @@ import { SignUpUserDto } from '~/common/types/types';
 import { signUpUser } from '~/validation-schemas/validation-schemas';
 import { useAppDispatch } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
-import { InputName } from '~/common/enums/enums';
+import { AppRoute, InputName } from '~/common/enums/enums';
 import { TextInput } from './text-input';
+import { useNavigate } from 'react-router-dom';
 
 export const SignUpForm: FC = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { register, handleSubmit, formState } = useForm<SignUpUserDto>({
     resolver: joiResolver(signUpUser),
@@ -19,8 +21,9 @@ export const SignUpForm: FC = () => {
     password: passwordError,
   } = formState.errors;
 
-  const submit = (userDto: SignUpUserDto): void => {
-    dispatch(authActions.signUp(userDto));
+  const submit = async (userDto: SignUpUserDto): Promise<void> => {
+    await dispatch(authActions.signUp(userDto));
+    navigate(AppRoute.MAIN);
   };
 
   return (

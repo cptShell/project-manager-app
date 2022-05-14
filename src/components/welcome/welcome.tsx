@@ -18,7 +18,7 @@ export const Welcome: FC = () => {
   const authButtons = authButtonsData.map(({ path, title }) => {
     return (
       <li>
-        <PageButton path={path} title={title} />
+        <PageButton key={title} path={path} title={title} />
       </li>
     );
   });
