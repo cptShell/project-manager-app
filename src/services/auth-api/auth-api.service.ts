@@ -2,8 +2,8 @@ import { AuthApiPath, ContentType, HttpMethod } from '~/common/enums/enums';
 import {
   SignInResponseDto,
   SignInUserDto,
-  UserDto,
   SignUpUserDto,
+  UserDto,
 } from '~/common/types/types';
 import { Http } from '~/services/http/http.service';
 

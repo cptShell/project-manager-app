@@ -19,12 +19,12 @@ export const SignUpForm: FC = () => {
     password: passwordError,
   } = formState.errors;
 
-  const submit = (userDto: SignUpUserDto): void => {
-    dispatch(authActions.signUp(userDto));
+  const handleSignUp = (payload: SignUpUserDto): void => {
+    dispatch(authActions.signUp(payload));
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
+    <form onSubmit={handleSubmit(handleSignUp)}>
       <h2>Sign Up</h2>
       <TextInput
         formRegisterValues={register(InputName.NAME)}

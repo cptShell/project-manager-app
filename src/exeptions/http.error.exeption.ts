@@ -1,4 +1,5 @@
-import { ExceptionName, HttpCode } from '~/common/enums/enums';
+import { ExceptionName } from '~/common/enums/exceptions/exceptions';
+import { HttpCode } from '~/common/enums/http/http-code.enum';
 
 const DEFAULT_MESSAGE = 'network error';
 

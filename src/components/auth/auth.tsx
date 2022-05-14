@@ -1,16 +1,19 @@
 import { FC } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { AppRoute, StorageKey } from '~/common/enums/enums';
-import { storage } from '~/services/services';
+import { AppRoute } from '~/common/enums/enums';
+import { useAppSelector } from '~/hooks/hooks';
 import { SignInForm } from './components/sign-in-form';
 import { SignUpForm } from './components/sign-up-form';
 
 export const Auth: FC = () => {
   const { pathname } = useLocation();
-  const token = storage.getItem(StorageKey.TOKEN);
+  const { user } = useAppSelector(({ auth }) => ({
+    user: auth.user,
+  }));
+  const hasUser = Boolean(user);
 
-  if (token) {
-    return <Navigate to={AppRoute.ROOT} />;
+  if (hasUser) {
+    return <Navigate to={AppRoute.MAIN} />;
   }
 
   const getForm = (path: string): JSX.Element => {
