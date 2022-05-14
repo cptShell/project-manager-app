@@ -1,12 +1,12 @@
 import { ExceptionName, HttpCode } from '~/common/enums/enums';
 
-const DEFAULT_MESSAGE = 'unauthorized';
+const DEFAULT_MESSAGE = 'network error';
 
 class HttpError extends Error {
   status: HttpCode;
 
   constructor({
-    status = HttpCode.UNAUTHORIZED,
+    status = HttpCode.INTERNAL_SERVER_ERROR,
     message = DEFAULT_MESSAGE,
     name = ExceptionName.HTTP_ERROR,
   } = {}) {
