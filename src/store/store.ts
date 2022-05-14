@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authApi, storage } from '~/services/services';
-import { handleError } from './middlewares/handle-errors/handle-errors.middleware';
+import { handleError } from './middlewares/middlewares';
 import { rootReducer } from './root-reducer';
 
 export const extraArgument = {
