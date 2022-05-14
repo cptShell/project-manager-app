@@ -1,4 +1,4 @@
 export type SignInUserDto = {
-  username: string;
+  login: string;
   password: string;
 };
