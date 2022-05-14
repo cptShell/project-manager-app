@@ -68,7 +68,6 @@ export class Http {
     if (!response.ok) {
       const parsedException = await response.json().catch(() => ({
         message: response?.statusText,
-        code: response?.status,
       }));
       throw new Error(parsedException.message);
     }
