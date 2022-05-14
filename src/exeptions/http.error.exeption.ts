@@ -1,14 +1,15 @@
-import { CustomExceptionName, ErrorCode } from '~/common/enums/enums';
+import { ExceptionName } from '~/common/enums/exceptions/exceptions';
+import { HttpCode } from '~/common/enums/http/http-code.enum';
 
 const DEFAULT_MESSAGE = 'network error';
 
 class HttpError extends Error {
-  status: ErrorCode;
+  status: HttpCode;
 
   constructor({
-    status = ErrorCode.INTERNAL_SERVER_ERROR,
+    status = HttpCode.INTERNAL_SERVER_ERROR,
     message = DEFAULT_MESSAGE,
-    name = CustomExceptionName.HTTP_ERROR,
+    name = ExceptionName.HTTP_ERROR,
   } = {}) {
     super(message);
     this.status = status;

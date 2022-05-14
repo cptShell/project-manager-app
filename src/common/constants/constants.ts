@@ -1,0 +1,1 @@
+export { CONTRIBUTORS } from './app.constant';

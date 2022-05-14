@@ -1,24 +1,12 @@
 import { FC } from 'react';
-import { AppRoute } from '~/common/enums/enums';
-import { PageButtonData } from '~/common/types/button/page-button';
+import { AUTH_BUTTONS_DATA } from './common/constants/constants';
 import { PageButton } from './components/page-button';
 
-const authButtonsData: Array<PageButtonData> = [
-  {
-    path: AppRoute.SIGN_IN,
-    title: 'Sign in',
-  },
-  {
-    path: AppRoute.SIGN_UP,
-    title: 'Sign up',
-  },
-];
-
 export const Welcome: FC = () => {
-  const authButtons = authButtonsData.map(({ path, title }) => {
+  const authButtons = AUTH_BUTTONS_DATA.map(({ to, title }) => {
     return (
       <li>
-        <PageButton key={title} path={path} title={title} />
+        <PageButton path={to} title={title} />
       </li>
     );
   });
