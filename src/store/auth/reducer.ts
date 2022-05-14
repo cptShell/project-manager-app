@@ -1,26 +1,43 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { SignUpResponseDto } from '~/common/types/types';
-import { addUser, signIn, removeUser } from './actions';
+import { DataStatus } from '~/common/enums/enums';
+import { UserDto } from '~/common/types/types';
+import { loadAuthenticatedUser, signIn, signOut, signUp } from './actions';
 
 type State = {
-  user: SignUpResponseDto | null;
-  token: string;
+  user: UserDto | null;
+  userStatus: DataStatus;
 };
 
 const initialState: State = {
   user: null,
-  token: '',
+  userStatus: DataStatus.IDLE,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(signIn.fulfilled, (state, action) => {
-    state.token = action.payload;
-  });
-  builder.addCase(addUser, (state, action) => {
-    state.user = action.payload;
-  });
-  builder.addCase(removeUser, (state) => {
+  builder.addCase(signOut.fulfilled, (state) => {
     state.user = null;
-    state.token = '';
+    state.userStatus = DataStatus.IDLE;
+  });
+  builder.addCase(loadAuthenticatedUser.fulfilled, (state, action) => {
+    state.user = action.payload;
+    state.userStatus = DataStatus.FULFILLED;
+  });
+  builder.addCase(loadAuthenticatedUser.pending, (state) => {
+    state.userStatus = DataStatus.PENDING;
+  });
+  builder.addCase(loadAuthenticatedUser.rejected, (state) => {
+    state.userStatus = DataStatus.REJECTED;
+  });
+  builder.addCase(signIn.pending, (state) => {
+    state.userStatus = DataStatus.PENDING;
+  });
+  builder.addCase(signUp.pending, (state) => {
+    state.userStatus = DataStatus.PENDING;
+  });
+  builder.addCase(signIn.rejected, (state) => {
+    state.userStatus = DataStatus.REJECTED;
+  });
+  builder.addCase(signUp.rejected, (state) => {
+    state.userStatus = DataStatus.REJECTED;
   });
 });
