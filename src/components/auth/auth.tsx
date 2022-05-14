@@ -9,7 +9,7 @@ export const Auth: FC = () => {
   const { pathname } = useLocation();
   const token = storage.getItem(StorageKey.TOKEN);
 
-  if (token && pathname === AppRoute.SIGN_IN) {
+  if (token) {
     return <Navigate to={AppRoute.ROOT} />;
   }
 
