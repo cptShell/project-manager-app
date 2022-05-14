@@ -5,13 +5,13 @@ import styles from './styles.module.scss';
 type Props = {
   onConfirm: () => void,
   isOpen: boolean,
-  onClose: (e: React.MouseEvent) => void
+  onClose: () => void
 };
 
 export const ConfirmationModal: FC<Props> = ({ onConfirm, onClose, isOpen }) => {
-  const handleConfirm = (e: React.MouseEvent): void => {
+  const handleConfirm = (): void => {
     onConfirm();
-    onClose(e);
+    onClose();
   };
 
   return (
