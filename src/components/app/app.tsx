@@ -10,6 +10,7 @@ import { storage } from '~/services/services';
 import { Welcome } from '../welcome/welcome';
 import { useAppDispatch, useAppSelector, useEffect } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
+import { User } from '../user/user';
 
 export const App: FC = () => {
   const dispatch = useAppDispatch();
@@ -34,6 +35,7 @@ export const App: FC = () => {
 
   return (
     <Routes>
+      <Route path={AppRoute.USER} element={<User />} />
       <Route path={AppRoute.MAIN} element={<Main />} />
       <Route path={AppRoute.BOARD} element={<Board />} />
       <Route path={AppRoute.SIGN_IN} element={<Auth />} />

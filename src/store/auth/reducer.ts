@@ -1,6 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from '~/common/enums/enums';
 import { UserDto } from '~/common/types/types';
+import { editAuthenticatedUser } from '../user/actions';
 import { loadAuthenticatedUser, signIn, signOut, signUp } from './actions';
 
 type State = {
@@ -14,6 +15,13 @@ const initialState: State = {
 };
 
 export const reducer = createReducer(initialState, (builder) => {
+  builder.addCase(editAuthenticatedUser.fulfilled, (state, action) => {
+    state.user = action.payload;
+    state.userStatus = DataStatus.FULFILLED;
+  });
+  builder.addCase(editAuthenticatedUser.pending, (state) => {
+    state.userStatus = DataStatus.PENDING;
+  });
   builder.addCase(signOut.fulfilled, (state) => {
     state.user = null;
     state.userStatus = DataStatus.IDLE;
