@@ -4,7 +4,7 @@ import { Main } from '~/components/main/main';
 import { Board } from '~/components/board/board';
 import { NotFound } from '~/components/not-found-page/not-found-page';
 import { AppRoute, DataStatus, StorageKey } from '~/common/enums/enums';
-import { Navigate, Route, Routes } from '../common/common';
+import { Layout, Navigate, Route, Routes } from '../common/common';
 import { Auth } from '~/components/auth/auth';
 import { storage } from '~/services/services';
 import { Welcome } from '../welcome/welcome';
@@ -34,8 +34,10 @@ export const App: FC = () => {
 
   return (
     <Routes>
-      <Route path={AppRoute.MAIN} element={<Main />} />
-      <Route path={AppRoute.BOARD} element={<Board />} />
+      <Route element={<Layout />}>
+        <Route path={AppRoute.MAIN} element={<Main />} />
+        <Route path={AppRoute.BOARD} element={<Board />} />
+      </Route>
       <Route path={AppRoute.SIGN_IN} element={<Auth />} />
       <Route path={AppRoute.SIGN_UP} element={<Auth />} />
       <Route path={AppRoute.WELCOME} element={<Welcome />} />

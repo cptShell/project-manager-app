@@ -5,7 +5,7 @@ import { PageButton } from './components/page-button';
 export const Welcome: FC = () => {
   const authButtons = AUTH_BUTTONS_DATA.map(({ to, title }) => {
     return (
-      <li>
+      <li key={title}>
         <PageButton path={to} title={title} />
       </li>
     );
