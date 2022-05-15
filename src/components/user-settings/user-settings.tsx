@@ -9,9 +9,9 @@ export const User: FC = () => {
     id: auth.user?.id,
   }));
 
-  //POSSIBLE TODO: add more info about current user in wrapper of EditUserForm
   return (
     <>
+      <h2>User Settings</h2>
       <span>Current id: {id}</span>
       <br />
       <span>Current name: {name}</span>
