@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import { Main } from '~/components/main/main';
 import { Board } from '~/components/board/board';
 import { NotFound } from '~/components/not-found-page/not-found-page';
