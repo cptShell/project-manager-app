@@ -10,7 +10,7 @@ import { storage } from '~/services/services';
 import { Welcome } from '../welcome/welcome';
 import { useAppDispatch, useAppSelector, useEffect } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
-import { User } from '../user/user';
+import { User } from '../user-settings/user-settings';
 
 export const App: FC = () => {
   const dispatch = useAppDispatch();
