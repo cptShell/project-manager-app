@@ -11,3 +11,10 @@ export const AUTH_BUTTONS_DATA: Array<NavigationLink> = [
     title: 'Sign up',
   },
 ];
+
+export const LOGGED_IN_BUTTONS_DATA: Array<NavigationLink> = [
+  {
+    to: AppRoute.MAIN,
+    title: 'Main Page',
+  },
+];

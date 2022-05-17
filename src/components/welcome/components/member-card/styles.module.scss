@@ -1,0 +1,23 @@
+.card {
+  width: 600px;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.card:hover #ava {
+  height: 170px;
+}
+
+.left-side,
+.right-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ava {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+}

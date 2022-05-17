@@ -1,0 +1,61 @@
+.main {
+  width: 100%;
+  height: 2000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 170px;
+}
+
+.ul {
+  margin: 0;
+  padding: 0;
+}
+
+.li {
+  list-style: none;
+}
+
+.buttons-container {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  padding: 20px 10px;
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+  background: transparent;
+}
+
+.button {
+  background: var(--button);
+  color: var(--button-hover);
+  cursor: pointer;
+}
+
+.p {
+  margin: 0;
+}
+
+.about-project,
+.about-course {
+  max-width: 600px;
+  width: fit-content;
+  padding: 20px;
+  background: var(--button);
+  color: var(--button-hover);
+  border: 1px solid var(--button);
+}
+
+.button:hover,
+.about-project:hover,
+.about-course:hover {
+  background-color: var(--button-hover);
+  color: var(--button);
+}
+
+.team-members-ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
