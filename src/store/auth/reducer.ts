@@ -22,6 +22,9 @@ export const reducer = createReducer(initialState, (builder) => {
   builder.addCase(editAuthenticatedUser.pending, (state) => {
     state.userStatus = DataStatus.PENDING;
   });
+  builder.addCase(editAuthenticatedUser.rejected, (state) => {
+    state.userStatus = DataStatus.REJECTED;
+  });
   builder.addCase(signOut.fulfilled, (state) => {
     state.user = null;
     state.userStatus = DataStatus.IDLE;
