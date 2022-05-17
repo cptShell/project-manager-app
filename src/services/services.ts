@@ -4,6 +4,7 @@ import { Http } from './http/http.service';
 import { Storage } from './storage/storage.service';
 import { Internationalization } from './internationalization/internationalization.service';
 import { BoardApi } from './board-api/board-api.service';
+import { UserApi } from './user-api/user-api.service';
 
 export const storage = new Storage({
   storage: localStorage,
@@ -19,6 +20,11 @@ export const authApi = new AuthApi({
 });
 
 export const boardApi = new BoardApi({
+  http,
+  apiPrefix: ENV.API_PATH,
+});
+
+export const userApi = new UserApi({
   http,
   apiPrefix: ENV.API_PATH,
 });

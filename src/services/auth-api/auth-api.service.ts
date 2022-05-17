@@ -2,8 +2,8 @@ import { AuthApiPath, ContentType, HttpMethod } from '~/common/enums/enums';
 import {
   SignInResponseDto,
   SignInUserDto,
-  SignUpResponseDto,
   SignUpUserDto,
+  UserDto,
 } from '~/common/types/types';
 import { Http } from '~/services/http/http.service';
 
@@ -30,12 +30,18 @@ export class AuthApi {
     });
   }
 
-  signUp(payload: SignUpUserDto): Promise<SignUpResponseDto> {
+  signUp(payload: SignUpUserDto): Promise<UserDto> {
     return this.#http.load(`${this.#apiPrefix}${AuthApiPath.SIGN_UP}`, {
       method: HttpMethod.POST,
       hasAuth: false,
       contentType: ContentType.JSON,
       payload: JSON.stringify(payload),
     });
+  }
+
+  getAuthenticatedUser(): Promise<UserDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${AuthApiPath.AUTHENTICATED_USER}`,
+    );
   }
 }

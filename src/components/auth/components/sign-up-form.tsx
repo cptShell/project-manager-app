@@ -6,7 +6,7 @@ import { signUpUser } from '~/validation-schemas/validation-schemas';
 import { useAppDispatch } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
 import { InputName } from '~/common/enums/enums';
-import { TextInput } from './text-input';
+import { TextInput } from '~/components/common/common';
 
 export const SignUpForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -19,12 +19,12 @@ export const SignUpForm: FC = () => {
     password: passwordError,
   } = formState.errors;
 
-  const submit = (userDto: SignUpUserDto): void => {
-    dispatch(authActions.signUp(userDto));
+  const handleSignUp = (payload: SignUpUserDto): void => {
+    dispatch(authActions.signUp(payload));
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
+    <form onSubmit={handleSubmit(handleSignUp)}>
       <h2>Sign Up</h2>
       <TextInput
         formRegisterValues={register(InputName.NAME)}

@@ -5,25 +5,22 @@ import { SignInUserDto } from '~/common/types/types';
 import { signInUser } from '~/validation-schemas/validation-schemas';
 import { useAppDispatch } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
-import { useNavigate } from 'react-router-dom';
-import { AppRoute, InputName } from '~/common/enums/enums';
-import { TextInput } from './text-input';
+import { InputName } from '~/common/enums/enums';
+import { TextInput } from '~/components/common/common';
 
 export const SignInForm: FC = () => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { register, handleSubmit, formState } = useForm<SignInUserDto>({
     resolver: joiResolver(signInUser),
   });
   const { login: loginError, password: passwordError } = formState.errors;
 
-  const submit = async (userDto: SignInUserDto): Promise<void> => {
-    await dispatch(authActions.signIn(userDto));
-    navigate(AppRoute.ROOT);
+  const handleSignIn = (payload: SignInUserDto): void => {
+    dispatch(authActions.signIn(payload));
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
+    <form onSubmit={handleSubmit(handleSignIn)}>
       <h2>Sign In</h2>
       <TextInput
         formRegisterValues={register(InputName.LOGIN)}
