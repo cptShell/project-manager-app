@@ -57,7 +57,6 @@ export class Http {
       const token = this.#storage.getItem(StorageKey.TOKEN);
 
       if (token) {
-        console.log(token);
         headers.append(HttpHeader.AUTHORIZATION, `Bearer ${token}`);
       }
     }

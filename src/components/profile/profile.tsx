@@ -12,12 +12,11 @@ export const Profile: FC = () => {
   return (
     <>
       <h2>User Settings</h2>
-      <span>Current id: {id}</span>
-      <br />
-      <span>Current name: {name}</span>
-      <br />
-      <span>Current login: {login}</span>
-      <br />
+      <ul>
+        <li>Current id: {id}</li>
+        <li>Current name: {name}</li>
+        <li>Current login: {login}</li>
+      </ul>
       <EditForm />
     </>
   );

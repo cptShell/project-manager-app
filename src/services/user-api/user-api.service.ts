@@ -1,10 +1,15 @@
 import { ContentType, HttpMethod, UserApiPath } from '~/common/enums/enums';
-import { SignUpUserDto, UserDto } from '~/common/types/types';
+import { SignInUserDto, UserDto } from '~/common/types/types';
 import { Http } from '~/services/http/http.service';
 
 type Constructor = {
   http: Http;
   apiPrefix: string;
+};
+
+type EditUserDto = {
+  payload: SignInUserDto;
+  userId: string;
 };
 
 export class UserApi {
@@ -16,7 +21,7 @@ export class UserApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  editUser(payload: SignUpUserDto, userId: string): Promise<UserDto> {
+  editUser({ payload, userId }: EditUserDto): Promise<UserDto> {
     const userPath = `/${userId}`;
 
     return this.#http.load(
