@@ -16,3 +16,23 @@ export const create = createAsyncThunk<
   const response = await boardApi.create(payload);
   return response;
 });
+
+export const update = createAsyncThunk<
+  CreateBoardResponseDto,
+  CreateBoardResponseDto,
+  AsyncThunkConfig
+>(ActionType.UPDATE, async (payload, { extra }) => {
+  const { boardApi } = extra;
+  const response = await boardApi.update(payload);
+  return response;
+});
+
+export const getAll = createAsyncThunk<
+  Array<CreateBoardResponseDto>,
+  void,
+  AsyncThunkConfig
+>(ActionType.GET_ALL, async (_payload, { extra }) => {
+  const { boardApi } = extra;
+  const response = await boardApi.getAll();
+  return response;
+});

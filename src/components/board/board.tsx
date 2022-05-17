@@ -1,18 +1,23 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { CreateBoardDto } from '~/common/types/types';
-import { useAppDispatch } from '~/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { board as boardActions } from '~/store/actions';
 import { BoardButton } from './components/board-button';
-//import { BoardItem } from './components/board-item';
+import { BoardItem } from './components/board-item';
 import styles from './styles.module.scss';
 
 export const Board: FC = () => {
   const { handleSubmit, reset, register } = useForm<CreateBoardDto>();
   const [isInputVisible, setInputVisible] = useState(false);
+  const boards = useAppSelector((state) => state.boards.boards);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(boardActions.getAll());
+  }, []);
 
   const onSubmit = handleSubmit((data) => {
     dispatch(boardActions.create(data));
@@ -31,9 +36,9 @@ export const Board: FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      {/* {board.map((item, index) => (
-        <BoardItem key={index} title={item} />
-      ))} */}
+      {boards.map(({ id, title }) => (
+        <BoardItem key={id} title={title} id={id} />
+      ))}
       {!isInputVisible ? (
         <div>
           <BoardButton
