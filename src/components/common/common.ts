@@ -3,3 +3,4 @@ export { InternationalizationWrapper } from './internationalization-wrapper/inte
 export { FormattedMessage } from './formatted-message/formatted-message';
 export { Header } from './header/header';
 export { Layout } from './layout/layout';
+export { TextInput } from './input/input';
