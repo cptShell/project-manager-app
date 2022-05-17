@@ -11,11 +11,16 @@ export const editAuthenticatedUser = createAsyncThunk<
   UserDto,
   EditUserPayload,
   AsyncThunkConfig
->(ActionType.EDIT_CURRENT_USER, async (payload, { extra }) => {
+>(ActionType.EDIT_AUTHENTICATED_USER, async (payload, { extra }) => {
   const { user, id } = payload;
   const { userApi } = extra;
 
-  const editedUser = await userApi.editUser(user, id);
+  const editUserPayload = {
+    payload: user,
+    userId: id,
+  };
+
+  const editedUser = await userApi.editUser(editUserPayload);
 
   return editedUser;
 });

@@ -1,3 +1,3 @@
 export enum ActionType {
-  EDIT_CURRENT_USER = 'edit/edit-authenticated-user',
+  EDIT_AUTHENTICATED_USER = 'edit/edit-authenticated-user',
 }
