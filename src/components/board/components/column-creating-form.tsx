@@ -6,7 +6,7 @@ import { createColumn } from '~/validation-schemas/validation-schemas';
 import { InputName } from '~/common/enums/enums';
 import { TextInput } from '~/components/common/common';
 
-export const ColumnCreatingForm: FC = () => {
+export const CreateColumnForm: FC = () => {
   const { register, handleSubmit, formState } = useForm<CreateColumnDto>({
     resolver: joiResolver(createColumn),
   });
