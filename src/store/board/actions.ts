@@ -36,3 +36,21 @@ export const getAll = createAsyncThunk<
   const response = await boardApi.getAll();
   return response;
 });
+
+export const getById = createAsyncThunk<
+  CreateBoardResponseDto,
+  string,
+  AsyncThunkConfig
+>(ActionType.GET_BY_ID, async (payload, { extra }) => {
+  const { boardApi } = extra;
+  const response = await boardApi.getById(payload);
+  return response;
+});
+
+export const remove = createAsyncThunk<void, string, AsyncThunkConfig>(
+  ActionType.DELETE,
+  async (payload, { extra }) => {
+    const { boardApi } = extra;
+    await boardApi.delete(payload);
+  },
+);
