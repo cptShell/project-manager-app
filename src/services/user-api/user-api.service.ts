@@ -28,7 +28,6 @@ export class UserApi {
       `${this.#apiPrefix}${UserApiPath.USERS}${userPath}`,
       {
         method: HttpMethod.PUT,
-        hasAuth: true,
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
       },
@@ -42,7 +41,6 @@ export class UserApi {
       `${this.#apiPrefix}${UserApiPath.USERS}${userPath}`,
       {
         method: HttpMethod.DELETE,
-        hasAuth: true,
       },
     );
   }
