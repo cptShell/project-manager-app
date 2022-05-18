@@ -5,7 +5,7 @@ import {
 } from '~/common/enums/enums';
 import { CreateColumnDto } from '~/common/types/types';
 
-const signInUser = Joi.object<CreateColumnDto>({
+const createColumn = Joi.object<CreateColumnDto>({
   title: Joi.string()
     .trim()
     .min(ColumnValidationRule.TITLE_MIN_LENGTH)
@@ -23,4 +23,4 @@ const signInUser = Joi.object<CreateColumnDto>({
   }),
 });
 
-export { signInUser };
+export { createColumn };

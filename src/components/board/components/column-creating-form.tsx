@@ -2,19 +2,19 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { CreateColumnDto } from '~/common/types/types';
-import { signInUser } from '~/validation-schemas/validation-schemas';
+import { createColumn } from '~/validation-schemas/validation-schemas';
 import { InputName } from '~/common/enums/enums';
 import { TextInput } from '~/components/common/common';
 
 export const ColumnCreatingForm: FC = () => {
   const { register, handleSubmit, formState } = useForm<CreateColumnDto>({
-    resolver: joiResolver(signInUser),
+    resolver: joiResolver(createColumn),
   });
   const { title: titleError, order: orderError } = formState.errors;
 
   const handleCreateColumn = ({ title, order }: CreateColumnDto): void => {
     //TODO: add dispatch
-    alert(`Title: ${title}/nOrder: ${order}`);
+    alert(`Title: ${title}, Order: ${order}`);
   };
 
   return (
