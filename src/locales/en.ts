@@ -31,19 +31,22 @@ export const ENMessagesMap: AppLocalizationMap = {
     Understanding the concept of REST API
     `,
     teamMembers: {
-      evgeny: {
+      item0: {
+        avatar: '~/assets/images/team-members-avas/Zhenya.jpg',
         name: 'Evgeny',
         aboutMe: 'About me: Mock', 
         contribution: 'Contribution: Mock',
       }, 
-      nickolas: {
+      item1: {
+        avatar: '~/assets/images/team-members-avas/Kolya.jpg',
         name: 'Nickolas',
         aboutMe: 'About me: Mock', 
         contribution: 'Contribution: Mock',
       }, 
-      aleksei: {
+      item2: {
+        avatar: '~/assets/images/team-members-avas/Lyosha.jpg.jpg',
         name: 'Alexei',
-        aboutMe: 'About me: Mock', 
+        aboutMe: 'About me: Mock',
         contribution: 'Contribution: Mock',
       },
     },

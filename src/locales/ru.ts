@@ -32,17 +32,17 @@ export const RUMessagesMap: AppLocalizationMap = {
     Understanding the concept of REST API
     `,
     teamMembers: {
-      evgeny: {
+      item0: {
         name: 'Евгений',
         aboutMe: 'О себе: Mock', 
         contribution: 'Вклад: Mock',
       }, 
-      nickolas: {
+      item1: {
         name: 'Николай',
         aboutMe: 'О себе: Mock', 
         contribution: 'Вклад: Mock',
       }, 
-      aleksei: {
+      item2: {
         name: 'Алексей',
         aboutMe: 'О себе: Mock', 
         contribution: 'Вклад: Mock',

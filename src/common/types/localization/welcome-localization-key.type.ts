@@ -1,24 +1,18 @@
-type teamMember = {
-  name: string,
-  aboutMe: string,
-  contribution: string,
-};
-
-type buttons = {
-  mainPage: string
-  signIn: string
-  signUp: string
-};
+import { teamMember } from '../team-member/team-member';
 
 export type WelcomeLocalizationKey = {
+  buttons: {
+    mainPage: string
+    signIn: string
+    signUp: string
+  }
   title: string,
   aboutProject: string,
   aboutCourse: string,
   teamMembers: {
-    evgeny: teamMember,
-    nickolas: teamMember,
-    aleksei: teamMember
+    item0: teamMember,
+    item1: teamMember,
+    item2: teamMember
   },
-  buttons: buttons
 };
   

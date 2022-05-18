@@ -10,7 +10,7 @@ type Props = {
 export const InfoSection: FC<Props> = ({ content }) => {
   return (
     <section className={styles['about-project']}>
-      <p className={styles.p}>
+      <p className={styles.paragraph}>
         <FormattedMessage as={'span'} message={content} />
       </p>
     </section>

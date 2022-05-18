@@ -1,24 +1,24 @@
 import { FC } from 'react';
-import { AUTH_BUTTONS_DATA, LOGGED_IN_BUTTONS_DATA } from './common/constants/constants';
+import { AUTH_BUTTONS_DATA, LOGGED_IN_BUTTONS_DATA, TEAM_MEMBERS_PAYLOAD } from './common/constants/constants';
 import { PageButton } from './components/page-button';
 import styles from './styles.module.scss';
-import { info } from './common/constants/welcome-page-content';
 import { MemberCard } from './components/member-card/member-card';
 import { useAppSelector } from '~/hooks/hooks';
 import { FormattedMessage } from '../common/common';
 import { LanguageSwitcher } from '../common/language-switcher/language-switcher';
 import { InfoSection } from './components/info-section/info-section';
+import { AppLocalizationKey } from '~/common/types/types';
 
 export const Welcome: FC = () => {
-  const isAuth = useAppSelector((state) => state.auth.user?.id);
-  const ifAuth = isAuth ? LOGGED_IN_BUTTONS_DATA : AUTH_BUTTONS_DATA;
+  const hasUser = useAppSelector(({ auth }) => Boolean(auth.user));
+  const buttonsData = hasUser ? LOGGED_IN_BUTTONS_DATA : AUTH_BUTTONS_DATA;
 
   return (
     <main className={styles.main}>
       <div className={styles['buttons-container']}>
         <LanguageSwitcher />
         <ul className={styles.ul}>
-          {ifAuth.map(({ to, title }, i) => (
+          {buttonsData.map(({ to, title }, i) => (
             <li className={styles.li} key={`topButton${i}`}>
               <PageButton
               className={styles.button}
@@ -33,13 +33,13 @@ export const Welcome: FC = () => {
         <InfoSection content={'welcome.aboutCourse'} />
       <section className={styles['team-members']}>
         <ul className={styles['team-members-ul']}>
-          {info.teamMembers.map(({ avatar, name, aboutMe, contribution }, i) => (
+          {[...Array(3)].map((e, i) => (
             <li className={styles.li} key={`teamCard${i}`}>
               <MemberCard 
-              avatar={avatar}
-              name={name}
-              about={aboutMe}
-              contribution={contribution} />
+              avatar={TEAM_MEMBERS_PAYLOAD[i].avatar!}
+              name={TEAM_MEMBERS_PAYLOAD[i].name as AppLocalizationKey}
+              about={TEAM_MEMBERS_PAYLOAD[i].aboutMe as AppLocalizationKey}
+              contribution={TEAM_MEMBERS_PAYLOAD[i].contribution as AppLocalizationKey} />
             </li>
           ))}
         </ul>
