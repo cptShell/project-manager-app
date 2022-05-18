@@ -1,43 +1,26 @@
+import { FormattedMessage } from '~/components/common/common';
+
 export const info = {
-  aboutProject: (
-    <>
-      This application is designed to help facilitate collaboration in teams. 
-      Here you can plan and distribute tasks, control the progress of work and experiment.<br/>
-      From this page you can go to the registration screen or, 
-      if you are already our user, go directly to the workspace.<br/>
-    </>
-  ),
-  aboutCourse: (
-    <>
-      This application was created during the school's React Rolling Scopes course. 
-      The course is intended for new students who have knowledge and practical experience in using the following technologies and tools:
-      <br/>
-      JavaScript<br/>
-      typescript<br/>
-      Git, GitHub (clone, add, commit, push, pull, merge, rebase, work with Pull Request)<br/>
-      npm, webpack<br/>
-      CSS3 / HTML5<br/>
-      Chrome DevTools Figma<br/>
-      Understanding the concept of REST API<br/>
-    </>
-  ),
+  aboutProject: <FormattedMessage as={'p'} message={'welcome.aboutProject'}/>,
+  aboutCourse: <FormattedMessage as={'p'} message={'welcome.aboutCourse'}/>,
   teamMembers: [
     {
-      ava: 'src/assets/images/team-members-avas/Zhenya.jpg',
-      name: <>Evgeny</>,
-      aboutMe: <>Mock</>, 
-      contribution: <>Mock</>,
+      avatar: 'src/assets/images/team-members-avas/Zhenya.jpg',
+      name: <FormattedMessage as={'h3'} message={'welcome.teamMembers.evgeny.name'}/>,
+      aboutMe: <FormattedMessage as={'p'} message={'welcome.teamMembers.evgeny.aboutMe'}/>,
+      contribution: <FormattedMessage as={'p'} message={'welcome.teamMembers.evgeny.contribution'}/>,
+    },
+    {
+      avatar: 'src/assets/images/team-members-avas/Kolya.jpg',
+      name: <FormattedMessage as={'h3'} message={'welcome.teamMembers.nickolas.name'}/>,
+      aboutMe: <FormattedMessage as={'p'} message={'welcome.teamMembers.nickolas.aboutMe'}/>,
+      contribution: <FormattedMessage as={'p'} message={'welcome.teamMembers.nickolas.contribution'}/>,
     }, 
     {
-      ava: 'src/assets/images/team-members-avas/Kolya.jpg',
-      name: <>Nickolas</>,
-      aboutMe: <>Mock</>,
-      contribution: <>Mock</>,
-    }, 
-    {
-      ava: 'src/assets/images/team-members-avas/Lyosha.jpg',
-      name: <>Alexei</>,
-      aboutMe: <>Mock</>,
-      contribution: <>Mock</>,
-    }],
+      avatar: 'src/assets/images/team-members-avas/Lyosha.jpg',
+      name: <FormattedMessage as={'h3'} message={'welcome.teamMembers.aleksei.name'}/>,
+      aboutMe: <FormattedMessage as={'p'} message={'welcome.teamMembers.aleksei.aboutMe'}/>,
+      contribution: <FormattedMessage as={'p'} message={'welcome.teamMembers.aleksei.contribution'}/>,
+    },
+  ],
 };

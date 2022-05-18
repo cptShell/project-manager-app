@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 type Props = {
   path: string;
-  title: string;
+  title: JSX.Element;
   className?: string;
 };
 
