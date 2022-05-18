@@ -34,4 +34,16 @@ export class UserApi {
       },
     );
   }
+
+  deleteUser(userId: string): Promise<void> {
+    const userPath = `/${userId}`;
+
+    return this.#http.load(
+      `${this.#apiPrefix}${UserApiPath.USERS}${userPath}`,
+      {
+        method: HttpMethod.DELETE,
+        hasAuth: true,
+      },
+    );
+  }
 }
