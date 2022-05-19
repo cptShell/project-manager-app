@@ -3,7 +3,9 @@ import {
   ContentType,
   HttpHeader,
   StorageKey,
+  HttpCode,
 } from '~/common/enums/enums';
+import { HttpError, UnauthorizedError } from '~/exeptions/exeptions';
 import { Storage } from '../storage/storage.service';
 
 type Constructor = {
@@ -69,7 +71,17 @@ export class Http {
       const parsedException = await response.json().catch(() => ({
         message: response?.statusText,
       }));
-      throw new Error(parsedException.message);
+
+      const { status } = response;
+
+      if (status === HttpCode.UNAUTHORIZED) {
+        throw new UnauthorizedError({ message: parsedException.message });
+      }
+
+      throw new HttpError({
+        message: parsedException.message,
+        status,
+      });
     }
     return response;
   }

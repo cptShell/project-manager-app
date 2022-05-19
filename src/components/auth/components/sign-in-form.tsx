@@ -6,7 +6,7 @@ import { signInUser } from '~/validation-schemas/validation-schemas';
 import { useAppDispatch } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
 import { InputName } from '~/common/enums/enums';
-import { TextInput } from './text-input';
+import { TextInput } from '~/components/common/common';
 
 export const SignInForm: FC = () => {
   const dispatch = useAppDispatch();
