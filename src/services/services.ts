@@ -5,6 +5,7 @@ import { Storage } from './storage/storage.service';
 import { Internationalization } from './internationalization/internationalization.service';
 import { BoardApi } from './board-api/board-api.service';
 import { UserApi } from './user-api/user-api.service';
+import { ColumnApi } from './column-api/column-api-service';
 
 export const storage = new Storage({
   storage: localStorage,
@@ -20,6 +21,11 @@ export const authApi = new AuthApi({
 });
 
 export const boardApi = new BoardApi({
+  http,
+  apiPrefix: ENV.API_PATH,
+});
+
+export const columnApi = new ColumnApi({
   http,
   apiPrefix: ENV.API_PATH,
 });

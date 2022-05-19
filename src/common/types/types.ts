@@ -3,4 +3,5 @@ export * from './app/app';
 export * from './localization/localization';
 export * from './object/object';
 export * from './board/board';
+export * from './column/column';
 export * from './navigation/navigation';

@@ -3,5 +3,6 @@ export * from './app/app';
 export * from './api/api';
 export * from './validation/validation';
 export * from './board/board';
+export * from './column/column';
 export * from './ui/ui';
 export * from './exceptions/exceptions';

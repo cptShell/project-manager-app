@@ -37,7 +37,6 @@ export class BoardApi {
     const path = `/${id}`;
     return this.#http.load(`${this.#apiPrefix}${BoardPath.ROOT}${path}`, {
       method: HttpMethod.DELETE,
-      hasAuth: true,
     });
   }
 
@@ -48,7 +47,6 @@ export class BoardApi {
     const path = `/${id}`;
     return this.#http.load(`${this.#apiPrefix}${BoardPath.ROOT}${path}`, {
       method: HttpMethod.PUT,
-      hasAuth: true,
       contentType: ContentType.JSON,
       payload: JSON.stringify({ title }),
     });
