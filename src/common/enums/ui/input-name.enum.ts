@@ -3,4 +3,5 @@ export enum InputName {
   NAME = 'name',
   LOGIN = 'login',
   TITLE = 'title',
+  ORDER = 'order',
 }
