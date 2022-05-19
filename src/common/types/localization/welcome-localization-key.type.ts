@@ -10,9 +10,9 @@ export type WelcomeLocalizationKey = {
   aboutProject: string,
   aboutCourse: string,
   teamMembers: {
-    item0: Partial<TeamMemberItem>,
-    item1: Partial<TeamMemberItem>,
-    item2: Partial<TeamMemberItem>,
+    item0: Omit<TeamMemberItem, 'avatar'>,
+    item1: Omit<TeamMemberItem, 'avatar'>,
+    item2: Omit<TeamMemberItem, 'avatar'>,
   },
 };
   
