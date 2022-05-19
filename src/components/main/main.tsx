@@ -5,7 +5,7 @@ import { BoardCreatingForm } from './components/board-creating-form';
 export const Main: FC = () => {
   return (
     <>
-      <FormattedMessage message="main.title" />
+      <FormattedMessage as={'span'} message="main.title" />
       <BoardCreatingForm />
     </>
   );
