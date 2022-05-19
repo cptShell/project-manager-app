@@ -1,30 +1,29 @@
 import { AppRoute } from '~/common/enums/enums';
 import { NavigationLink } from '~/common/types/types';
-import { FormattedMessage } from '~/components/common/common';
 import img0 from '~/assets/images/team-members-avas/Zhenya.jpg';
 import img1 from '~/assets/images/team-members-avas/Kolya.jpg';
 import img2 from '~/assets/images/team-members-avas/Lyosha.jpg';
-import { teamMember } from '~/common/types/team-member/team-member';
+import { TeamMemberItem } from '~/common/types/app/team-member-item.type';
 
 export const AUTH_BUTTONS_DATA: Array<NavigationLink> = [
   {
     to: AppRoute.SIGN_IN,
-    title: <FormattedMessage as={'span'} message={'welcome.buttons.signIn'}/>,
+    title: 'welcome.buttons.signIn',
   },
   {
     to: AppRoute.SIGN_UP,
-    title: <FormattedMessage as={'span'} message={'welcome.buttons.signUp'}/>,
+    title: 'welcome.buttons.signUp',
   },
 ];
 
 export const LOGGED_IN_BUTTONS_DATA: Array<NavigationLink> = [
   {
     to: AppRoute.MAIN,
-    title: <FormattedMessage as={'span'} message={'welcome.buttons.mainPage'}/>,
+    title: 'welcome.buttons.mainPage',
   },
 ];
 
-export const TEAM_MEMBERS_PAYLOAD: Array<teamMember> = [
+export const TEAM_MEMBERS_PAYLOAD: Array<TeamMemberItem> = [
   {
     avatar: img0,
     name: 'welcome.teamMembers.item0.name',

@@ -1,4 +1,4 @@
-import { teamMember } from '../team-member/team-member';
+import { TeamMemberItem } from '../app/team-member-item.type';
 
 export type WelcomeLocalizationKey = {
   buttons: {
@@ -10,9 +10,9 @@ export type WelcomeLocalizationKey = {
   aboutProject: string,
   aboutCourse: string,
   teamMembers: {
-    item0: teamMember,
-    item1: teamMember,
-    item2: teamMember
+    item0: Partial<TeamMemberItem>,
+    item1: Partial<TeamMemberItem>,
+    item2: Partial<TeamMemberItem>,
   },
 };
   

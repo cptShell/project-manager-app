@@ -32,19 +32,16 @@ export const ENMessagesMap: AppLocalizationMap = {
     `,
     teamMembers: {
       item0: {
-        avatar: '~/assets/images/team-members-avas/Zhenya.jpg',
         name: 'Evgeny',
         aboutMe: 'About me: Mock', 
         contribution: 'Contribution: Mock',
       }, 
       item1: {
-        avatar: '~/assets/images/team-members-avas/Kolya.jpg',
         name: 'Nickolas',
         aboutMe: 'About me: Mock', 
         contribution: 'Contribution: Mock',
       }, 
       item2: {
-        avatar: '~/assets/images/team-members-avas/Lyosha.jpg.jpg',
         name: 'Alexei',
         aboutMe: 'About me: Mock',
         contribution: 'Contribution: Mock',

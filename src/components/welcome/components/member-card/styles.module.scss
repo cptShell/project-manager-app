@@ -9,10 +9,15 @@
   width: 100px;
   height: 100px;
   border-radius: 50px;
+  object-fit: cover;
 }
 
-.card:hover .left-side .avatar {
+.card:hover .avatar {
   height: 170px;
+}
+
+.li {
+  list-style: none;
 }
 
 .left-side,

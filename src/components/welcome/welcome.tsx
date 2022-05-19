@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { AUTH_BUTTONS_DATA, LOGGED_IN_BUTTONS_DATA, TEAM_MEMBERS_PAYLOAD } from './common/constants/constants';
-import { PageButton } from './components/page-button';
+import { PageButton } from './common/page-button/page-button';
 import styles from './styles.module.scss';
 import { MemberCard } from './components/member-card/member-card';
 import { useAppSelector } from '~/hooks/hooks';
@@ -19,12 +19,11 @@ export const Welcome: FC = () => {
         <LanguageSwitcher />
         <ul className={styles.ul}>
           {buttonsData.map(({ to, title }, i) => (
-            <li className={styles.li} key={`topButton${i}`}>
               <PageButton
               className={styles.button}
               path={to}
-              title={title as JSX.Element}/>
-            </li>
+              title={title}
+              key={`topButton${i}`} />
           ))}
         </ul>
       </div>
@@ -34,13 +33,12 @@ export const Welcome: FC = () => {
       <section className={styles['team-members']}>
         <ul className={styles['team-members-ul']}>
           {[...Array(3)].map((e, i) => (
-            <li className={styles.li} key={`teamCard${i}`}>
-              <MemberCard 
-              avatar={TEAM_MEMBERS_PAYLOAD[i].avatar!}
-              name={TEAM_MEMBERS_PAYLOAD[i].name as AppLocalizationKey}
-              about={TEAM_MEMBERS_PAYLOAD[i].aboutMe as AppLocalizationKey}
-              contribution={TEAM_MEMBERS_PAYLOAD[i].contribution as AppLocalizationKey} />
-            </li>
+            <MemberCard 
+            avatar={TEAM_MEMBERS_PAYLOAD[i].avatar}
+            name={TEAM_MEMBERS_PAYLOAD[i].name as AppLocalizationKey}
+            about={TEAM_MEMBERS_PAYLOAD[i].aboutMe as AppLocalizationKey}
+            contribution={TEAM_MEMBERS_PAYLOAD[i].contribution as AppLocalizationKey}
+            key={`teamCard${i}`} />
           ))}
         </ul>
       </section>
