@@ -12,9 +12,9 @@ export const CreateColumnForm: FC = () => {
   });
   const { title: titleError, order: orderError } = formState.errors;
 
-  const handleCreateColumn = ({ title, order }: CreateColumnDto): void => {
+  const handleCreateColumn = ({ title }: CreateColumnDto): void => {
     //TODO: add dispatch
-    alert(`Title: ${title}, Order: ${order}`);
+    alert(`Title: ${title}`);
   };
 
   return (
