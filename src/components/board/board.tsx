@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '~/common/enums/enums';
 import { CreateBoardDto } from '~/common/types/types';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { board as boardActions } from '~/store/actions';
@@ -26,7 +27,7 @@ export const Board: FC = () => {
   });
 
   const handleReturn = (): void => {
-    navigate('/main');
+    navigate(AppRoute.MAIN);
   };
 
   const onCancel = (): void => {

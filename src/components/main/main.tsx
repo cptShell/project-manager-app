@@ -24,13 +24,13 @@ export const Main: FC = () => {
         };
         return (
           <li key={id}>
-            <div
+            <button
               onClick={handleClick}
               className={styles['board-wrapper']}
               key={id}
             >
               {title}
-            </div>
+            </button>
             <button onClick={handleDelete}>x</button>
           </li>
         );

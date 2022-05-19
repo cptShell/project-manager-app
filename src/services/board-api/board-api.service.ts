@@ -19,30 +19,21 @@ export class BoardApi {
   create(payload: CreateBoardDto): Promise<CreateBoardResponseDto> {
     return this.#http.load(`${this.#apiPrefix}${BoardPath.ROOT}`, {
       method: HttpMethod.POST,
-      hasAuth: true,
       contentType: ContentType.JSON,
       payload: JSON.stringify(payload),
     });
   }
 
   getAll(): Promise<Array<CreateBoardResponseDto>> {
-    return this.#http.load(`${this.#apiPrefix}${BoardPath.ROOT}`, {
-      method: HttpMethod.GET,
-      hasAuth: true,
-      contentType: ContentType.JSON,
-    });
+    return this.#http.load(`${this.#apiPrefix}${BoardPath.ROOT}`);
   }
 
   getById(id: string): Promise<CreateBoardResponseDto> {
     const path = `/${id}`;
-    return this.#http.load(`${this.#apiPrefix}${BoardPath.ROOT}${path}`, {
-      method: HttpMethod.GET,
-      hasAuth: true,
-      contentType: ContentType.JSON,
-    });
+    return this.#http.load(`${this.#apiPrefix}${BoardPath.ROOT}${path}`);
   }
 
-  delete(id: string): Promise<unknown> {
+  delete(id: string): Promise<void> {
     const path = `/${id}`;
     return this.#http.load(`${this.#apiPrefix}${BoardPath.ROOT}${path}`, {
       method: HttpMethod.DELETE,
