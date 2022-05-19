@@ -3,7 +3,13 @@ import { Main } from '~/components/main/main';
 import { Board } from '~/components/board/board';
 import { NotFound } from '~/components/not-found-page/not-found-page';
 import { AppRoute, DataStatus, StorageKey } from '~/common/enums/enums';
-import { Layout, Navigate, Route, Routes } from '../common/common';
+import {
+  Layout,
+  Navigate,
+  PrivateRoute,
+  Route,
+  Routes,
+} from '../common/common';
 import { Auth } from '~/components/auth/auth';
 import { storage } from '~/services/services';
 import { Welcome } from '../welcome/welcome';
@@ -32,7 +38,17 @@ export const App: FC = () => {
 
   return (
     <Routes>
-      <Route element={<Layout />}>
+      <Route
+        path={AppRoute.ROOT}
+        element={<Navigate to={AppRoute.WELCOME} />}
+      />
+      <Route
+        element={
+          <PrivateRoute redirectTo={AppRoute.SIGN_IN}>
+            <Layout />
+          </PrivateRoute>
+        }
+      >
         <Route path={AppRoute.MAIN} element={<Main />} />
         <Route path={AppRoute.BOARD} element={<Board />} />
         <Route path={AppRoute.PROFILE} element={<Profile />} />
@@ -40,10 +56,6 @@ export const App: FC = () => {
       <Route path={AppRoute.SIGN_IN} element={<Auth />} />
       <Route path={AppRoute.SIGN_UP} element={<Auth />} />
       <Route path={AppRoute.WELCOME} element={<Welcome />} />
-      <Route
-        path={AppRoute.ROOT}
-        element={<Navigate to={AppRoute.WELCOME} />}
-      />
       <Route path={AppRoute.NOT_FOUND} element={<NotFound />} />
     </Routes>
   );
