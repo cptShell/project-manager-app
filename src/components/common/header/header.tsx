@@ -14,7 +14,7 @@ export const Header: FC = () => {
   };
 
   const handleEditUser = (): void => {
-    navigate(AppRoute.EDIT_USER);
+    navigate(AppRoute.PROFILE);
   };
 
   const handleCreateBoard = (): void => {
