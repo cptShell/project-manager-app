@@ -22,8 +22,8 @@ export class ColumnApi {
   }
 
   create(
-    payload: CreateColumnDto,
     id: string,
+    payload: CreateColumnDto,
   ): Promise<CreateColumnResponseDto> {
     const path = `/${id}`;
     return this.#http.load(
@@ -66,11 +66,10 @@ export class ColumnApi {
     );
   }
 
-  update(boardId: string, {
-    id,
-    title,
-    order,
-  }: CreateColumnResponseDto): Promise<CreateColumnResponseDto> {
+  update(
+    boardId: string,
+    { id, title, order }: CreateColumnResponseDto,
+  ): Promise<CreateColumnResponseDto> {
     const boardPath = `/${boardId}`;
     const columnPath = `/${id}`;
     return this.#http.load(

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { CreateBoardDto } from '~/common/types/types';
 import { useAppDispatch } from '~/hooks/hooks';
 import { board as boardActions } from '~/store/actions';
-import { BoardButton } from './board-button';
+import { BoardButton } from './button';
 import styles from '../styles.module.scss';
 
 type Props = {
