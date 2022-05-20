@@ -16,12 +16,8 @@ const initialState: State = {
 
 export const reducer = createReducer(initialState, (builder) => {
   builder.addCase(editAuthenticatedUser.fulfilled, (state, action) => {
-    if (action.payload) {
-      state.user = action.payload;
-      state.userStatus = DataStatus.FULFILLED;
-    } else {
-      state.userStatus = DataStatus.REJECTED;
-    }
+    state.user = action.payload;
+    state.userStatus = DataStatus.FULFILLED;
   });
   builder.addCase(editAuthenticatedUser.pending, (state) => {
     state.userStatus = DataStatus.PENDING;

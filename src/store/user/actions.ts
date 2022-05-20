@@ -20,10 +20,10 @@ export const deleteUser = createAsyncThunk<void, string, AsyncThunkConfig>(
 );
 
 export const editAuthenticatedUser = createAsyncThunk<
-  UserDto | undefined,
+  UserDto,
   EditUserPayload,
   AsyncThunkConfig
->(ActionType.EDIT_AUTHENTICATED_USER, async (payload, { extra, dispatch }) => {
+>(ActionType.EDIT_AUTHENTICATED_USER, async (payload, { extra }) => {
   const { user, id } = payload;
   const { userApi } = extra;
 
@@ -32,10 +32,6 @@ export const editAuthenticatedUser = createAsyncThunk<
     userId: id,
   };
 
-  try {
-    const editedUser = await userApi.editUser(editUserPayload);
-    return editedUser;
-  } catch {
-    dispatch(authActions.signOut());
-  }
+  const editedUser = await userApi.editUser(editUserPayload);
+  return editedUser;
 });
