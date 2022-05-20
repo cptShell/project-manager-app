@@ -1,60 +1,50 @@
-import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from 'react';
+import { FC, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { TaskResponseDto } from '../common/type/type';
 
 type Props = {
-  taskDto: TaskResponseDto;
+  item: TaskResponseDto;
 };
 
-export const Task: FC<Props> = ({ taskDto }) => {
-  const [title, setTitle] = useState(taskDto.title);
-  const [description, setDescription] = useState(taskDto.description);
-  const [isTitleEditMode, setTitleEditMode] = useState(false);
-  const [isDescriptionEditMode, setDescriptionEditMode] = useState(false);
+export const Task: FC<Props> = ({ item }) => {
+  const [title, setTitle] = useState(item.title);
+  const [description, setDescription] = useState(item.description);
+  const [isTitleEdit, setIsTitleEdit] = useState(false);
+  const [isDescriptionEdit, setIsDescriptionEdit] = useState(false);
+  const { register, handleSubmit } = useForm<TaskResponseDto>({
+    defaultValues: {
+      title,
+      description,
+    },
+    mode: 'onChange',
+  });
 
-  const handleChange =
-    (setValue: Dispatch<SetStateAction<string>>) =>
-    (event: ChangeEvent<HTMLInputElement>): void => {
-      setValue(event.target.value);
-    };
+  const handleTitleEdit = (): void => setIsTitleEdit(true);
+  const handleDescriptionEdit = (): void => setIsDescriptionEdit(true);
 
-  const toggleEditModeOn =
-    (setEditMode: Dispatch<SetStateAction<boolean>>) => (): void =>
-      setEditMode(true);
-
-  const toggleEditModeOff =
-    (setEditMode: Dispatch<SetStateAction<boolean>>) => (): void =>
-      setEditMode(false);
-
-  const handleApplyTaskChanges = (): void => {
-    const payload: TaskResponseDto = { ...taskDto, title, description };
-    //TODO: add dispatch action for update task. Task must be updated after apply
-    alert(JSON.stringify(payload));
+  const onSubmit = ({ title, description }: TaskResponseDto): void => {
+    //TODO: add dispatch here
+    alert({ title, description });
+    setTitle(title);
+    setDescription(description);
+    setIsTitleEdit(false);
+    setIsDescriptionEdit(false);
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <h2>Task Card</h2>
-      {isTitleEditMode ? (
-        <input
-          type="text"
-          defaultValue={title}
-          onChange={handleChange(setTitle)}
-          onBlur={toggleEditModeOff(setTitleEditMode)}
-        />
+      {isTitleEdit ? (
+        <input type="text" {...register('title')} />
       ) : (
-        <h3 onClick={toggleEditModeOn(setTitleEditMode)}>{title}</h3>
+        <h3 onClick={handleTitleEdit}>{title}</h3>
       )}
-      {isDescriptionEditMode ? (
-        <input
-          type="text"
-          defaultValue={description}
-          onChange={handleChange(setDescription)}
-          onBlur={toggleEditModeOff(setDescriptionEditMode)}
-        />
+      {isDescriptionEdit ? (
+        <input type="text" {...register('description')} />
       ) : (
-        <p onClick={toggleEditModeOn(setDescriptionEditMode)}>{description}</p>
+        <p onClick={handleDescriptionEdit}>{description}</p>
       )}
-      <button onClick={handleApplyTaskChanges}>Apply changes</button>
-    </div>
+      <button>Apply changes</button>
+    </form>
   );
 };

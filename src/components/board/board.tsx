@@ -18,7 +18,7 @@ export const Board: FC = () => {
     <>
       <div>Board</div>
       <CreateColumnForm />
-      <Task taskDto={mockTaskDto} />
+      <Task item={mockTaskDto} />
     </>
   );
 };
