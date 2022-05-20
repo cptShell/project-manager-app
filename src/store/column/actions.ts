@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AsyncThunkConfig,
   CreateColumnDto,
-  CreateColumnResponseDto,
+  ColumnDto,
 } from '~/common/types/types';
 import { ActionType } from './common';
 
@@ -13,7 +13,7 @@ type ColumnCreatePayload = {
 
 type ColumnResponse = {
   boardId: string;
-  createColumnResponseDto: CreateColumnResponseDto;
+  createColumnResponseDto: ColumnDto;
 };
 
 type ColumnIdPayload = {
@@ -22,7 +22,7 @@ type ColumnIdPayload = {
 };
 
 export const create = createAsyncThunk<
-  CreateColumnResponseDto,
+  ColumnDto,
   ColumnCreatePayload,
   AsyncThunkConfig
 >(ActionType.CREATE, async ({ id, createColumnDto }, { extra }) => {
@@ -32,7 +32,7 @@ export const create = createAsyncThunk<
 });
 
 export const update = createAsyncThunk<
-  CreateColumnResponseDto,
+  ColumnDto,
   ColumnResponse,
   AsyncThunkConfig
 >(
@@ -45,7 +45,7 @@ export const update = createAsyncThunk<
 );
 
 export const getAll = createAsyncThunk<
-  Array<CreateColumnResponseDto>,
+  Array<ColumnDto>,
   string,
   AsyncThunkConfig
 >(ActionType.GET_ALL, async (id, { extra }) => {
@@ -55,7 +55,7 @@ export const getAll = createAsyncThunk<
 });
 
 export const getById = createAsyncThunk<
-  CreateColumnResponseDto,
+  ColumnDto,
   ColumnIdPayload,
   AsyncThunkConfig
 >(ActionType.GET_BY_ID, async ({ boardId, columnId }, { extra }) => {

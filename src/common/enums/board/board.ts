@@ -1,1 +1,0 @@
-export { BoardPath } from './board-path.enum';

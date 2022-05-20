@@ -1,5 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '~/common/enums/enums';
 import { useAppSelector, useAppDispatch } from '~/hooks/hooks';
 import { board as boardActions } from '~/store/actions';
 import styles from './styles.module.scss';
@@ -20,7 +21,7 @@ export const Main: FC = () => {
           dispatch(boardActions.remove(id));
         };
         const handleClick = (): void => {
-          navigate(`/board/${id}`);
+          navigate(`${AppRoute.BOARD}/${id}`);
         };
         return (
           <li key={id}>

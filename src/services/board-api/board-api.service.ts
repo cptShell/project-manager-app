@@ -1,5 +1,5 @@
-import { BoardPath, ContentType, HttpMethod } from '~/common/enums/enums';
-import { CreateBoardDto, CreateBoardResponseDto } from '~/common/types/types';
+import { ApiPath, ContentType, HttpMethod } from '~/common/enums/enums';
+import { CreateBoardDto, BoardDto } from '~/common/types/types';
 import { Http } from '~/services/http/http.service';
 
 type Constructor = {
@@ -16,36 +16,33 @@ export class BoardApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  create(payload: CreateBoardDto): Promise<CreateBoardResponseDto> {
-    return this.#http.load(`${this.#apiPrefix}${BoardPath.ROOT}`, {
+  create(payload: CreateBoardDto): Promise<BoardDto> {
+    return this.#http.load(`${this.#apiPrefix}${ApiPath.BOARDS}`, {
       method: HttpMethod.POST,
       contentType: ContentType.JSON,
       payload: JSON.stringify(payload),
     });
   }
 
-  getAll(): Promise<Array<CreateBoardResponseDto>> {
-    return this.#http.load(`${this.#apiPrefix}${BoardPath.ROOT}`);
+  getAll(): Promise<Array<BoardDto>> {
+    return this.#http.load(`${this.#apiPrefix}${ApiPath.BOARDS}`);
   }
 
-  getById(id: string): Promise<CreateBoardResponseDto> {
+  getById(id: string): Promise<BoardDto> {
     const path = `/${id}`;
-    return this.#http.load(`${this.#apiPrefix}${BoardPath.ROOT}${path}`);
+    return this.#http.load(`${this.#apiPrefix}${ApiPath.BOARDS}${path}`);
   }
 
   delete(id: string): Promise<void> {
     const path = `/${id}`;
-    return this.#http.load(`${this.#apiPrefix}${BoardPath.ROOT}${path}`, {
+    return this.#http.load(`${this.#apiPrefix}${ApiPath.BOARDS}${path}`, {
       method: HttpMethod.DELETE,
     });
   }
 
-  update({
-    id,
-    title,
-  }: CreateBoardResponseDto): Promise<CreateBoardResponseDto> {
+  update({ id, title }: BoardDto): Promise<BoardDto> {
     const path = `/${id}`;
-    return this.#http.load(`${this.#apiPrefix}${BoardPath.ROOT}${path}`, {
+    return this.#http.load(`${this.#apiPrefix}${ApiPath.BOARDS}${path}`, {
       method: HttpMethod.PUT,
       contentType: ContentType.JSON,
       payload: JSON.stringify({ title }),

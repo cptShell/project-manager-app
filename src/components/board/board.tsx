@@ -15,7 +15,6 @@ export const Board: FC = () => {
   const maxOrder = columns.reduce((maxValue, { order }) => {
     return Math.max(maxValue, order);
   }, 1);
-  console.log(maxOrder);
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [choosedId, setChoosedId] = useState('');
@@ -38,9 +37,9 @@ export const Board: FC = () => {
     setChoosedId('');
   };
 
-  const handleConfirm = async (): Promise<void> => {
+  const handleConfirm = (): void => {
     if (boardId && Boolean(choosedId)) {
-      await dispatch(columnActions.remove({ boardId, columnId: choosedId }));
+      dispatch(columnActions.remove({ boardId, columnId: choosedId }));
     }
   };
 
@@ -53,7 +52,7 @@ export const Board: FC = () => {
       />
       <h1>You are on page {boardId}</h1>
       {boardId && (
-        <Modal isOpen={Boolean(isModalOpen)} onClose={handleToggleModal}>
+        <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
           <CreateColumnForm
             id={boardId}
             order={maxOrder + 1}
