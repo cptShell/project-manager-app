@@ -1,0 +1,46 @@
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 170px;
+}
+
+.ul {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.li {
+  list-style: none;
+}
+
+.buttons-container {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  padding: 20px 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  background: transparent;
+}
+
+.button {
+  background: var(--color-black);
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--color-white);
+  color: var(--color-black);
+}
+
+.team-members-ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
