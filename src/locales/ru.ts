@@ -1,8 +1,56 @@
 import { AppLocalizationMap } from '~/common/types/types';
 
 export const RUMessagesMap: AppLocalizationMap = {
+  header: {
+    nav: {
+      createBoard: 'Создание бордов',
+      editUser: 'Настройки пользователя',
+      signOut: 'Выйти из аккаунта',
+    },
+  },
+  modals: {
+    confirmation: {
+      title: 'Вы уверены?',
+      buttons: {
+        confirm: 'Да',
+        reject: 'Нет',
+      },
+    },
+  },
   main: {
-    title: 'Привет',
+    title: 'Hello',
+    boardCreatingForm: {
+      title: 'Создание борда',
+      inputs: {
+        title: 'заглавие',
+        errors: {
+          titleRequired: 'заглавие обязательно',
+        },
+      },
+      buttons: {
+        createBoard: 'Создать',
+      },
+    },
+  },
+  auth: {
+    titles: {
+      singIn: 'Вход',
+      singUp: 'Регестрация',
+    },
+    inputs: {
+      name: 'имя',
+      login: 'логин',
+      password: 'пароль',
+      errors: {
+        nameRequired: 'имя обязательно',
+        loginRequired: 'логин обязателен',
+        passwordRequired: 'пароль обязателен',
+      },
+    },
+    buttons: {
+      signIn: 'Войти',
+      signUp: 'Зарегистрироваться',
+    },
   },
   welcome: {
     buttons: {

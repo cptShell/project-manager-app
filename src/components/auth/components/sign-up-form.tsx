@@ -3,12 +3,12 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { SignUpUserDto } from '~/common/types/types';
 import { signUpUser } from '~/validation-schemas/validation-schemas';
-import { useAppDispatch } from '~/hooks/hooks';
+import { useAppDispatch, useAppTranslation } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
-import { InputName } from '~/common/enums/enums';
-import { TextInput } from '~/components/common/common';
+import { FormattedMessage, TextInput } from '~/components/common/common';
 
 export const SignUpForm: FC = () => {
+  const { handleTranslate } = useAppTranslation();
   const dispatch = useAppDispatch();
   const { register, handleSubmit, formState } = useForm<SignUpUserDto>({
     resolver: joiResolver(signUpUser),
@@ -25,20 +25,20 @@ export const SignUpForm: FC = () => {
 
   return (
     <form onSubmit={handleSubmit(handleSignUp)}>
-      <h2>Sign Up</h2>
+      <FormattedMessage as="h2" message="auth.titles.singUp" />
       <TextInput
-        formRegisterValues={register(InputName.NAME)}
-        errorMessage={nameError?.message}
+        formRegisterValues={register(handleTranslate('auth.inputs.name') as 'name')}
+        errorMessage={nameError && handleTranslate('auth.inputs.errors.nameRequired')}
       />
       <TextInput
-        formRegisterValues={register(InputName.LOGIN)}
-        errorMessage={loginError?.message}
+        formRegisterValues={register(handleTranslate('auth.inputs.login') as 'login')}
+        errorMessage={loginError && handleTranslate('auth.inputs.errors.loginRequired')}
       />
       <TextInput
-        formRegisterValues={register(InputName.PASSWORD)}
-        errorMessage={passwordError?.message}
+        formRegisterValues={register(handleTranslate('auth.inputs.password') as 'password')}
+        errorMessage={passwordError && handleTranslate('auth.inputs.errors.passwordRequired')}
       />
-      <button>Sign Up</button>
+      <FormattedMessage as="button" message="auth.buttons.signUp" />
     </form>
   );
 };

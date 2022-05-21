@@ -2,11 +2,12 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { createBoard } from '~/validation-schemas/validation-schemas';
-import { InputName } from '~/common/enums/enums';
-import { TextInput } from '~/components/common/common';
+import { FormattedMessage, TextInput } from '~/components/common/common';
 import { CreateBoardDto } from '~/common/types/types';
+import { useAppTranslation } from '~/hooks/hooks';
 
 export const BoardCreatingForm: FC = () => {
+  const { handleTranslate } = useAppTranslation();
   const { register, handleSubmit, formState, reset } = useForm<CreateBoardDto>({
     resolver: joiResolver(createBoard),
   });
@@ -20,12 +21,12 @@ export const BoardCreatingForm: FC = () => {
 
   return (
     <form onSubmit={handleSubmit(handleCreateForm)}>
-      <h2>Board creating form</h2>
+      <FormattedMessage as="h2" message="main.boardCreatingForm.title" />
       <TextInput
-        formRegisterValues={register(InputName.TITLE)}
-        errorMessage={titleError?.message}
+        formRegisterValues={register(handleTranslate('main.boardCreatingForm.inputs.title') as 'title')}
+        errorMessage={titleError && handleTranslate('main.boardCreatingForm.inputs.errors.titleRequired')}
       />
-      <button>Create board</button>
+      <FormattedMessage as="button" message="main.boardCreatingForm.buttons.createBoard" />
     </form>
   );
 };

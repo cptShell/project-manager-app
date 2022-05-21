@@ -1,8 +1,56 @@
 import { AppLocalizationMap } from '~/common/types/types';
 
 export const ENMessagesMap: AppLocalizationMap = {
+  header: {
+    nav: {
+      createBoard: 'Create board',
+      editUser: 'Edit user',
+      signOut: 'Sign out',
+    },
+  },
+  modals: {
+    confirmation: {
+      title: 'Are you sure?',
+      buttons: {
+        confirm: 'Yes',
+        reject: 'No',
+      },
+    },
+  },
   main: {
     title: 'Hello',
+    boardCreatingForm: {
+      title: 'Board creating form',
+      inputs: {
+        title: 'title',
+        errors: {
+          titleRequired: 'title is required',
+        },
+      },
+      buttons: {
+        createBoard: 'Create board',
+      },
+    },
+  },
+  auth: {
+    titles: {
+      singIn: 'Sign In',
+      singUp: 'Sign Up',
+    },
+    inputs: {
+      name: 'name',
+      login: 'login',
+      password: 'password',
+      errors: {
+        nameRequired: 'name is required',
+        loginRequired: 'login is required',
+        passwordRequired: 'password is required',
+      },
+    },
+    buttons: {
+      signIn: 'Sign In',
+      signUp: 'Sign Up',
+    },
   },
   welcome: {
     buttons: {

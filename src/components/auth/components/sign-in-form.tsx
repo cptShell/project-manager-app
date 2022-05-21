@@ -3,12 +3,12 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { SignInUserDto } from '~/common/types/types';
 import { signInUser } from '~/validation-schemas/validation-schemas';
-import { useAppDispatch } from '~/hooks/hooks';
+import { useAppDispatch, useAppTranslation } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
-import { InputName } from '~/common/enums/enums';
-import { TextInput } from '~/components/common/common';
+import { FormattedMessage, TextInput } from '~/components/common/common';
 
 export const SignInForm: FC = () => {
+  const { handleTranslate } = useAppTranslation();
   const dispatch = useAppDispatch();
   const { register, handleSubmit, formState } = useForm<SignInUserDto>({
     resolver: joiResolver(signInUser),
@@ -21,16 +21,16 @@ export const SignInForm: FC = () => {
 
   return (
     <form onSubmit={handleSubmit(handleSignIn)}>
-      <h2>Sign In</h2>
+      <FormattedMessage as="h2" message="auth.titles.singIn" />
       <TextInput
-        formRegisterValues={register(InputName.LOGIN)}
-        errorMessage={loginError?.message}
+        formRegisterValues={register(handleTranslate('auth.inputs.login') as 'login')}
+        errorMessage={loginError && handleTranslate('auth.inputs.errors.loginRequired')}
       />
       <TextInput
-        formRegisterValues={register(InputName.PASSWORD)}
-        errorMessage={passwordError?.message}
+        formRegisterValues={register(handleTranslate('auth.inputs.password') as 'password')}
+        errorMessage={passwordError && handleTranslate('auth.inputs.errors.passwordRequired')}
       />
-      <button>Sign In</button>
+      <FormattedMessage as="button" message="auth.buttons.signIn" />
     </form>
   );
 };
