@@ -5,6 +5,6 @@ type Props = {
   onClick?: () => void;
 };
 
-export const BoardButton: FC<Props> = ({ title, onClick }) => {
+export const Button: FC<Props> = ({ title, onClick }) => {
   return <button onClick={onClick}>{title}</button>;
 };

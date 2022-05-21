@@ -1,69 +1,79 @@
 import { FC, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { column as columnActions } from '~/store/actions';
 import { AppRoute } from '~/common/enums/enums';
-import { CreateBoardDto } from '~/common/types/types';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
-import { board as boardActions } from '~/store/actions';
-import { BoardButton } from './components/board-button';
-import { BoardItem } from './components/board-item';
-import styles from './styles.module.scss';
+import { Button } from './components/button';
+import { Modal } from '../common/modal/modal';
+import { CreateColumnForm } from './components/column-creating-form';
+import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
 
 export const Board: FC = () => {
-  const { handleSubmit, reset, register } = useForm<CreateBoardDto>();
-  const [isInputVisible, setInputVisible] = useState(false);
-  const boards = useAppSelector((state) => state.boards.boards);
   const navigate = useNavigate();
+  const { id: boardId } = useParams();
+  const columns = useAppSelector((state) => state.column.columns);
+  const maxOrder = columns.reduce((maxValue, { order }) => {
+    return Math.max(maxValue, order);
+  }, 1);
   const dispatch = useAppDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [choosedId, setChoosedId] = useState('');
 
   useEffect(() => {
-    dispatch(boardActions.getAll());
+    if (boardId) {
+      dispatch(columnActions.getAll(boardId));
+    }
   }, []);
-
-  const onSubmit = handleSubmit((data) => {
-    dispatch(boardActions.create(data));
-    reset();
-    setInputVisible(false);
-  });
 
   const handleReturn = (): void => {
     navigate(AppRoute.MAIN);
   };
 
-  const onCancel = (): void => {
-    setInputVisible(false);
-    reset();
+  const handleToggleModal = (): void => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const handleCloseConfirmation = (): void => {
+    setChoosedId('');
+  };
+
+  const handleConfirm = (): void => {
+    if (boardId && Boolean(choosedId)) {
+      dispatch(columnActions.remove({ boardId, columnId: choosedId }));
+    }
   };
 
   return (
-    <div className={styles.wrapper}>
-      {boards.map(({ id, title }) => (
-        <BoardItem key={id} title={title} id={id} />
-      ))}
-      {!isInputVisible ? (
-        <div>
-          <BoardButton
-            title={'Add board'}
-            onClick={(): void => setInputVisible(true)}
+    <div>
+      <ConfirmationModal
+        isOpen={Boolean(choosedId)}
+        onClose={handleCloseConfirmation}
+        onConfirm={handleConfirm}
+      />
+      <h1>You are on page {boardId}</h1>
+      {boardId && (
+        <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
+          <CreateColumnForm
+            id={boardId}
+            order={maxOrder + 1}
+            onClose={handleToggleModal}
           />
-        </div>
-      ) : (
-        <>
-          <div>
-            <form onSubmit={onSubmit}>
-              <input
-                type="text"
-                placeholder="Enter board name"
-                required
-                {...register('title')}
-              />
-              <BoardButton title={'Add board'} />
-            </form>
-            <BoardButton title={'Cancel'} onClick={onCancel} />
-          </div>
-        </>
+        </Modal>
       )}
-      <BoardButton title={'Back to Main Page'} onClick={handleReturn} />
+      <Button title={'Add column'} onClick={handleToggleModal} />
+      {columns.map(({ id: columnId, title }) => {
+        const handleDelete = (): void => {
+          setChoosedId(columnId);
+        };
+
+        return (
+          <div key={columnId}>
+            <h3>{title}</h3>
+            <Button title={'Delete column'} onClick={handleDelete} />
+          </div>
+        );
+      })}
+      <Button title={'Back to Main Page'} onClick={handleReturn} />
     </div>
   );
 };

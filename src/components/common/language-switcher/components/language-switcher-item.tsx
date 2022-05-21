@@ -10,9 +10,13 @@ export const LanguageSwitcherItem: FC<Props> = ({
   label,
   onLanguageChange,
 }) => {
+  const handleLanguageChange = (): void => {
+    onLanguageChange(label);
+  };
+
   return (
     <li>
-      <button onClick={(): void => onLanguageChange(label)}>{label}</button>
+      <button onClick={handleLanguageChange}>{label}</button>
     </li>
   );
 };

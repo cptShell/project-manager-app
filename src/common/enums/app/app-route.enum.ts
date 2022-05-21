@@ -5,6 +5,7 @@ export enum AppRoute {
   SIGN_UP = '/sign-up',
   PROFILE = '/profile',
   MAIN = '/main',
-  BOARD = '/board/:id',
+  BOARD = '/board',
+  $BOARD_ID = '/board/:id',
   NOT_FOUND = '*',
 }

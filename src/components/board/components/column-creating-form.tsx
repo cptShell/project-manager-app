@@ -5,28 +5,39 @@ import { CreateColumnDto } from '~/common/types/types';
 import { createColumn } from '~/validation-schemas/validation-schemas';
 import { InputName } from '~/common/enums/enums';
 import { TextInput } from '~/components/common/common';
+import { useAppDispatch } from '~/hooks/hooks';
+import { column as columnActions } from '~/store/actions';
 
-export const CreateColumnForm: FC = () => {
+type Props = {
+  id: string;
+  order: number;
+  onClose: () => void;
+};
+
+export const CreateColumnForm: FC<Props> = ({ id, order, onClose }) => {
   const { register, handleSubmit, formState } = useForm<CreateColumnDto>({
     resolver: joiResolver(createColumn),
   });
-  const { title: titleError, order: orderError } = formState.errors;
+  const { title: titleError } = formState.errors;
+  const dispatch = useAppDispatch();
 
-  const handleCreateColumn = ({ title }: CreateColumnDto): void => {
-    //TODO: add dispatch
-    alert(`Title: ${title}`);
-  };
+  const handleCreateColumn = handleSubmit(
+    ({ title }: CreateColumnDto): void => {
+      const createColumnDto = {
+        title,
+        order,
+      };
+      dispatch(columnActions.create({ id, createColumnDto }));
+      onClose();
+    },
+  );
 
   return (
-    <form onSubmit={handleSubmit(handleCreateColumn)}>
+    <form onSubmit={handleCreateColumn}>
       <h2>Column creating form</h2>
       <TextInput
         formRegisterValues={register(InputName.TITLE)}
         errorMessage={titleError?.message}
-      />
-      <TextInput
-        formRegisterValues={register(InputName.ORDER)}
-        errorMessage={orderError?.message}
       />
       <button>Create column</button>
     </form>

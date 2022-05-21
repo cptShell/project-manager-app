@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '~/common/enums/enums';
 import { useAppSelector, useAppDispatch } from '~/hooks/hooks';
 import { board as boardActions } from '~/store/actions';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
@@ -35,7 +36,7 @@ export const Main: FC = () => {
           setChoosedId(id);
         };
         const handleClick = (): void => {
-          navigate(`/board/${id}`);
+          navigate(`${AppRoute.BOARD}/${id}`);
         };
         return (
           <li key={id}>

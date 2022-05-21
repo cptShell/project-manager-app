@@ -1,5 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { authApi, storage, userApi, boardApi } from '~/services/services';
+import {
+  authApi,
+  storage,
+  userApi,
+  boardApi,
+  columnApi,
+} from '~/services/services';
 import { handleError } from './middlewares/middlewares';
 import { rootReducer } from './root-reducer';
 
@@ -8,6 +14,7 @@ export const extraArgument = {
   storage,
   boardApi,
   userApi,
+  columnApi,
 };
 
 export const store = configureStore({

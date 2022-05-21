@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { CreateBoardDto } from '~/common/types/types';
 import { useAppDispatch } from '~/hooks/hooks';
 import { board as boardActions } from '~/store/actions';
-import { BoardButton } from './board-button';
+import { Button } from './button';
 import styles from '../styles.module.scss';
 
 type Props = {
@@ -17,14 +17,14 @@ export const BoardItem: FC<Props> = ({ title, id }) => {
   const { handleSubmit, register, reset } = useForm<CreateBoardDto>();
 
   const handleWritableMode = (): void => {
-    setWritableMode(!writableMode);
+    setWritableMode(true);
     reset();
   };
 
   const handleTitleUpdate = handleSubmit(async (data) => {
     const { title } = data;
     await dispatch(boardActions.update({ id, title }));
-    setWritableMode(!writableMode);
+    setWritableMode(false);
   });
 
   return (
@@ -33,14 +33,14 @@ export const BoardItem: FC<Props> = ({ title, id }) => {
         <>
           <form onSubmit={handleTitleUpdate}>
             <input type="text" {...register('title')} />
-            <BoardButton title={'Submit'} />
+            <Button title={'Submit'} />
           </form>
-          <BoardButton title={'Cancel'} onClick={handleWritableMode} />
+          <Button title={'Cancel'} onClick={handleWritableMode} />
         </>
       ) : (
-        <h1 onClick={handleWritableMode}>{title}</h1>
+        <h2 onClick={handleWritableMode}>{title}</h2>
       )}
-      <BoardButton title={'Add task'} />
+      <Button title={'Add task'} />
     </div>
   );
 };
