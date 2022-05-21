@@ -7,14 +7,13 @@ type Props = {
 };
 
 export const Task: FC<Props> = ({ item }) => {
-  const [title, setTitle] = useState(item.title);
-  const [description, setDescription] = useState(item.description);
+  const { title: initialTitle, description: initialDescription } = item;
   const [isTitleEdit, setIsTitleEdit] = useState(false);
   const [isDescriptionEdit, setIsDescriptionEdit] = useState(false);
-  const { register, handleSubmit } = useForm<TaskResponseDto>({
+  const { register, handleSubmit, getValues } = useForm<TaskResponseDto>({
     defaultValues: {
-      title,
-      description,
+      title: initialTitle,
+      description: initialDescription,
     },
     mode: 'onChange',
   });
@@ -24,12 +23,12 @@ export const Task: FC<Props> = ({ item }) => {
 
   const onSubmit = ({ title, description }: TaskResponseDto): void => {
     //TODO: add dispatch here
-    alert({ title, description });
-    setTitle(title);
-    setDescription(description);
+    console.log({ title, description });
     setIsTitleEdit(false);
     setIsDescriptionEdit(false);
   };
+
+  const { title, description } = getValues();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -44,7 +43,6 @@ export const Task: FC<Props> = ({ item }) => {
       ) : (
         <p onClick={handleDescriptionEdit}>{description}</p>
       )}
-      <button>Apply changes</button>
     </form>
   );
 };
