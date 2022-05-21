@@ -1,14 +1,14 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { SignInUserDto } from '~/common/types/types';
+import { AppLocalizationKey, SignInUserDto } from '~/common/types/types';
 import { signInUser } from '~/validation-schemas/validation-schemas';
-import { useAppDispatch, useAppTranslation } from '~/hooks/hooks';
+import { useAppDispatch } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
 import { FormattedMessage, TextInput } from '~/components/common/common';
+import { InputName } from '~/common/enums/enums';
 
 export const SignInForm: FC = () => {
-  const { handleTranslate } = useAppTranslation();
   const dispatch = useAppDispatch();
   const { register, handleSubmit, formState } = useForm<SignInUserDto>({
     resolver: joiResolver(signInUser),
@@ -23,14 +23,18 @@ export const SignInForm: FC = () => {
     <form onSubmit={handleSubmit(handleSignIn)}>
       <FormattedMessage as="h2" message="auth.titles.singIn" />
       <TextInput
-        formRegisterValues={register(handleTranslate('auth.inputs.login') as 'login')}
-        errorMessage={loginError && handleTranslate('auth.inputs.errors.loginRequired')}
+        title={'auth.inputs.login'}
+        formRegisterValues={register(InputName.LOGIN)}
+        errorMessage={loginError?.message as AppLocalizationKey}
       />
       <TextInput
-        formRegisterValues={register(handleTranslate('auth.inputs.password') as 'password')}
-        errorMessage={passwordError && handleTranslate('auth.inputs.errors.passwordRequired')}
+        title={'auth.inputs.password'}
+        formRegisterValues={register(InputName.PASSWORD)}
+        errorMessage={passwordError?.message as AppLocalizationKey}
       />
-      <FormattedMessage as="button" message="auth.buttons.signIn" />
+      <button>
+        <FormattedMessage as="span" message="auth.buttons.signIn" />
+      </button>
     </form>
   );
 };

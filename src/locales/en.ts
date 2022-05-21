@@ -1,3 +1,4 @@
+import { BoardValidationRule, UserAuthValidationRule } from '~/common/enums/enums';
 import { AppLocalizationMap } from '~/common/types/types';
 
 export const ENMessagesMap: AppLocalizationMap = {
@@ -25,6 +26,8 @@ export const ENMessagesMap: AppLocalizationMap = {
         title: 'title',
         errors: {
           titleRequired: 'title is required',
+          titleMinLength: `Title must be at least ${BoardValidationRule.TITLE_MIN_LENGTH} characters`,
+          titleMaxLength: `Title must be max ${BoardValidationRule.TITLE_MAX_LENGTH} characters`,
         },
       },
       buttons: {
@@ -43,13 +46,36 @@ export const ENMessagesMap: AppLocalizationMap = {
       password: 'password',
       errors: {
         nameRequired: 'name is required',
+        nameMinLength: `Name must be at least ${UserAuthValidationRule.NAME_MIN_LENGTH} characters`,
+        nameMaxLength: `Name must be max ${UserAuthValidationRule.NAME_MAX_LENGTH} characters`,
         loginRequired: 'login is required',
+        loginMinLength: `Login must be at least ${UserAuthValidationRule.LOGIN_MIN_LENGTH} characters`,
+        loginMaxLength: `Login must be max ${UserAuthValidationRule.LOGIN_MAX_LENGTH} characters`,
         passwordRequired: 'password is required',
+        passwordMinLength: `Name must be at least ${UserAuthValidationRule.NAME_MIN_LENGTH} characters`,
+        passwordMaxLength: `Name must be max ${UserAuthValidationRule.NAME_MAX_LENGTH} characters`,
       },
     },
     buttons: {
       signIn: 'Sign In',
       signUp: 'Sign Up',
+    },
+  },
+  profile: {
+    title: 'User Settings',
+    userData: {
+      currentId: 'Current Id:',
+      currentName: 'name:',
+      currentLogin: 'login:',
+    },
+    buttons: {
+      deleteUser: 'Delete User',
+    },
+    editForm: {
+      title: 'Edit user',
+      buttons: {
+        editUser: 'Edit',
+      },
     },
   },
   welcome: {

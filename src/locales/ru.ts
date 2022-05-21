@@ -1,3 +1,4 @@
+import { BoardValidationRule, UserAuthValidationRule } from '~/common/enums/enums';
 import { AppLocalizationMap } from '~/common/types/types';
 
 export const RUMessagesMap: AppLocalizationMap = {
@@ -25,6 +26,8 @@ export const RUMessagesMap: AppLocalizationMap = {
         title: 'заглавие',
         errors: {
           titleRequired: 'заглавие обязательно',
+          titleMinLength: `Длинна должна быть не менее ${BoardValidationRule.TITLE_MIN_LENGTH} символов`,
+          titleMaxLength: `Длинна должна быть не более ${BoardValidationRule.TITLE_MAX_LENGTH} символов`,
         },
       },
       buttons: {
@@ -43,13 +46,36 @@ export const RUMessagesMap: AppLocalizationMap = {
       password: 'пароль',
       errors: {
         nameRequired: 'имя обязательно',
+        nameMinLength: `Длинна должна быть не менее ${UserAuthValidationRule.NAME_MIN_LENGTH} символов`,
+        nameMaxLength: `Длинна должна быть не более ${UserAuthValidationRule.NAME_MAX_LENGTH} символов`,
         loginRequired: 'логин обязателен',
+        loginMinLength: `Длинна должна быть не менее ${UserAuthValidationRule.LOGIN_MIN_LENGTH} символов`,
+        loginMaxLength: `Длинна должна быть не более ${UserAuthValidationRule.LOGIN_MAX_LENGTH} символов`,
         passwordRequired: 'пароль обязателен',
+        passwordMinLength: `Длинна должна быть не менее ${UserAuthValidationRule.NAME_MIN_LENGTH} символов`,
+        passwordMaxLength: `Длинна должна быть не более ${UserAuthValidationRule.NAME_MAX_LENGTH} символов`,
       },
     },
     buttons: {
       signIn: 'Войти',
       signUp: 'Зарегистрироваться',
+    },
+  },
+  profile: {
+    title: 'Настройки пользователя',
+    userData: {
+      currentId: 'текущий Id:',
+      currentName: 'имя:',
+      currentLogin: 'логин:',
+    },
+    buttons: {
+      deleteUser: 'Удалить пользователя',
+    },
+    editForm: {
+      title: 'Правка пользователя',
+      buttons: {
+        editUser: 'Изменить',
+      },
     },
   },
   welcome: {
