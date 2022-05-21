@@ -8,9 +8,9 @@ export const LanguageSwitcher: FC = () => {
 
   return (
     <ul>
-      {Object.values(AppLanguage).map((language, index) => (
+      {Object.values(AppLanguage).map((language) => (
         <LanguageSwitcherItem
-          key={index}
+          key={language}
           label={language}
           onLanguageChange={handleLanguageChange}
         />
