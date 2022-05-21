@@ -1,23 +1,38 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '~/hooks/hooks';
 import { board as boardActions } from '~/store/actions';
+import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
 import styles from './styles.module.scss';
 
 export const Main: FC = () => {
   const boards = useAppSelector((state) => state.boards.boards);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [choosedId, setChoosedId] = useState('');
 
   useEffect(() => {
     dispatch(boardActions.getAll());
   }, []);
 
+  const handleCloseConfirmation = (): void => {
+    setChoosedId('');
+  };
+
+  const handleConfirm = (): void => {
+    dispatch(boardActions.remove(choosedId));
+  };
+
   return (
     <ul className={styles.wrapper}>
+      <ConfirmationModal
+        isOpen={Boolean(choosedId)}
+        onClose={handleCloseConfirmation}
+        onConfirm={handleConfirm}
+      />
       {boards.map(({ id, title }) => {
         const handleDelete = (): void => {
-          dispatch(boardActions.remove(id));
+          setChoosedId(id);
         };
         const handleClick = (): void => {
           navigate(`/board/${id}`);
