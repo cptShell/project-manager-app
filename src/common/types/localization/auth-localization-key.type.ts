@@ -7,17 +7,6 @@ export type AuthLocalizationKey = {
     name: string,
     login: string,
     password: string,
-    errors: {
-      nameRequired: string,
-      nameMinLength: string,
-      nameMaxLength: string,
-      loginRequired: string,
-      loginMinLength: string,
-      loginMaxLength: string,
-      passwordRequired: string,
-      passwordMinLength: string,
-      passwordMaxLength: string,
-    }
   },
   buttons: {
     signIn: string

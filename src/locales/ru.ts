@@ -24,11 +24,6 @@ export const RUMessagesMap: AppLocalizationMap = {
       title: 'Создание борда',
       inputs: {
         title: 'заглавие',
-        errors: {
-          titleRequired: 'заглавие обязательно',
-          titleMinLength: `Длинна должна быть не менее ${BoardValidationRule.TITLE_MIN_LENGTH} символов`,
-          titleMaxLength: `Длинна должна быть не более ${BoardValidationRule.TITLE_MAX_LENGTH} символов`,
-        },
       },
       buttons: {
         createBoard: 'Создать',
@@ -44,17 +39,6 @@ export const RUMessagesMap: AppLocalizationMap = {
       name: 'имя',
       login: 'логин',
       password: 'пароль',
-      errors: {
-        nameRequired: 'имя обязательно',
-        nameMinLength: `Длинна должна быть не менее ${UserAuthValidationRule.NAME_MIN_LENGTH} символов`,
-        nameMaxLength: `Длинна должна быть не более ${UserAuthValidationRule.NAME_MAX_LENGTH} символов`,
-        loginRequired: 'логин обязателен',
-        loginMinLength: `Длинна должна быть не менее ${UserAuthValidationRule.LOGIN_MIN_LENGTH} символов`,
-        loginMaxLength: `Длинна должна быть не более ${UserAuthValidationRule.LOGIN_MAX_LENGTH} символов`,
-        passwordRequired: 'пароль обязателен',
-        passwordMinLength: `Длинна должна быть не менее ${UserAuthValidationRule.NAME_MIN_LENGTH} символов`,
-        passwordMaxLength: `Длинна должна быть не более ${UserAuthValidationRule.NAME_MAX_LENGTH} символов`,
-      },
     },
     buttons: {
       signIn: 'Войти',
@@ -121,6 +105,24 @@ export const RUMessagesMap: AppLocalizationMap = {
         aboutMe: 'О себе: Mock', 
         contribution: 'Вклад: Mock',
       },
+    },
+  },
+  validationMessages: {
+    board: {
+      titleRequired: 'заглавие обязательно',
+      titleMinLength: `Длинна должна быть не менее ${BoardValidationRule.TITLE_MIN_LENGTH} символов`,
+      titleMaxLength: `Длинна должна быть не более ${BoardValidationRule.TITLE_MAX_LENGTH} символов`,
+    },
+    user: {
+      nameRequired: 'имя обязательно',
+      nameMinLength: `Длинна должна быть не менее ${UserAuthValidationRule.NAME_MIN_LENGTH} символов`,
+      nameMaxLength: `Длинна должна быть не более ${UserAuthValidationRule.NAME_MAX_LENGTH} символов`,
+      loginRequired: 'логин обязателен',
+      loginMinLength: `Длинна должна быть не менее ${UserAuthValidationRule.LOGIN_MIN_LENGTH} символов`,
+      loginMaxLength: `Длинна должна быть не более ${UserAuthValidationRule.LOGIN_MAX_LENGTH} символов`,
+      passwordRequired: 'пароль обязателен',
+      passwordMinLength: `Длинна должна быть не менее ${UserAuthValidationRule.NAME_MIN_LENGTH} символов`,
+      passwordMaxLength: `Длинна должна быть не более ${UserAuthValidationRule.NAME_MAX_LENGTH} символов`,
     },
   },
 };

@@ -24,11 +24,6 @@ export const ENMessagesMap: AppLocalizationMap = {
       title: 'Board creating form',
       inputs: {
         title: 'title',
-        errors: {
-          titleRequired: 'title is required',
-          titleMinLength: `Title must be at least ${BoardValidationRule.TITLE_MIN_LENGTH} characters`,
-          titleMaxLength: `Title must be max ${BoardValidationRule.TITLE_MAX_LENGTH} characters`,
-        },
       },
       buttons: {
         createBoard: 'Create board',
@@ -44,17 +39,6 @@ export const ENMessagesMap: AppLocalizationMap = {
       name: 'name',
       login: 'login',
       password: 'password',
-      errors: {
-        nameRequired: 'name is required',
-        nameMinLength: `Name must be at least ${UserAuthValidationRule.NAME_MIN_LENGTH} characters`,
-        nameMaxLength: `Name must be max ${UserAuthValidationRule.NAME_MAX_LENGTH} characters`,
-        loginRequired: 'login is required',
-        loginMinLength: `Login must be at least ${UserAuthValidationRule.LOGIN_MIN_LENGTH} characters`,
-        loginMaxLength: `Login must be max ${UserAuthValidationRule.LOGIN_MAX_LENGTH} characters`,
-        passwordRequired: 'password is required',
-        passwordMinLength: `Name must be at least ${UserAuthValidationRule.NAME_MIN_LENGTH} characters`,
-        passwordMaxLength: `Name must be max ${UserAuthValidationRule.NAME_MAX_LENGTH} characters`,
-      },
     },
     buttons: {
       signIn: 'Sign In',
@@ -120,6 +104,24 @@ export const ENMessagesMap: AppLocalizationMap = {
         aboutMe: 'About me: Mock',
         contribution: 'Contribution: Mock',
       },
+    },
+  },
+  validationMessages: {
+    board: {
+      titleRequired: 'title is required',
+      titleMinLength: `Title must be at least ${BoardValidationRule.TITLE_MIN_LENGTH} characters`,
+      titleMaxLength: `Title must be max ${BoardValidationRule.TITLE_MAX_LENGTH} characters`,
+    },
+    user: {
+      nameRequired: 'name is required',
+      nameMinLength: `Name must be at least ${UserAuthValidationRule.NAME_MIN_LENGTH} characters`,
+      nameMaxLength: `Name must be max ${UserAuthValidationRule.NAME_MAX_LENGTH} characters`,
+      loginRequired: 'login is required',
+      loginMinLength: `Login must be at least ${UserAuthValidationRule.LOGIN_MIN_LENGTH} characters`,
+      loginMaxLength: `Login must be max ${UserAuthValidationRule.LOGIN_MAX_LENGTH} characters`,
+      passwordRequired: 'password is required',
+      passwordMinLength: `Name must be at least ${UserAuthValidationRule.NAME_MIN_LENGTH} characters`,
+      passwordMaxLength: `Name must be max ${UserAuthValidationRule.NAME_MAX_LENGTH} characters`,
     },
   },
 };

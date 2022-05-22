@@ -16,7 +16,7 @@ export const TextInput: FC<Props> = ({ formRegisterValues, errorMessage, title }
     <label>
       <FormattedMessage as="span" message={title} />
       <input type={InputType.TEXT} {...formRegisterValues} />
-      {Boolean(errorMessage) && <FormattedMessage as="span" message={errorMessage!} />}
+      {Boolean(errorMessage) && <FormattedMessage as="span" message={errorMessage as AppLocalizationKey} />}
     </label>
   );
 };

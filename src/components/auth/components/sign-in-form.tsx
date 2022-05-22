@@ -7,6 +7,7 @@ import { useAppDispatch } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
 import { FormattedMessage, TextInput } from '~/components/common/common';
 import { InputName } from '~/common/enums/enums';
+import { LanguageSwitcher } from '~/components/common/language-switcher/language-switcher';
 
 export const SignInForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -35,6 +36,7 @@ export const SignInForm: FC = () => {
       <button>
         <FormattedMessage as="span" message="auth.buttons.signIn" />
       </button>
+      <LanguageSwitcher/>
     </form>
   );
 };
