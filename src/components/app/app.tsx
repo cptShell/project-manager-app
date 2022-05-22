@@ -50,7 +50,7 @@ export const App: FC = () => {
         }
       >
         <Route path={AppRoute.MAIN} element={<Main />} />
-        <Route path={AppRoute.BOARD} element={<Board />} />
+        <Route path={AppRoute.$BOARD_ID} element={<Board />} />
         <Route path={AppRoute.PROFILE} element={<Profile />} />
       </Route>
       <Route path={AppRoute.SIGN_IN} element={<Auth />} />

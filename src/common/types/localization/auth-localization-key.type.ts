@@ -2,7 +2,7 @@ export type AuthLocalizationKey = {
   titles: {
     singIn: string,
     singUp: string,
-  }
+  },
   inputs: {
     name: string,
     login: string,
@@ -11,6 +11,6 @@ export type AuthLocalizationKey = {
   buttons: {
     signIn: string
     signUp: string
-  }
+  },
 };
   

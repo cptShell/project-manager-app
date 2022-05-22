@@ -1,22 +1,34 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
+import { board as boardActions } from '~/store/actions';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { createBoard } from '~/validation-schemas/validation-schemas';
 import { FormattedMessage, TextInput } from '~/components/common/common';
 import { AppLocalizationKey, CreateBoardDto } from '~/common/types/types';
 import { InputName } from '~/common/enums/enums';
+import { useAppDispatch } from '~/hooks/hooks';
 
-export const BoardCreatingForm: FC = () => {
+type Props = {
+  isOpen: boolean;
+  setIsOpen: (arg: boolean) => void;
+};
+
+export const BoardCreatingForm: FC<Props> = ({ isOpen, setIsOpen }) => {
   const { register, handleSubmit, formState, reset } = useForm<CreateBoardDto>({
     resolver: joiResolver(createBoard),
   });
   const { title: titleError } = formState.errors;
+  const dispatch = useAppDispatch();
 
-  const handleCreateForm = (payload: CreateBoardDto): void => {
-    //TODO: add boardAction & replace <{title: string}> to BoardCreateDto
-    alert(payload.title);
+  const handleCreateForm = ({ title }: CreateBoardDto): void => {
+    dispatch(boardActions.create({ title }));
     reset();
+    setIsOpen(false);
   };
+
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <form onSubmit={handleSubmit(handleCreateForm)}>

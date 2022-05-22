@@ -1,1 +1,2 @@
-export type { CreateBoardDto } from './create-board-dto.type';
+export type { CreateBoardDto } from './create-board.type';
+export type { BoardDto } from './board.type';
