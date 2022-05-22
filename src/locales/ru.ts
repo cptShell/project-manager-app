@@ -30,6 +30,23 @@ export const RUMessagesMap: AppLocalizationMap = {
       },
     },
   },
+  board: {
+    title: 'Вы на странице',
+    buttons: {
+      addColumn: 'Добавть колонку',
+      deleteColumn: 'Удалить колонку',
+      backToMainPage: 'Назад на Главную',
+    },
+    columnCreatingForm: {
+      title: 'Создание колонок',
+      inputs: {
+        title: 'Заглавие',
+      },
+      buttons: {
+        createColumn: 'создать колонку',
+      },
+    },
+  },
   auth: {
     titles: {
       singIn: 'Вход',
@@ -92,17 +109,17 @@ export const RUMessagesMap: AppLocalizationMap = {
     teamMembers: {
       item0: {
         name: 'Евгений',
-        aboutMe: 'О себе: Mock', 
+        aboutMe: 'О себе: Mock',
         contribution: 'Вклад: Mock',
-      }, 
+      },
       item1: {
         name: 'Николай',
-        aboutMe: 'О себе: Mock', 
+        aboutMe: 'О себе: Mock',
         contribution: 'Вклад: Mock',
-      }, 
+      },
       item2: {
         name: 'Алексей',
-        aboutMe: 'О себе: Mock', 
+        aboutMe: 'О себе: Mock',
         contribution: 'Вклад: Mock',
       },
     },

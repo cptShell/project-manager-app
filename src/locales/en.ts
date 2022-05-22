@@ -30,6 +30,23 @@ export const ENMessagesMap: AppLocalizationMap = {
       },
     },
   },
+  board: {
+    title: 'You are on page',
+    buttons: {
+      addColumn: 'Add column',
+      deleteColumn: 'Delete column',
+      backToMainPage: 'Back to Main Page',
+    },
+    columnCreatingForm: {
+      title: 'Column creating form',
+      inputs: {
+        title: 'title',
+      },
+      buttons: {
+        createColumn: 'Create column',
+      },
+    },
+  },
   auth: {
     titles: {
       singIn: 'Sign In',
@@ -91,14 +108,14 @@ export const ENMessagesMap: AppLocalizationMap = {
     teamMembers: {
       item0: {
         name: 'Evgeny',
-        aboutMe: 'About me: Mock', 
+        aboutMe: 'About me: Mock',
         contribution: 'Contribution: Mock',
-      }, 
+      },
       item1: {
         name: 'Nickolas',
-        aboutMe: 'About me: Mock', 
+        aboutMe: 'About me: Mock',
         contribution: 'Contribution: Mock',
-      }, 
+      },
       item2: {
         name: 'Alexei',
         aboutMe: 'About me: Mock',

@@ -4,7 +4,6 @@ export type ModalsLocalizationKey = {
     buttons: {
       confirm: string,
       reject: string,
-    }
-  }
+    },
+  },
 };
-  

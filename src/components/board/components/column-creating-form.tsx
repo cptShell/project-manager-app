@@ -4,7 +4,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { AppLocalizationKey, CreateColumnDto } from '~/common/types/types';
 import { createColumn } from '~/validation-schemas/validation-schemas';
 import { InputName } from '~/common/enums/enums';
-import { TextInput } from '~/components/common/common';
+import { FormattedMessage, TextInput } from '~/components/common/common';
 import { useAppDispatch } from '~/hooks/hooks';
 import { column as columnActions } from '~/store/actions';
 
@@ -34,13 +34,15 @@ export const CreateColumnForm: FC<Props> = ({ id, order, onClose }) => {
 
   return (
     <form onSubmit={handleCreateColumn}>
-      <h2>Column creating form</h2>
+      <FormattedMessage as="h2" message="board.columnCreatingForm.title" />
       <TextInput
-        title="auth.inputs.name"
+        title="board.columnCreatingForm.inputs.title"
         formRegisterValues={register(InputName.TITLE)}
         errorMessage={titleError?.message as AppLocalizationKey}
       />
-      <button>Create column</button>
+      <button>
+        <FormattedMessage as="span" message="board.columnCreatingForm.buttons.createColumn" />
+      </button>
     </form>
   );
 };

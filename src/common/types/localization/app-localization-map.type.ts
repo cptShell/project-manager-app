@@ -5,6 +5,7 @@ import { MainLocalizationKey } from './main-localization-key.type';
 import { WelcomeLocalizationKey } from './welcome-localization-key.type';
 import { ProfileLocalizationKey } from './profile-localization-key.type';
 import { ValidationMessagesLocalizationKey } from './validation-messages-localization-key.type';
+import { BoardLocalizationKey } from './board-localization-key.type';
 
 export type AppLocalizationMap = {
   header: HeaderLocalizationKey,
@@ -12,6 +13,7 @@ export type AppLocalizationMap = {
   auth: AuthLocalizationKey,
   profile: ProfileLocalizationKey,
   main: MainLocalizationKey,
+  board: BoardLocalizationKey,
   welcome: WelcomeLocalizationKey,
   validationMessages: ValidationMessagesLocalizationKey,
 };

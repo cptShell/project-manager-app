@@ -9,6 +9,7 @@ import { Button } from './components/button';
 import { Modal } from '../common/modal/modal';
 import { CreateColumnForm } from './components/column-creating-form';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
+import { FormattedMessage } from '../common/common';
 
 const mockTaskDto: TaskResponseDto = {
   id: '40af606c-c0bb-47d1-bc20-a2857242cde3',
@@ -62,7 +63,7 @@ export const Board: FC = () => {
         onClose={handleCloseConfirmation}
         onConfirm={handleConfirm}
       />
-      <h1>You are on page {boardId}</h1>
+      <h1><FormattedMessage as="span" message="board.title" /> {boardId}</h1>
       {boardId && (
         <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
           <CreateColumnForm
@@ -72,7 +73,7 @@ export const Board: FC = () => {
           />
         </Modal>
       )}
-      <Button title={'Add column'} onClick={handleToggleModal} />
+      <Button title={'board.buttons.addColumn'} onClick={handleToggleModal} />
       {columns.map(({ id: columnId, title }) => {
         const handleDelete = (): void => {
           setChoosedId(columnId);
@@ -81,11 +82,11 @@ export const Board: FC = () => {
         return (
           <div key={columnId}>
             <h3>{title}</h3>
-            <Button title={'Delete column'} onClick={handleDelete} />
+            <Button title={'board.buttons.addColumn'} onClick={handleDelete} />
           </div>
         );
       })}
-      <Button title={'Back to Main Page'} onClick={handleReturn} />
+      <Button title={'board.buttons.backToMainPage'} onClick={handleReturn} />
       <Task item={mockTaskDto} />
     </div>
   );
