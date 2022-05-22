@@ -33,6 +33,5 @@ export const editAuthenticatedUser = createAsyncThunk<
   };
 
   const editedUser = await userApi.editUser(editUserPayload);
-
   return editedUser;
 });

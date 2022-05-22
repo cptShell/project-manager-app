@@ -6,5 +6,6 @@ export enum AppRoute {
   PROFILE = '/profile',
   MAIN = '/main',
   BOARD = '/board',
+  $BOARD_ID = '/board/:id',
   NOT_FOUND = '*',
 }
