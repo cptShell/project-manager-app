@@ -88,7 +88,6 @@ export class Http {
   }
 
   private async parseJSON<T>(response: Response): Promise<T> {
-    console.log(response);
     try {
       return await response.json();
     } catch {
