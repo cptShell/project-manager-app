@@ -1,5 +1,5 @@
 export type ColumnDto = {
-  id: string,
-  title: string,
-  order: number
+  id: string;
+  title: string;
+  order: number;
 };

@@ -5,3 +5,4 @@ export * from './object/object';
 export * from './board/board';
 export * from './column/column';
 export * from './navigation/navigation';
+export * from './task/task';

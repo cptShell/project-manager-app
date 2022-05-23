@@ -21,7 +21,7 @@ export const Main: FC = () => {
   };
 
   const handleConfirm = (): void => {
-    dispatch(boardActions.remove(choosedId));
+    dispatch(boardActions.removeBoard(choosedId));
   };
 
   return (

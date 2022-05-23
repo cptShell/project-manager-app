@@ -5,6 +5,7 @@ import {
   userApi,
   boardApi,
   columnApi,
+  taskApi,
 } from '~/services/services';
 import { handleError } from './middlewares/middlewares';
 import { rootReducer } from './root-reducer';
@@ -15,6 +16,7 @@ export const extraArgument = {
   boardApi,
   userApi,
   columnApi,
+  taskApi,
 };
 
 export const store = configureStore({

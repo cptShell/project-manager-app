@@ -3,6 +3,7 @@ import {
   AsyncThunkConfig,
   CreateColumnDto,
   ColumnDto,
+  FullColumnDto,
 } from '~/common/types/types';
 import { ActionType } from './common';
 
@@ -21,7 +22,7 @@ type ColumnIdPayload = {
   columnId: string;
 };
 
-export const create = createAsyncThunk<
+export const createColumn = createAsyncThunk<
   ColumnDto,
   ColumnCreatePayload,
   AsyncThunkConfig
@@ -51,11 +52,17 @@ export const getAll = createAsyncThunk<
 >(ActionType.GET_ALL, async (id, { extra }) => {
   const { columnApi } = extra;
   const response = await columnApi.getAll(id);
-  return response;
+  const result = await Promise.all(
+    response.map(({ id: columnId }) => {
+      const columnResponse = columnApi.getById(id, columnId);
+      return columnResponse;
+    }),
+  );
+  return result;
 });
 
 export const getById = createAsyncThunk<
-  ColumnDto,
+  FullColumnDto,
   ColumnIdPayload,
   AsyncThunkConfig
 >(ActionType.GET_BY_ID, async ({ boardId, columnId }, { extra }) => {
@@ -64,10 +71,11 @@ export const getById = createAsyncThunk<
   return response;
 });
 
-export const remove = createAsyncThunk<void, ColumnIdPayload, AsyncThunkConfig>(
-  ActionType.DELETE,
-  async ({ boardId, columnId }, { extra }) => {
-    const { columnApi } = extra;
-    await columnApi.delete(boardId, columnId);
-  },
-);
+export const removeColumn = createAsyncThunk<
+  void,
+  ColumnIdPayload,
+  AsyncThunkConfig
+>(ActionType.DELETE, async ({ boardId, columnId }, { extra }) => {
+  const { columnApi } = extra;
+  await columnApi.delete(boardId, columnId);
+});
