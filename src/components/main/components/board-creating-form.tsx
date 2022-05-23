@@ -17,7 +17,7 @@ export const BoardCreatingForm: FC<Props> = ({ isOpen, setIsOpen }) => {
   const { register, handleSubmit, formState, reset } = useForm<CreateBoardDto>({
     resolver: joiResolver(createBoard),
   });
-  const { title: titleError } = formState.errors;
+  const { title: titleError, description: descriptionError } = formState.errors;
   const dispatch = useAppDispatch();
 
   const handleCreateForm = ({ title, description }: CreateBoardDto): void => {
@@ -40,7 +40,9 @@ export const BoardCreatingForm: FC<Props> = ({ isOpen, setIsOpen }) => {
       />
       <TextInput
         title="main.boardCreatingForm.inputs.titles.description"
-        formRegisterValues={register(InputName.DESCRIPTION)} />
+        formRegisterValues={register(InputName.DESCRIPTION)}
+        errorMessage={descriptionError?.message}
+      />
       <button>
         <FormattedMessage as="span" message="main.boardCreatingForm.buttons.createBoard" />
       </button>

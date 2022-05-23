@@ -23,7 +23,10 @@ export const ENMessagesMap: AppLocalizationMap = {
     boardCreatingForm: {
       title: 'Board creating form',
       inputs: {
-        title: 'title',
+        titles: {
+          title: 'title',
+          description: 'description',
+        },
       },
       buttons: {
         createBoard: 'Create board',
@@ -126,8 +129,9 @@ export const ENMessagesMap: AppLocalizationMap = {
   validationMessages: {
     board: {
       titleRequired: 'title is required',
-      titleMinLength: `Title must be at least ${BoardValidationRule.TITLE_MIN_LENGTH} characters`,
       titleMaxLength: `Title must be max ${BoardValidationRule.TITLE_MAX_LENGTH} characters`,
+      descriptionRequired: 'Description cannot be empty',
+      descriptionMaxLength: `Description must be max ${BoardValidationRule.DESCRIPTION_MAX_LENGTH} characters`,
     },
     user: {
       nameRequired: 'name is required',

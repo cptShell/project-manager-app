@@ -19,11 +19,14 @@ export const RUMessagesMap: AppLocalizationMap = {
     },
   },
   main: {
-    title: 'Hello',
+    title: 'Привет',
     boardCreatingForm: {
       title: 'Создание борда',
       inputs: {
-        title: 'заглавие',
+        titles: {
+          title: 'заглавие',
+          description: 'описание',
+        },
       },
       buttons: {
         createBoard: 'Создать',
@@ -127,8 +130,9 @@ export const RUMessagesMap: AppLocalizationMap = {
   validationMessages: {
     board: {
       titleRequired: 'заглавие обязательно',
-      titleMinLength: `Длинна должна быть не менее ${BoardValidationRule.TITLE_MIN_LENGTH} символов`,
       titleMaxLength: `Длинна должна быть не более ${BoardValidationRule.TITLE_MAX_LENGTH} символов`,
+      descriptionRequired: 'Описание обязательно',
+      descriptionMaxLength: `Длинна должна быть не более ${BoardValidationRule.DESCRIPTION_MAX_LENGTH} символов`,
     },
     user: {
       nameRequired: 'имя обязательно',

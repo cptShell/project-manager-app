@@ -1,8 +1,9 @@
 export type ValidationMessagesLocalizationKey = {
   board: {
     titleRequired: string,
-    titleMinLength: string,
     titleMaxLength: string,
+    descriptionRequired: string,
+    descriptionMaxLength: string,
   },
   user: {
     nameRequired: string,
