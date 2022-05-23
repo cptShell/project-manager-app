@@ -20,8 +20,8 @@ export const BoardCreatingForm: FC<Props> = ({ isOpen, setIsOpen }) => {
   const { title: titleError } = formState.errors;
   const dispatch = useAppDispatch();
 
-  const handleCreateForm = ({ title }: CreateBoardDto): void => {
-    dispatch(boardActions.create({ title }));
+  const handleCreateForm = ({ title, description }: CreateBoardDto): void => {
+    dispatch(boardActions.create({ title, description }));
     reset();
     setIsOpen(false);
   };
@@ -37,6 +37,7 @@ export const BoardCreatingForm: FC<Props> = ({ isOpen, setIsOpen }) => {
         formRegisterValues={register(InputName.TITLE)}
         errorMessage={titleError?.message}
       />
+      <TextInput formRegisterValues={register(InputName.DESCRIPTION)} />
       <button>Create board</button>
     </form>
   );

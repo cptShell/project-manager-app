@@ -1,9 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { CreateBoardResponseDto } from '~/common/types/types';
+import { BoardDto } from '~/common/types/types';
 import { getAll, create, update } from './actions';
 
 type State = {
-  boards: Array<CreateBoardResponseDto>;
+  boards: Array<BoardDto>;
 };
 
 const initialState: State = { boards: [] };

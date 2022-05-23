@@ -40,12 +40,12 @@ export class BoardApi {
     });
   }
 
-  update({ id, title }: BoardDto): Promise<BoardDto> {
+  update({ id, title, description }: BoardDto): Promise<BoardDto> {
     const path = `/${id}`;
     return this.#http.load(`${this.#apiPrefix}${ApiPath.BOARDS}${path}`, {
       method: HttpMethod.PUT,
       contentType: ContentType.JSON,
-      payload: JSON.stringify({ title }),
+      payload: JSON.stringify({ title, description }),
     });
   }
 }

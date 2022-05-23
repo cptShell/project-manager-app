@@ -24,9 +24,6 @@ export const Board: FC = () => {
   const navigate = useNavigate();
   const { id: boardId } = useParams();
   const columns = useAppSelector((state) => state.column.columns);
-  const maxOrder = columns.reduce((maxValue, { order }) => {
-    return Math.max(maxValue, order);
-  }, 1);
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [choosedId, setChoosedId] = useState('');
@@ -67,7 +64,6 @@ export const Board: FC = () => {
         <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
           <CreateColumnForm
             id={boardId}
-            order={maxOrder + 1}
             onClose={handleToggleModal}
           />
         </Modal>
