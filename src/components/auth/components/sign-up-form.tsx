@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { AppLocalizationKey, SignUpUserDto } from '~/common/types/types';
+import { SignUpUserDto } from '~/common/types/types';
 import { signUpUser } from '~/validation-schemas/validation-schemas';
 import { useAppDispatch } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
@@ -29,17 +29,17 @@ export const SignUpForm: FC = () => {
       <TextInput
         title={'auth.inputs.name'}
         formRegisterValues={register(InputName.NAME)}
-        errorMessage={nameError?.message as AppLocalizationKey}
+        errorMessage={nameError?.message}
       />
       <TextInput
         title={'auth.inputs.login'}
         formRegisterValues={register(InputName.LOGIN)}
-        errorMessage={loginError?.message as AppLocalizationKey}
+        errorMessage={loginError?.message}
       />
       <TextInput
         title={'auth.inputs.password'}
         formRegisterValues={register(InputName.PASSWORD)}
-        errorMessage={passwordError?.message as AppLocalizationKey}
+        errorMessage={passwordError?.message}
       />
       <button>
         <FormattedMessage as="span" message="auth.buttons.signUp" />

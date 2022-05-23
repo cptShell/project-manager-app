@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { AppLocalizationKey, CreateColumnDto } from '~/common/types/types';
+import { CreateColumnDto } from '~/common/types/types';
 import { createColumn } from '~/validation-schemas/validation-schemas';
 import { InputName } from '~/common/enums/enums';
 import { FormattedMessage, TextInput } from '~/components/common/common';
@@ -38,7 +38,7 @@ export const CreateColumnForm: FC<Props> = ({ id, order, onClose }) => {
       <TextInput
         title="board.columnCreatingForm.inputs.title"
         formRegisterValues={register(InputName.TITLE)}
-        errorMessage={titleError?.message as AppLocalizationKey}
+        errorMessage={titleError?.message}
       />
       <button>
         <FormattedMessage as="span" message="board.columnCreatingForm.buttons.createColumn" />

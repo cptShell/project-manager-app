@@ -7,7 +7,7 @@ import { FormattedMessage } from '../common';
 type Props = {
   title: AppLocalizationKey
   formRegisterValues: UseFormRegisterReturn;
-  errorMessage?: AppLocalizationKey;
+  errorMessage?: string;
 };
 
 export const TextInput: FC<Props> = ({ formRegisterValues, errorMessage, title }) => {
