@@ -10,11 +10,10 @@ import { column as columnActions } from '~/store/actions';
 
 type Props = {
   id: string;
-  order: number;
   onClose: () => void;
 };
 
-export const CreateColumnForm: FC<Props> = ({ id, order, onClose }) => {
+export const CreateColumnForm: FC<Props> = ({ id, onClose }) => {
   const { register, handleSubmit, formState } = useForm<CreateColumnDto>({
     resolver: joiResolver(createColumn),
   });
@@ -25,7 +24,6 @@ export const CreateColumnForm: FC<Props> = ({ id, order, onClose }) => {
     ({ title }: CreateColumnDto): void => {
       const createColumnDto = {
         title,
-        order,
       };
       dispatch(columnActions.create({ id, createColumnDto }));
       onClose();

@@ -3,10 +3,13 @@ export type MainLocalizationKey = {
   boardCreatingForm: {
     title: string
     inputs: {
-      title: string,
-    }
+      titles: {
+        title: string,
+        description: string,
+      },
+    },
     buttons: {
-      createBoard: string
-    }
-  }
+      createBoard: string,
+    },
+  },
 };

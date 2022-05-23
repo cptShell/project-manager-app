@@ -1,3 +1,4 @@
 export type CreateBoardDto = {
-  title: string,
+  title: string;
+  description: string;
 };

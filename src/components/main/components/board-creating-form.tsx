@@ -20,8 +20,8 @@ export const BoardCreatingForm: FC<Props> = ({ isOpen, setIsOpen }) => {
   const { title: titleError } = formState.errors;
   const dispatch = useAppDispatch();
 
-  const handleCreateForm = ({ title }: CreateBoardDto): void => {
-    dispatch(boardActions.create({ title }));
+  const handleCreateForm = ({ title, description }: CreateBoardDto): void => {
+    dispatch(boardActions.create({ title, description }));
     reset();
     setIsOpen(false);
   };
@@ -34,10 +34,13 @@ export const BoardCreatingForm: FC<Props> = ({ isOpen, setIsOpen }) => {
     <form onSubmit={handleSubmit(handleCreateForm)}>
       <FormattedMessage as="h2" message="main.boardCreatingForm.title" />
       <TextInput
-        title="main.boardCreatingForm.inputs.title"
+        title="main.boardCreatingForm.inputs.titles.title"
         formRegisterValues={register(InputName.TITLE)}
         errorMessage={titleError?.message}
       />
+      <TextInput
+        title="main.boardCreatingForm.inputs.titles.description"
+        formRegisterValues={register(InputName.DESCRIPTION)} />
       <button>
         <FormattedMessage as="span" message="main.boardCreatingForm.buttons.createBoard" />
       </button>
