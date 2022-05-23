@@ -1,9 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { CreateColumnResponseDto } from '~/common/types/types';
+import { ColumnDto } from '~/common/types/types';
 import { getAll, create, update } from './actions';
 
 type State = {
-  columns: Array<CreateColumnResponseDto>;
+  columns: Array<ColumnDto>;
 };
 
 const initialState: State = { columns: [] };
