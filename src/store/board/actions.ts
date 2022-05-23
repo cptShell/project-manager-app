@@ -44,10 +44,12 @@ export const getById = createAsyncThunk<BoardDto, string, AsyncThunkConfig>(
   },
 );
 
-export const remove = createAsyncThunk<void, string, AsyncThunkConfig>(
+export const remove = createAsyncThunk<string, string, AsyncThunkConfig>(
   ActionType.DELETE,
   async (payload, { extra }) => {
     const { boardApi } = extra;
     await boardApi.delete(payload);
+
+    return payload;
   },
 );

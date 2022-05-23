@@ -83,10 +83,15 @@ export class Http {
         status,
       });
     }
+
     return response;
   }
 
-  private parseJSON<T>(response: Response): Promise<T> {
-    return response.json();
+  private async parseJSON<T>(response: Response): Promise<T> {
+    try {
+      return await response.json();
+    } catch {
+      return {} as T;
+    }
   }
 }

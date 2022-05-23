@@ -1,4 +1,4 @@
 export const BoardValidationRule = {
-  TITLE_MIN_LENGTH: 8,
   TITLE_MAX_LENGTH: 100,
+  DESCRIPTION_MAX_LENGTH: 300,
 } as const;
