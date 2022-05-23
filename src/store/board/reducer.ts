@@ -1,9 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { CreateBoardResponseDto } from '~/common/types/types';
-import { getAll, create, update } from './actions';
+import { BoardDto } from '~/common/types/types';
+import { getAll, create, update, remove } from './actions';
 
 type State = {
-  boards: Array<CreateBoardResponseDto>;
+  boards: Array<BoardDto>;
 };
 
 const initialState: State = { boards: [] };
@@ -11,6 +11,13 @@ const initialState: State = { boards: [] };
 export const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getAll.fulfilled, (state, action) => {
     state.boards = action.payload;
+  });
+  builder.addCase(remove.fulfilled, (state, action) => {
+    const { payload: id } = action;
+    const index = state.boards.findIndex((board) => board.id === id);
+    if (index !== -1) {
+      state.boards.splice(index, 1);
+    }
   });
   builder.addCase(create.fulfilled, (state, action) => {
     state.boards = [...state.boards, action.payload];
