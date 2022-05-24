@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { BoardDto, FullBoardDto } from '~/common/types/types';
-import { removeColumn } from '../column/actions';
+import { createColumn, removeColumn } from '../column/actions';
 import { createTask, removeTask } from '../task/actions';
 import { getAll, create, update, getById, removeBoard } from './actions';
 
@@ -61,6 +61,10 @@ export const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(create.fulfilled, (state, action) => {
     state.boards = [...state.boards, action.payload];
+  });
+
+  builder.addCase(createColumn.fulfilled, (state, action) => {
+    state.currentBoard?.columns.push(action.payload);
   });
 
   builder.addCase(createTask.fulfilled, (state, action) => {

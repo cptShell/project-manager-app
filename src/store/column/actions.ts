@@ -23,13 +23,13 @@ type ColumnIdPayload = {
 };
 
 export const createColumn = createAsyncThunk<
-  ColumnDto,
+  FullColumnDto,
   ColumnCreatePayload,
   AsyncThunkConfig
 >(ActionType.CREATE, async ({ id, createColumnDto }, { extra }) => {
   const { columnApi } = extra;
   const response = await columnApi.create(id, createColumnDto);
-  return response;
+  return { ...response, tasks: [] };
 });
 
 export const update = createAsyncThunk<
