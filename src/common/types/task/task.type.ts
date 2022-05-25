@@ -1,4 +1,4 @@
-export type TaskResponseDto = {
+export type TaskDto = {
   id: string;
   title: string;
   order: number;
@@ -6,4 +6,5 @@ export type TaskResponseDto = {
   userId: string;
   boardId: string;
   columnId: string;
+  files: Array<string>;
 };

@@ -1,5 +1,5 @@
 import { ApiPath, ContentType, HttpMethod } from '~/common/enums/enums';
-import { CreateColumnDto, ColumnDto } from '~/common/types/types';
+import { CreateColumnDto, ColumnDto, FullColumnDto } from '~/common/types/types';
 import { Http } from '~/services/http/http.service';
 
 type Constructor = {
@@ -30,7 +30,7 @@ export class ColumnApi {
     return this.#http.load(`${this.#apiPrefix}${path}`);
   }
 
-  getById(boardId: string, columnId: string): Promise<ColumnDto> {
+  getById(boardId: string, columnId: string): Promise<FullColumnDto> {
     const path = `${ApiPath.$BOARD_ID_COLUMN}/${columnId}`.replace(
       ':boardId',
       boardId,

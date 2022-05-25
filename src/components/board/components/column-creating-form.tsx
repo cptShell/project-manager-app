@@ -25,7 +25,7 @@ export const CreateColumnForm: FC<Props> = ({ id, onClose }) => {
       const createColumnDto = {
         title,
       };
-      dispatch(columnActions.create({ id, createColumnDto }));
+      dispatch(columnActions.createColumn({ id, createColumnDto }));
       onClose();
     },
   );
