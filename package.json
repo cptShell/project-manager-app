@@ -22,6 +22,8 @@
     "i18next": "21.7.1",
     "joi": "17.6.0",
     "react": "18.0.0",
+    "react-dnd": "16.0.1",
+    "react-dnd-html5-backend": "16.0.1",
     "react-dom": "18.0.0",
     "react-hook-form": "7.30.0",
     "react-i18next": "11.16.9",
