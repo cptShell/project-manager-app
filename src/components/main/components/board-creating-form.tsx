@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { board as boardActions } from '~/store/actions';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { createBoard } from '~/validation-schemas/validation-schemas';
-import { InputName } from '~/common/enums/enums';
-import { TextInput } from '~/components/common/common';
+import { FormattedMessage, TextInput } from '~/components/common/common';
 import { CreateBoardDto } from '~/common/types/types';
+import { InputName } from '~/common/enums/enums';
 import { useAppDispatch } from '~/hooks/hooks';
 
 type Props = {
@@ -32,16 +32,20 @@ export const BoardCreatingForm: FC<Props> = ({ isOpen, setIsOpen }) => {
 
   return (
     <form onSubmit={handleSubmit(handleCreateForm)}>
-      <h2>Board creating form</h2>
+      <FormattedMessage as="h2" message="main.boardCreatingForm.title" />
       <TextInput
+        title="main.boardCreatingForm.inputs.titles.title"
         formRegisterValues={register(InputName.TITLE)}
         errorMessage={titleError?.message}
       />
       <TextInput
+        title="main.boardCreatingForm.inputs.titles.description"
         formRegisterValues={register(InputName.DESCRIPTION)}
         errorMessage={descriptionError?.message}
       />
-      <button>Create board</button>
+      <button>
+        <FormattedMessage as="span" message="main.boardCreatingForm.buttons.createBoard" />
+      </button>
     </form>
   );
 };
