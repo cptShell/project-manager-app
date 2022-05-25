@@ -21,7 +21,7 @@ export class TaskApi {
     columnId: string,
     payload: CreateTaskDto,
   ): Promise<TaskDto> {
-    const path = `${ApiPath.$BOARD_ID_COLUMN_ID_TASK}`
+    const path = `${ApiPath.$BOARD_ID_$COLUMN_ID_TASK}`
       .replace(':boardId', boardId)
       .replace(':columnId', columnId);
     return this.#http.load(`${this.#apiPrefix}${path}`, {
@@ -32,21 +32,21 @@ export class TaskApi {
   }
 
   getAll(boardId: string, columnId: string): Promise<Array<TaskDto>> {
-    const path = `${ApiPath.$BOARD_ID_COLUMN_ID_TASK}`
+    const path = `${ApiPath.$BOARD_ID_$COLUMN_ID_TASK}`
       .replace(':boardId', boardId)
       .replace(':columnId', columnId);
     return this.#http.load(`${this.#apiPrefix}${path}`);
   }
 
   getById(boardId: string, columnId: string, taskId: string): Promise<TaskDto> {
-    const path = `${ApiPath.$BOARD_ID_COLUMN_ID_TASK}/${taskId}`
+    const path = `${ApiPath.$BOARD_ID_$COLUMN_ID_TASK}/${taskId}`
       .replace(':boardId', boardId)
       .replace(':columnId', columnId);
     return this.#http.load(`${this.#apiPrefix}${path}`);
   }
 
   delete(boardId: string, columnId: string, taskId: string): Promise<void> {
-    const path = `${ApiPath.$BOARD_ID_COLUMN_ID_TASK}/${taskId}`
+    const path = `${ApiPath.$BOARD_ID_$COLUMN_ID_TASK}/${taskId}`
       .replace(':boardId', boardId)
       .replace(':columnId', columnId);
     return this.#http.load(`${this.#apiPrefix}${path}`, {
@@ -54,12 +54,9 @@ export class TaskApi {
     });
   }
 
-  update(
-    boardId: string,
-    columnId: string,
-    { id: taskId, title, order, description, userId }: TaskDto,
-  ): Promise<TaskDto> {
-    const path = `${ApiPath.$BOARD_ID_COLUMN_ID_TASK}/${taskId}`
+  update(boardId: string, columnId: string, task: TaskDto): Promise<TaskDto> {
+    const { id: taskId, title, order, description, userId } = task;
+    const path = `${ApiPath.$BOARD_ID_$COLUMN_ID_TASK}/${taskId}`
       .replace(':boardId', boardId)
       .replace(':columnId', columnId);
     return this.#http.load(`${this.#apiPrefix}${path}`, {

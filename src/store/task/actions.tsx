@@ -1,29 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AsyncThunkConfig, TaskDto, CreateTaskDto } from '~/common/types/types';
-import { ActionType } from './common';
-
-type TaskCreatePayload = {
-  boardId: string;
-  columnId: string;
-  createTaskDto: CreateTaskDto;
-};
-
-type TaskResponse = {
-  boardId: string;
-  columnId: string;
-  createTaskResponseDto: TaskDto;
-};
-
-type TaskIdPayload = {
-  boardId: string;
-  columnId: string;
-  taskId: string;
-};
-
-type GetAllPayload = {
-  boardId: string;
-  columnId: string;
-};
+import { AsyncThunkConfig, TaskDto } from '~/common/types/types';
+import {
+  ActionType,
+  GetAllPayload,
+  TaskCreatePayload,
+  TaskIdPayload,
+  TaskResponse,
+} from './common';
 
 export const createTask = createAsyncThunk<
   TaskDto,
@@ -71,10 +54,11 @@ export const getById = createAsyncThunk<
   return response;
 });
 
-export const removeTask = createAsyncThunk<void, TaskIdPayload, AsyncThunkConfig>(
-  ActionType.DELETE,
-  async ({ boardId, columnId, taskId }, { extra }) => {
-    const { taskApi } = extra;
-    await taskApi.delete(boardId, columnId, taskId);
-  },
-);
+export const removeTask = createAsyncThunk<
+  void,
+  TaskIdPayload,
+  AsyncThunkConfig
+>(ActionType.DELETE, async ({ boardId, columnId, taskId }, { extra }) => {
+  const { taskApi } = extra;
+  await taskApi.delete(boardId, columnId, taskId);
+});
