@@ -5,6 +5,8 @@ import { useAppSelector, useAppDispatch } from '~/hooks/hooks';
 import { board as boardActions } from '~/store/actions';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
 import styles from './styles.module.scss';
+import bucketImg from '~/assets/images/delete-bucket.svg';
+import plusImg from '~/assets/images/plus.svg';
 
 export const Main: FC = () => {
   const boards = useAppSelector((state) => state.boards.boards);
@@ -25,32 +27,46 @@ export const Main: FC = () => {
   };
 
   return (
-    <ul className={styles.wrapper}>
-      <ConfirmationModal
-        isOpen={Boolean(choosedId)}
-        onClose={handleCloseConfirmation}
-        onConfirm={handleConfirm}
-      />
-      {boards.map(({ id, title }) => {
-        const handleDelete = (): void => {
-          setChoosedId(id);
-        };
-        const handleClick = (): void => {
-          navigate(`${AppRoute.BOARD}/${id}`);
-        };
-        return (
-          <li key={id}>
-            <button
+    <section className={styles.section} >
+      <ul className={styles.wrapper}>
+        <ConfirmationModal
+          isOpen={Boolean(choosedId)}
+          onClose={handleCloseConfirmation}
+          onConfirm={handleConfirm}
+        />
+        {boards.map(({ id, title, description }) => {
+          const handleDelete = (): void => {
+            setChoosedId(id);
+          };
+          const handleClick = (): void => {
+            navigate(`${AppRoute.BOARD}/${id}`);
+          };
+          return (
+            <li className={styles.li}
               onClick={handleClick}
-              className={styles['board-wrapper']}
-              key={id}
-            >
-              {title}
-            </button>
-            <button onClick={handleDelete}>x</button>
-          </li>
-        );
-      })}
-    </ul>
+              key={id}>
+              <div className={styles['board-top']}>
+                <h3 className={styles['board-h3']}>
+                  {title}
+                </h3>
+                <img className={styles['board-img']}
+                  src={bucketImg}
+                  onClick={handleDelete}
+                  alt="delete">
+                </img>
+              </div>
+              <div className={styles['board-bottom']}>
+                <p className={styles['board-p']}>
+                  {description}
+                </p>
+              </div>
+            </li>
+          );
+        })}
+        <li className={styles['add-board-board']}>
+          <img className={styles['plus-img']} src={plusImg} alt="add board" />
+        </li>
+      </ul>
+    </section>
   );
 };
