@@ -2,14 +2,15 @@ import { FC, useState } from 'react';
 import { FullColumnDto } from '~/common/types/types';
 import { column as columnActions, task as taskActions } from '~/store/actions';
 import { Button } from './button';
-import styles from '../styles.module.scss';
 import { useAppDispatch } from '~/hooks/hooks';
 import { Modal } from '~/components/common/modal/modal';
 import { TaskCreatingForm } from './task-creating-form';
 import { ConfirmationModal } from '~/components/common/confirmation-modal/confirmation-modal';
 import { TaskLink } from './task-link/task-link';
+import styles from '../styles.module.scss';
 
 type Props = {
+  moveColumn: (dragIndex: number, hoverIndex: number) => void;
   item: FullColumnDto;
   boardId: string;
 };
@@ -66,8 +67,11 @@ export const Column: FC<Props> = ({ item, boardId }) => {
         onClose={handleCloseConfirmation}
         onConfirm={handleDeleteColumn}
       />
-      <Button title={'Add task'} onClick={handleToggleModal} />
-      <Button title={'Delete column'} onClick={handleOpenConfirmation} />
+      <Button title={'board.buttons.addColumn'} onClick={handleToggleModal} />
+      <Button
+        title={'board.buttons.deleteColumn'}
+        onClick={handleOpenConfirmation}
+      />
     </div>
   );
 };

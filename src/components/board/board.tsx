@@ -1,5 +1,8 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import update from 'immutability-helper';
 import {
   column as columnActions,
   board as boardActions,
@@ -13,6 +16,7 @@ import { ConfirmationModal } from '../common/confirmation-modal/confirmation-mod
 import { FormattedMessage } from '../common/common';
 import { Column } from './components/column';
 import styles from './styles.module.scss';
+import { FullColumnDto } from '~/common/types/types';
 
 export const Board: FC = () => {
   const navigate = useNavigate();
@@ -21,6 +25,20 @@ export const Board: FC = () => {
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [choosedId, setChoosedId] = useState('');
+  const [columns, setColumns] = useState<Array<FullColumnDto>>(
+    board?.columns || [],
+  );
+
+  const moveColumn = useCallback((dragIndex: number, hoverIndex: number) => {
+    setColumns((prevColumns: Array<FullColumnDto>) =>
+      update(prevColumns, {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, prevColumns[dragIndex] as FullColumnDto],
+        ],
+      }),
+    );
+  }, []);
 
   useEffect(() => {
     if (boardId) {
@@ -47,7 +65,7 @@ export const Board: FC = () => {
   };
 
   return (
-    <div>
+    <DndProvider backend={HTML5Backend}>
       <ConfirmationModal
         isOpen={Boolean(choosedId)}
         onClose={handleCloseConfirmation}
@@ -66,10 +84,14 @@ export const Board: FC = () => {
             onClick={handleToggleModal}
           />
           <div className={styles['column-wrapper']}>
-            {board.columns &&
-              [...board.columns].map((column) => (
-                <Column key={column.id} item={column} boardId={boardId} />
-              ))}
+            {[...columns].map((column) => (
+              <Column
+                key={column.id}
+                item={column}
+                boardId={boardId}
+                moveColumn={moveColumn}
+              />
+            ))}
           </div>
           <Button
             title={'board.buttons.backToMainPage'}
@@ -77,6 +99,6 @@ export const Board: FC = () => {
           />
         </>
       )}
-    </div>
+    </DndProvider>
   );
 };
