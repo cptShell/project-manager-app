@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { InputName } from '~/common/enums/enums';
 import { SignUpUserDto } from '~/common/types/types';
-import { TextInput } from '~/components/common/common';
+import { FormattedMessage, TextInput } from '~/components/common/common';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { user as userActions } from '~/store/actions';
 import { signUpUser } from '~/validation-schemas/validation-schemas';
@@ -32,20 +32,25 @@ export const EditForm: FC = () => {
 
   return (
     <form onSubmit={handleSubmit(handleEditUser)}>
-      <h2>Edit user</h2>
+      <FormattedMessage as="h2" message="profile.editForm.title" />
       <TextInput
+        title={'auth.inputs.name'}
         formRegisterValues={register(InputName.NAME)}
         errorMessage={nameError?.message}
       />
       <TextInput
+        title={'auth.inputs.login'}
         formRegisterValues={register(InputName.LOGIN)}
         errorMessage={loginError?.message}
       />
       <TextInput
+        title={'auth.inputs.password'}
         formRegisterValues={register(InputName.PASSWORD)}
         errorMessage={passwordError?.message}
       />
-      <button>Edit</button>
+      <button>
+        <FormattedMessage as="span" message="profile.editForm.buttons.editUser" />
+      </button>
     </form>
   );
 };

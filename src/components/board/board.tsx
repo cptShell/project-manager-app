@@ -10,6 +10,8 @@ import { Button } from './components/button';
 import { Modal } from '../common/modal/modal';
 import { CreateColumnForm } from './components/column-creating-form';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
+import { FormattedMessage } from '../common/common';
+
 import styles from './styles.module.scss';
 import { Column } from './components/column';
 
@@ -52,22 +54,22 @@ export const Board: FC = () => {
         onClose={handleCloseConfirmation}
         onConfirm={handleConfirm}
       />
-      <h1>You are on page {boardId}</h1>
+      <h1><FormattedMessage as="span" message="board.title" /> {boardId}</h1>
       {!!(boardId && board) && (
         <>
           <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
             <CreateColumnForm id={boardId} onClose={handleToggleModal} />
           </Modal>
-          <Button title={'Add column'} onClick={handleToggleModal} />
+          <Button title={'board.buttons.addColumn'} onClick={handleToggleModal} />
           <div className={styles['column-wrapper']}>
             {board.columns &&
               [...board.columns].map((column) => (
                 <Column key={column.id} item={column} boardId={boardId} />
               ))}
           </div>
-          <Button title={'Back to Main Page'} onClick={handleReturn} />
+          <Button title={'board.buttons.backToMainPage'} onClick={handleReturn} />
         </>
       )}
-    </div>
+    </div >
   );
 };

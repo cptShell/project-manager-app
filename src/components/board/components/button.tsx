@@ -1,7 +1,8 @@
 import { FC } from 'react';
+import { AppLocalizationKey } from '~/common/types/types';
 
 type Props = {
-  title: string;
+  title: AppLocalizationKey;
   onClick?: () => void;
 };
 
