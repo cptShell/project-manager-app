@@ -4,6 +4,7 @@ import { AppRoute } from '~/common/enums/enums';
 import { BoardCreatingForm } from '~/components/main/components/board-creating-form';
 import { useAppDispatch } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
+import { FormattedMessage } from '../common';
 import { LanguageSwitcher } from '../language-switcher/language-switcher';
 
 export const Header: FC = () => {
@@ -27,9 +28,15 @@ export const Header: FC = () => {
     <div>
       <LanguageSwitcher />
       <BoardCreatingForm isOpen={isOpen} setIsOpen={setIsOpen} />
-      <button onClick={handleCreateBoard}>Create board</button>
-      <button onClick={handleEditUser}>Edit user</button>
-      <button onClick={handleSignOut}>Sign Out</button>
+      <button onClick={handleCreateBoard}>
+        <FormattedMessage as="span" message="header.nav.createBoard" />
+      </button>
+      <button onClick={handleEditUser}>
+        <FormattedMessage as="span" message="header.nav.editUser" />
+      </button>
+      <button onClick={handleSignOut}>
+        <FormattedMessage as="span" message="header.nav.signOut" />
+      </button>
     </div>
   );
 };
