@@ -18,6 +18,39 @@ import { Column } from './components/column';
 import styles from './styles.module.scss';
 import { FullColumnDto } from '~/common/types/types';
 
+const mockedFullColumns: Array<FullColumnDto> = [
+  {
+    'id': '08cc10f4-1aeb-4cce-9793-9fea8313b591',
+    'title': 'Done1',
+    'order': 1,
+    tasks: [],
+  },
+  {
+    'id': '08cc10f4-1aeb-4cce-9793-9fea8313b592',
+    'title': 'Done2',
+    'order': 2,
+    tasks: [],
+  },
+  {
+    'id': '08cc10f4-1aeb-4cce-9793-9fea8313b593',
+    'title': 'Done3',
+    'order': 3,
+    tasks: [],
+  },
+  {
+    'id': '08cc10f4-1aeb-4cce-9793-9fea8313b594',
+    'title': 'Done4',
+    'order': 4,
+    tasks: [],
+  },
+  {
+    'id': '08cc10f4-1aeb-4cce-9793-9fea8313b595',
+    'title': 'Done5',
+    'order': 5,
+    tasks: [],
+  },
+];
+
 export const Board: FC = () => {
   const navigate = useNavigate();
   const { id: boardId } = useParams();
@@ -25,9 +58,8 @@ export const Board: FC = () => {
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [choosedId, setChoosedId] = useState('');
-  const [columns, setColumns] = useState<Array<FullColumnDto>>(
-    board?.columns || [],
-  );
+  const [columns, setColumns] =
+    useState<Array<FullColumnDto>>(mockedFullColumns);
 
   const moveColumn = useCallback((dragIndex: number, hoverIndex: number) => {
     setColumns((prevColumns: Array<FullColumnDto>) =>
@@ -84,12 +116,13 @@ export const Board: FC = () => {
             onClick={handleToggleModal}
           />
           <div className={styles['column-wrapper']}>
-            {[...columns].map((column) => (
+            {[...columns].map((column, index) => (
               <Column
                 key={column.id}
                 item={column}
                 boardId={boardId}
                 moveColumn={moveColumn}
+                index={index}
               />
             ))}
           </div>
