@@ -19,8 +19,10 @@ import styles from './styles.module.scss';
 export const Board: FC = () => {
   const navigate = useNavigate();
   const { id: boardId } = useParams();
-  const board = useAppSelector((state) => state.boards.currentBoard);
-  const status = useAppSelector((state) => state.boards.currentBoardStatus);
+  const { board, status } = useAppSelector(({ boards }) => ({
+    board: boards.currentBoard,
+    status: boards.currentBoardStatus,
+  }));
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [choosedId, setChoosedId] = useState('');
