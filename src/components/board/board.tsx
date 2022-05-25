@@ -1,36 +1,29 @@
-import { Task } from './components/task';
-import { TaskResponseDto } from './common/type/type';
 import { FC, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { column as columnActions } from '~/store/actions';
+import {
+  column as columnActions,
+  board as boardActions,
+} from '~/store/actions';
 import { AppRoute } from '~/common/enums/enums';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { Button } from './components/button';
 import { Modal } from '../common/modal/modal';
 import { CreateColumnForm } from './components/column-creating-form';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
-
-const mockTaskDto: TaskResponseDto = {
-  id: '40af606c-c0bb-47d1-bc20-a2857242cde3',
-  title: 'Task: pet the cat',
-  order: 1,
-  description: 'Domestic cat needs to be stroked gently',
-  userId: '40af606c-c0bb-47d1-bc20-a2857242cde3',
-  boardId: '8d3bad56-ad8a-495d-9500-18ae4d1de8dc',
-  columnId: '41344d09-b995-451f-93dc-2f17ae13a4a9',
-};
+import styles from './styles.module.scss';
+import { Column } from './components/column';
 
 export const Board: FC = () => {
   const navigate = useNavigate();
   const { id: boardId } = useParams();
-  const columns = useAppSelector((state) => state.column.columns);
+  const board = useAppSelector((state) => state.boards.currentBoard);
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [choosedId, setChoosedId] = useState('');
 
   useEffect(() => {
     if (boardId) {
-      dispatch(columnActions.getAll(boardId));
+      dispatch(boardActions.getById(boardId));
     }
   }, []);
 
@@ -48,7 +41,7 @@ export const Board: FC = () => {
 
   const handleConfirm = (): void => {
     if (boardId && Boolean(choosedId)) {
-      dispatch(columnActions.remove({ boardId, columnId: choosedId }));
+      dispatch(columnActions.removeColumn({ boardId, columnId: choosedId }));
     }
   };
 
@@ -60,29 +53,21 @@ export const Board: FC = () => {
         onConfirm={handleConfirm}
       />
       <h1>You are on page {boardId}</h1>
-      {boardId && (
-        <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
-          <CreateColumnForm
-            id={boardId}
-            onClose={handleToggleModal}
-          />
-        </Modal>
-      )}
-      <Button title={'Add column'} onClick={handleToggleModal} />
-      {columns.map(({ id: columnId, title }) => {
-        const handleDelete = (): void => {
-          setChoosedId(columnId);
-        };
-
-        return (
-          <div key={columnId}>
-            <h3>{title}</h3>
-            <Button title={'Delete column'} onClick={handleDelete} />
+      {!!(boardId && board) && (
+        <>
+          <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
+            <CreateColumnForm id={boardId} onClose={handleToggleModal} />
+          </Modal>
+          <Button title={'Add column'} onClick={handleToggleModal} />
+          <div className={styles['column-wrapper']}>
+            {board.columns &&
+              [...board.columns].map((column) => (
+                <Column key={column.id} item={column} boardId={boardId} />
+              ))}
           </div>
-        );
-      })}
-      <Button title={'Back to Main Page'} onClick={handleReturn} />
-      <Task item={mockTaskDto} />
+          <Button title={'Back to Main Page'} onClick={handleReturn} />
+        </>
+      )}
     </div>
   );
 };
