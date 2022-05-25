@@ -62,28 +62,24 @@ export const Board: FC = () => {
   return (
     <>
       <Header />
-      <div>
-        <ConfirmationModal
-          isOpen={Boolean(choosedId)}
-          onClose={handleCloseConfirmation}
-          onConfirm={handleConfirm}
-        />
-        <h1>You are on page {boardId}</h1>
-
-        <>
-          <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
-            <CreateColumnForm id={boardId} onClose={handleToggleModal} />
-          </Modal>
-          <Button title={'Add column'} onClick={handleToggleModal} />
-          <div className={styles['column-wrapper']}>
-            {board.columns &&
-              [...board.columns].map((column) => (
-                <Column key={column.id} item={column} boardId={boardId} />
-              ))}
-          </div>
-          <Button title={'Back to Main Page'} onClick={handleReturn} />
-        </>
-      </div>
+      <ConfirmationModal
+        isOpen={Boolean(choosedId)}
+        onClose={handleCloseConfirmation}
+        onConfirm={handleConfirm}
+      />
+      <>
+        <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
+          <CreateColumnForm id={boardId} onClose={handleToggleModal} />
+        </Modal>
+        <Button title={'Add column'} onClick={handleToggleModal} />
+        <div className={styles['column-wrapper']}>
+          {board.columns &&
+            [...board.columns].map((column) => (
+              <Column key={column.id} item={column} boardId={boardId} />
+            ))}
+        </div>
+        <Button title={'Back to Main Page'} onClick={handleReturn} />
+      </>
     </>
   );
 };
