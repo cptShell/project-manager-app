@@ -54,7 +54,7 @@ export const Board: FC = () => {
         onConfirm={handleConfirm}
       />
       <h1>You are on page {boardId}</h1>
-      {boardId && board && (
+      {!!(boardId && board) && (
         <>
           <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
             <CreateColumnForm id={boardId} onClose={handleToggleModal} />
