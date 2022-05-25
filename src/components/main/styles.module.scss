@@ -17,6 +17,18 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+}
+
+.add-board-board {
+  background: var(--color-gray-100);
+  justify-content: center;
+  align-items: center;
+}
+
+.li:hover,
+.add-board-board:hover {
+  box-shadow: var(--shadow-hover);
 }
 
 .board-top {
@@ -33,16 +45,15 @@
 .board-img {
   max-width: 24px;
   max-height: 24px;
+  transition: 0.5s;
+}
+
+.board-img:hover {
+  max-height: 28px;
 }
 
 .board-bottom {
   padding: 10px;
-}
-
-.add-board-board {
-  background: var(--color-gray-100);
-  justify-content: center;
-  align-items: center;
 }
 
 .plus-img {

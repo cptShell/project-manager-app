@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '~/common/enums/enums';
 import { useAppSelector, useAppDispatch } from '~/hooks/hooks';
@@ -7,12 +7,15 @@ import { ConfirmationModal } from '../common/confirmation-modal/confirmation-mod
 import styles from './styles.module.scss';
 import bucketImg from '~/assets/images/delete-bucket.svg';
 import plusImg from '~/assets/images/plus.svg';
+import { BoardCreatingForm } from './components/board-creating-form';
+import { Modal } from '../common/modal/modal';
 
 export const Main: FC = () => {
   const boards = useAppSelector((state) => state.boards.boards);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [choosedId, setChoosedId] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     dispatch(boardActions.getAll());
@@ -24,6 +27,10 @@ export const Main: FC = () => {
 
   const handleConfirm = (): void => {
     dispatch(boardActions.remove(choosedId));
+  };
+
+  const handleCreateBoard = (): void => {
+    setIsOpen(!isOpen);
   };
 
   return (
@@ -38,8 +45,10 @@ export const Main: FC = () => {
           const handleDelete = (): void => {
             setChoosedId(id);
           };
-          const handleClick = (): void => {
-            navigate(`${AppRoute.BOARD}/${id}`);
+          const handleClick = (e: React.MouseEvent): void => {
+            if (e.target === e.currentTarget) {
+              navigate(`${AppRoute.BOARD}/${id}`);
+            }
           };
           return (
             <li className={styles.li}
@@ -63,10 +72,13 @@ export const Main: FC = () => {
             </li>
           );
         })}
-        <li className={styles['add-board-board']}>
+        <li className={styles['add-board-board']} onClick={handleCreateBoard}>
           <img className={styles['plus-img']} src={plusImg} alt="add board" />
         </li>
       </ul>
+      <Modal isOpen={isOpen} onClose={handleCreateBoard}>
+        <BoardCreatingForm isOpen={isOpen} setIsOpen={setIsOpen} />
+      </Modal>
     </section>
   );
 };
