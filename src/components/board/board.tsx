@@ -4,19 +4,23 @@ import {
   column as columnActions,
   board as boardActions,
 } from '~/store/actions';
-import { AppRoute } from '~/common/enums/enums';
+import { AppRoute, DataStatus } from '~/common/enums/enums';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { Button } from './components/button';
 import { Modal } from '../common/modal/modal';
 import { CreateColumnForm } from './components/column-creating-form';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
-import styles from './styles.module.scss';
 import { Column } from './components/column';
+import { Header } from '../common/common';
+import { NotFound } from '../not-found-page/not-found-page';
+import { Loader } from '../common/loader/loader';
+import styles from './styles.module.scss';
 
 export const Board: FC = () => {
   const navigate = useNavigate();
   const { id: boardId } = useParams();
   const board = useAppSelector((state) => state.boards.currentBoard);
+  const status = useAppSelector((state) => state.boards.currentBoardStatus);
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [choosedId, setChoosedId] = useState('');
@@ -45,15 +49,25 @@ export const Board: FC = () => {
     }
   };
 
+  if (status === DataStatus.REJECTED) {
+    return <NotFound />;
+  }
+
+  if (!boardId || !board) {
+    return <Loader />;
+  }
+
   return (
-    <div>
-      <ConfirmationModal
-        isOpen={Boolean(choosedId)}
-        onClose={handleCloseConfirmation}
-        onConfirm={handleConfirm}
-      />
-      <h1>You are on page {boardId}</h1>
-      {!!(boardId && board) && (
+    <>
+      <Header />
+      <div>
+        <ConfirmationModal
+          isOpen={Boolean(choosedId)}
+          onClose={handleCloseConfirmation}
+          onConfirm={handleConfirm}
+        />
+        <h1>You are on page {boardId}</h1>
+
         <>
           <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
             <CreateColumnForm id={boardId} onClose={handleToggleModal} />
@@ -67,7 +81,7 @@ export const Board: FC = () => {
           </div>
           <Button title={'Back to Main Page'} onClick={handleReturn} />
         </>
-      )}
-    </div>
+      </div>
+    </>
   );
 };

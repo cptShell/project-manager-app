@@ -16,6 +16,7 @@ import { Welcome } from '../welcome/welcome';
 import { useAppDispatch, useAppSelector, useEffect } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
 import { Profile } from '../profile/profile';
+import { Loader } from '../common/loader/loader';
 
 export const App: FC = () => {
   const dispatch = useAppDispatch();
@@ -33,7 +34,7 @@ export const App: FC = () => {
   }, [hasToken]);
 
   if (hasToken && !user && userStatus !== DataStatus.REJECTED) {
-    return <div>Loading</div>;
+    return <Loader />;
   }
 
   return (
@@ -50,9 +51,9 @@ export const App: FC = () => {
         }
       >
         <Route path={AppRoute.MAIN} element={<Main />} />
-        <Route path={AppRoute.$BOARD_ID} element={<Board />} />
         <Route path={AppRoute.PROFILE} element={<Profile />} />
       </Route>
+      <Route path={AppRoute.$BOARD_ID} element={<Board />} />
       <Route path={AppRoute.SIGN_IN} element={<Auth />} />
       <Route path={AppRoute.SIGN_UP} element={<Auth />} />
       <Route path={AppRoute.WELCOME} element={<Welcome />} />
