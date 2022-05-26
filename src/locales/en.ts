@@ -49,6 +49,29 @@ export const ENMessagesMap: AppLocalizationMap = {
         createColumn: 'Create column',
       },
     },
+    taskCreatingForm: {
+      title: 'Task Creating',
+      inputs: {
+        title: 'title',
+        description: 'description',
+      },
+      buttons: {
+        createTask: 'create task',
+      },
+    },
+    boardItem: {
+      buttons: {
+        submit: 'submit',
+        cancel: 'cancel',
+        addTask: 'add task',
+      },
+    },
+    column: {
+      buttons: {
+        addTask: 'add task',
+        deleteTask: 'delete task',
+      },
+    },
   },
   auth: {
     titles: {

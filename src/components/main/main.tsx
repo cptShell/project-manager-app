@@ -42,13 +42,13 @@ export const Main: FC = () => {
           onConfirm={handleConfirm}
         />
         {boards.map(({ id, title, description }) => {
-          const handleDelete = (): void => {
+          const handleDelete = (e: React.MouseEvent): void => {
+            e.stopPropagation();
+            e.nativeEvent.stopImmediatePropagation();
             setChoosedId(id);
           };
-          const handleClick = (e: React.MouseEvent): void => {
-            if (e.target === e.currentTarget) {
-              navigate(`${AppRoute.BOARD}/${id}`);
-            }
+          const handleClick = (): void => {
+            navigate(`${AppRoute.BOARD}/${id}`);
           };
           return (
             <li className={styles['board-item']}

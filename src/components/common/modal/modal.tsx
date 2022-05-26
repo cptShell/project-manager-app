@@ -11,11 +11,11 @@ type Props = {
 
 export const Modal: FC<Props> = ({ children, isOpen, onClose }) => {
   const handleClose = (e: React.MouseEvent): void => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+    onClose();
   };
-  
+
   if (!isOpen) {
     return null;
   }
