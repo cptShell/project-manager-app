@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '~/common/enums/enums';
 import { useAppSelector, useAppDispatch } from '~/hooks/hooks';
 import { board as boardActions } from '~/store/actions';
+import { Modal } from '../common/modal/modal';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
+import { BoardCreatingForm } from './components/board-creating-form';
 import styles from './styles.module.scss';
 import bucketImg from '~/assets/images/delete-bucket.svg';
 import plusImg from '~/assets/images/plus.svg';
-import { BoardCreatingForm } from './components/board-creating-form';
-import { Modal } from '../common/modal/modal';
 
 export const Main: FC = () => {
   const boards = useAppSelector((state) => state.boards.boards);
@@ -51,11 +51,11 @@ export const Main: FC = () => {
             }
           };
           return (
-            <li className={styles.li}
+            <li className={styles['board-item']}
               onClick={handleClick}
               key={id}>
               <div className={styles['board-top']}>
-                <h3 className={styles['board-h3']}>
+                <h3 className={styles['board-title']}>
                   {title}
                 </h3>
                 <img className={styles['board-img']}
@@ -65,7 +65,7 @@ export const Main: FC = () => {
                 </img>
               </div>
               <div className={styles['board-bottom']}>
-                <p className={styles['board-p']}>
+                <p className={styles['board-text']}>
                   {description}
                 </p>
               </div>
