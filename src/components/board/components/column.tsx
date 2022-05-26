@@ -66,8 +66,8 @@ export const Column: FC<Props> = ({ item, boardId }) => {
         onClose={handleCloseConfirmation}
         onConfirm={handleDeleteColumn}
       />
-      <Button title={'Add task'} onClick={handleToggleModal} />
-      <Button title={'Delete column'} onClick={handleOpenConfirmation} />
+      <Button title={'board.column.buttons.addTask'} onClick={handleToggleModal} />
+      <Button title={'board.column.buttons.deleteTask'} onClick={handleOpenConfirmation} />
     </div>
   );
 };

@@ -29,7 +29,7 @@ export const TaskLink: FC<Props> = ({ data, onClick }) => {
       <li key={id}>
         <h3>{title}</h3>
         <p>{description}</p>
-        <Button title={'Delete'} onClick={handleOpenConfirmation} />
+        <Button title={'board.buttons.deleteColumn'} onClick={handleOpenConfirmation} />
       </li>
     </>
   );
