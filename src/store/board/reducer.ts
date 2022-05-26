@@ -1,4 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
+import { DataStatus } from '~/common/enums/enums';
 import { BoardDto, FullBoardDto } from '~/common/types/types';
 import { createColumn, removeColumn } from '../column/actions';
 import { createTask, removeTask } from '../task/actions';
@@ -6,10 +7,15 @@ import { getAll, create, update, getById, removeBoard } from './actions';
 
 type State = {
   boards: Array<BoardDto>;
-  currentBoard?: FullBoardDto;
+  currentBoard: FullBoardDto | null;
+  currentBoardStatus: DataStatus;
 };
 
-const initialState: State = { boards: [] };
+const initialState: State = {
+  boards: [],
+  currentBoard: null,
+  currentBoardStatus: DataStatus.IDLE,
+};
 
 export const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getAll.fulfilled, (state, action) => {
@@ -17,7 +23,16 @@ export const reducer = createReducer(initialState, (builder) => {
   });
 
   builder.addCase(getById.fulfilled, (state, action) => {
+    state.currentBoardStatus = DataStatus.FULFILLED;
     state.currentBoard = action.payload;
+  });
+
+  builder.addCase(getById.rejected, (state) => {
+    state.currentBoardStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(getById.pending, (state) => {
+    state.currentBoardStatus = DataStatus.PENDING;
   });
 
   builder.addCase(removeBoard.fulfilled, (state, action) => {
