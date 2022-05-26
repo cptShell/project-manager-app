@@ -20,9 +20,12 @@ export const NotFound: FC = () => {
       ></iframe>
       <div className={styles['navigation-wrapper']}>
         <div className={styles['navigation-container']}>
-          <div className={styles['navigation-button']} onClick={handleReturn}>
+          <button
+            className={styles['navigation-button']}
+            onClick={handleReturn}
+          >
             Probably you are lost, click on Rick to return on Main page
-          </div>
+          </button>
         </div>
       </div>
     </div>
