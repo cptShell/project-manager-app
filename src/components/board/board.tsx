@@ -13,45 +13,17 @@ import { Button } from './components/button';
 import { Modal } from '../common/modal/modal';
 import { CreateColumnForm } from './components/column-creating-form';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
-import { FullColumnDto } from '~/common/types/types';
+import { FullBoardDto, FullColumnDto } from '~/common/types/types';
 import { FormattedMessage, Header } from '../common/common';
 import { Column } from './components/column';
 import { NotFound } from '../not-found-page/not-found-page';
 import { Loader } from '../common/loader/loader';
 import styles from './styles.module.scss';
 
-const mockedFullColumns: Array<FullColumnDto> = [
-  {
-    'id': '08cc10f4-1aeb-4cce-9793-9fea8313b591',
-    'title': 'Done1',
-    'order': 1,
-    tasks: [],
-  },
-  {
-    'id': '08cc10f4-1aeb-4cce-9793-9fea8313b592',
-    'title': 'Done2',
-    'order': 2,
-    tasks: [],
-  },
-  {
-    'id': '08cc10f4-1aeb-4cce-9793-9fea8313b593',
-    'title': 'Done3',
-    'order': 3,
-    tasks: [],
-  },
-  {
-    'id': '08cc10f4-1aeb-4cce-9793-9fea8313b594',
-    'title': 'Done4',
-    'order': 4,
-    tasks: [],
-  },
-  {
-    'id': '08cc10f4-1aeb-4cce-9793-9fea8313b595',
-    'title': 'Done5',
-    'order': 5,
-    tasks: [],
-  },
-];
+type TaskPosition = {
+  columnX: number;
+  taskY: number;
+};
 
 export const Board: FC = () => {
   const navigate = useNavigate();
@@ -63,8 +35,9 @@ export const Board: FC = () => {
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [choosedId, setChoosedId] = useState('');
-  const [columns, setColumns] =
-    useState<Array<FullColumnDto>>(mockedFullColumns);
+  const [columns, setColumns] = useState<Array<FullColumnDto>>(
+    board?.columns || [],
+  );
 
   const moveColumn = useCallback((dragIndex: number, hoverIndex: number) => {
     setColumns((prevColumns: Array<FullColumnDto>) =>
@@ -77,9 +50,49 @@ export const Board: FC = () => {
     );
   }, []);
 
+  const moveTask = useCallback(
+    (dragPosition: TaskPosition, hoverPosition: TaskPosition) => {
+      setColumns((prevColumns: Array<FullColumnDto>) => {
+        const targetTasks = prevColumns[dragPosition.columnX].tasks;
+
+        if (dragPosition.columnX === hoverPosition.columnX) {
+          return update(prevColumns, {
+            [dragPosition.columnX]: {
+              tasks: {
+                $splice: [
+                  [dragPosition.taskY, 1],
+                  [hoverPosition.taskY, 0, targetTasks[dragPosition.taskY]],
+                ],
+              },
+            },
+          });
+        }
+
+        const insertedTask = targetTasks[dragPosition.taskY];
+
+        return update(prevColumns, {
+          [dragPosition.columnX]: {
+            tasks: {
+              $splice: [[dragPosition.taskY, 1]],
+            },
+          },
+          [hoverPosition.columnX]: {
+            tasks: {
+              $splice: [[hoverPosition.taskY, 0, insertedTask]],
+            },
+          },
+        });
+      });
+    },
+    [],
+  );
+
   useEffect(() => {
     if (boardId) {
-      dispatch(boardActions.getById(boardId));
+      dispatch(boardActions.getById(boardId)).then((data) => {
+        const currentBoard = data.payload as FullBoardDto;
+        setColumns(currentBoard.columns);
+      });
     }
   }, []);
 
@@ -131,7 +144,8 @@ export const Board: FC = () => {
             item={column}
             boardId={boardId}
             moveColumn={moveColumn}
-            index={index}
+            moveTask={moveTask}
+            columnIndex={index}
           />
         ))}
       </div>

@@ -22,8 +22,8 @@ export const BoardItem: FC<Props> = ({ title, id }) => {
   };
 
   const handleTitleUpdate = handleSubmit(async (data) => {
-    const { title } = data;
-    await dispatch(boardActions.update({ id, title }));
+    const { title, description } = data;
+    await dispatch(boardActions.update({ id, title, description }));
     setWritableMode(false);
   });
 
@@ -33,14 +33,14 @@ export const BoardItem: FC<Props> = ({ title, id }) => {
         <>
           <form onSubmit={handleTitleUpdate}>
             <input type="text" {...register('title')} />
-            <Button title={'Submit'} />
+            <Button title={'board.boardItem.buttons.submit'} />
           </form>
-          <Button title={'Cancel'} onClick={handleWritableMode} />
+          <Button title={'board.boardItem.buttons.cancel'} onClick={handleWritableMode} />
         </>
       ) : (
         <h2 onClick={handleWritableMode}>{title}</h2>
       )}
-      <Button title={'Add task'} />
+      <Button title={'board.boardItem.buttons.addTask'} />
     </div>
   );
 };

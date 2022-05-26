@@ -49,6 +49,29 @@ export const RUMessagesMap: AppLocalizationMap = {
         createColumn: 'создать колонку',
       },
     },
+    taskCreatingForm: {
+      title: 'Создание тасков',
+      inputs: {
+        title: 'заглавие',
+        description: 'описание',
+      },
+      buttons: {
+        createTask: 'создать таск',
+      },
+    },
+    boardItem: {
+      buttons: {
+        submit: 'отправить',
+        cancel: 'отменить',
+        addTask: 'добавить таск',
+      },
+    },
+    column: {
+      buttons: {
+        addTask: 'добавить таск',
+        deleteTask: 'удалить таск',
+      },
+    },
   },
   auth: {
     titles: {

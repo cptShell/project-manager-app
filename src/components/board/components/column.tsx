@@ -12,11 +12,17 @@ import { TaskLink } from './task-link/task-link';
 import { ItemType } from '~/common/enums/enums';
 import styles from '../styles.module.scss';
 
+type TaskPosition = {
+  columnX: number;
+  taskY: number;
+};
+
 type Props = {
   moveColumn: (dragIndex: number, hoverIndex: number) => void;
+  moveTask: (dragPosition: TaskPosition, hoverPosition: TaskPosition) => void;
   item: FullColumnDto;
   boardId: string;
-  index: number;
+  columnIndex: number;
 };
 
 interface DragItem {
@@ -25,8 +31,14 @@ interface DragItem {
   type: string;
 }
 
-export const Column: FC<Props> = ({ item, boardId, moveColumn, index }) => {
-  const { id: columnId, title } = item;
+export const Column: FC<Props> = ({
+  item,
+  boardId,
+  moveColumn,
+  moveTask,
+  columnIndex,
+}) => {
+  const { id: columnId, title, tasks } = item;
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
@@ -48,7 +60,7 @@ export const Column: FC<Props> = ({ item, boardId, moveColumn, index }) => {
         return;
       }
       const dragIndex = item.index;
-      const hoverIndex = index;
+      const hoverIndex = columnIndex;
 
       if (dragIndex === hoverIndex) {
         return;
@@ -76,9 +88,9 @@ export const Column: FC<Props> = ({ item, boardId, moveColumn, index }) => {
   const [{ isDragging }, drag] = useDrag({
     type: ItemType.COLUMN,
     item: () => {
-      return { id: item.id, index };
+      return { id: item.id, index: columnIndex };
     },
-    collect: (monitor: any) => {
+    collect: (monitor) => {
       return {
         isDragging: monitor.isDragging(),
       };
@@ -114,18 +126,27 @@ export const Column: FC<Props> = ({ item, boardId, moveColumn, index }) => {
       <h3>{title}</h3>
       <div>
         <ul>
-          {item.tasks &&
-            [...item.tasks].map((task) => {
-              const { id } = task;
-              const handleDeleteTask = (): void => {
-                dispatch(
-                  taskActions.removeTask({ boardId, columnId, taskId: id }),
-                );
-              };
-              return (
-                <TaskLink key={id} data={task} onClick={handleDeleteTask} />
+          {tasks.map((task, index) => {
+            const { id } = task;
+            const taskPosition: TaskPosition = {
+              columnX: columnIndex,
+              taskY: index,
+            };
+            const handleDeleteTask = (): void => {
+              dispatch(
+                taskActions.removeTask({ boardId, columnId, taskId: id }),
               );
-            })}
+            };
+            return (
+              <TaskLink
+                key={id}
+                data={task}
+                onClick={handleDeleteTask}
+                moveTask={moveTask}
+                taskPosition={taskPosition}
+              />
+            );
+          })}
         </ul>
       </div>
       <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
@@ -140,9 +161,12 @@ export const Column: FC<Props> = ({ item, boardId, moveColumn, index }) => {
         onClose={handleCloseConfirmation}
         onConfirm={handleDeleteColumn}
       />
-      <Button title={'board.buttons.addColumn'} onClick={handleToggleModal} />
       <Button
-        title={'board.buttons.deleteColumn'}
+        title={'board.column.buttons.addTask'}
+        onClick={handleToggleModal}
+      />
+      <Button
+        title={'board.column.buttons.deleteTask'}
         onClick={handleOpenConfirmation}
       />
     </div>

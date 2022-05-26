@@ -24,6 +24,7 @@ export const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(getById.fulfilled, (state, action) => {
     state.currentBoardStatus = DataStatus.FULFILLED;
+    console.log(action.payload);
     state.currentBoard = action.payload;
   });
 

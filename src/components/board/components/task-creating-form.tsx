@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { task as taskActions } from '~/store/actions';
 import { InputName } from '~/common/enums/enums';
-import { TextInput } from '~/components/common/common';
+import { FormattedMessage, TextInput } from '~/components/common/common';
 import { CreateTaskDto } from '~/common/types/types';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 
@@ -33,10 +33,21 @@ export const TaskCreatingForm: FC<Props> = ({ boardId, columnId, onClose }) => {
 
   return (
     <form onSubmit={handleSubmit(handleCreateForm)}>
-      <h2>Task creation</h2>
-      <TextInput formRegisterValues={register(InputName.TITLE)} />
-      <TextInput formRegisterValues={register(InputName.DESCRIPTION)} />
-      <button>Create task</button>
+      <FormattedMessage as="h2" message="board.taskCreatingForm.title" />
+      <TextInput
+        title="board.taskCreatingForm.inputs.title"
+        formRegisterValues={register(InputName.TITLE)}
+      />
+      <TextInput
+        title="board.taskCreatingForm.inputs.description"
+        formRegisterValues={register(InputName.DESCRIPTION)}
+      />
+      <button>
+        <FormattedMessage
+          as="span"
+          message="board.taskCreatingForm.buttons.createTask"
+        />
+      </button>
     </form>
   );
 };
