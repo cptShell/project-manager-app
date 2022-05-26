@@ -5,8 +5,8 @@ import { SignUpUserDto } from '~/common/types/types';
 import { signUpUser } from '~/validation-schemas/validation-schemas';
 import { useAppDispatch } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
+import { FormattedMessage, TextInput } from '~/components/common/common';
 import { InputName } from '~/common/enums/enums';
-import { TextInput } from '~/components/common/common';
 
 export const SignUpForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -25,20 +25,25 @@ export const SignUpForm: FC = () => {
 
   return (
     <form onSubmit={handleSubmit(handleSignUp)}>
-      <h2>Sign Up</h2>
+      <FormattedMessage as="h2" message="auth.titles.singUp" />
       <TextInput
+        title={'auth.inputs.name'}
         formRegisterValues={register(InputName.NAME)}
         errorMessage={nameError?.message}
       />
       <TextInput
+        title={'auth.inputs.login'}
         formRegisterValues={register(InputName.LOGIN)}
         errorMessage={loginError?.message}
       />
       <TextInput
+        title={'auth.inputs.password'}
         formRegisterValues={register(InputName.PASSWORD)}
         errorMessage={passwordError?.message}
       />
-      <button>Sign Up</button>
+      <button>
+        <FormattedMessage as="span" message="auth.buttons.signUp" />
+      </button>
     </form>
   );
 };

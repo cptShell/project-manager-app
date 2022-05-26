@@ -3,6 +3,7 @@ import {
   AsyncThunkConfig,
   CreateBoardDto,
   BoardDto,
+  FullBoardDto,
 } from '~/common/types/types';
 import { ActionType } from './common';
 
@@ -35,7 +36,7 @@ export const getAll = createAsyncThunk<Array<BoardDto>, void, AsyncThunkConfig>(
   },
 );
 
-export const getById = createAsyncThunk<BoardDto, string, AsyncThunkConfig>(
+export const getById = createAsyncThunk<FullBoardDto, string, AsyncThunkConfig>(
   ActionType.GET_BY_ID,
   async (payload, { extra }) => {
     const { boardApi } = extra;
@@ -44,7 +45,7 @@ export const getById = createAsyncThunk<BoardDto, string, AsyncThunkConfig>(
   },
 );
 
-export const remove = createAsyncThunk<string, string, AsyncThunkConfig>(
+export const removeBoard = createAsyncThunk<string, string, AsyncThunkConfig>(
   ActionType.DELETE,
   async (payload, { extra }) => {
     const { boardApi } = extra;
