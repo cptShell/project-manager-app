@@ -1,5 +1,5 @@
 import { ApiPath, ContentType, HttpMethod } from '~/common/enums/enums';
-import { CreateBoardDto, BoardDto } from '~/common/types/types';
+import { CreateBoardDto, BoardDto, FullBoardDto } from '~/common/types/types';
 import { Http } from '~/services/http/http.service';
 
 type Constructor = {
@@ -28,7 +28,7 @@ export class BoardApi {
     return this.#http.load(`${this.#apiPrefix}${ApiPath.BOARDS}`);
   }
 
-  getById(id: string): Promise<BoardDto> {
+  getById(id: string): Promise<FullBoardDto> {
     const path = `/${id}`;
     return this.#http.load(`${this.#apiPrefix}${ApiPath.BOARDS}${path}`);
   }

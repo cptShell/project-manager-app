@@ -6,3 +6,13 @@
   border: 3px solid rgb(0 0 0);
   margin: 5px;
 }
+
+.column-wrapper {
+  display: flex;
+  column-gap: 5px;
+}
+
+.column-item {
+  border: 3px solid teal;
+  width: 150px;
+}

@@ -19,7 +19,7 @@ export const Welcome: FC = () => {
         <LanguageSwitcher />
         <ul className={styles.ul}>
           {buttonsData.map(({ to, title }, i) => (
-              <PageButton
+            <PageButton
               className={styles.button}
               path={to}
               title={title}
@@ -27,18 +27,18 @@ export const Welcome: FC = () => {
           ))}
         </ul>
       </div>
-        <FormattedMessage className={styles['welcome-title']} as="h2" message="welcome.title" />
-        <InfoSection content={'welcome.aboutProject'} />
-        <InfoSection content={'welcome.aboutCourse'} />
+      <FormattedMessage className={styles['welcome-title']} as="h2" message="welcome.title" />
+      <InfoSection content={'welcome.aboutProject'} />
+      <InfoSection content={'welcome.aboutCourse'} />
       <section className={styles['team-members']}>
         <ul className={styles['team-members-ul']}>
           {[...Array(3)].map((e, i) => (
-            <MemberCard 
-            avatar={TEAM_MEMBERS_PAYLOAD[i].avatar}
-            name={TEAM_MEMBERS_PAYLOAD[i].name as AppLocalizationKey}
-            about={TEAM_MEMBERS_PAYLOAD[i].aboutMe as AppLocalizationKey}
-            contribution={TEAM_MEMBERS_PAYLOAD[i].contribution as AppLocalizationKey}
-            key={`teamCard${i}`} />
+            <MemberCard
+              avatar={TEAM_MEMBERS_PAYLOAD[i].avatar}
+              name={TEAM_MEMBERS_PAYLOAD[i].name as AppLocalizationKey}
+              about={TEAM_MEMBERS_PAYLOAD[i].aboutMe as AppLocalizationKey}
+              contribution={TEAM_MEMBERS_PAYLOAD[i].contribution as AppLocalizationKey}
+              key={`teamCard${i}`} />
           ))}
         </ul>
       </section>

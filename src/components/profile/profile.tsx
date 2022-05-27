@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { user as userActions } from '~/store/actions';
+import { FormattedMessage } from '../common/common';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
 import { EditForm } from './components/edit-form';
 
@@ -29,14 +30,16 @@ export const Profile: FC = () => {
 
   return (
     <>
-      <h2>User Settings</h2>
+      <FormattedMessage as="h2" message="profile.title"/>
       <ul>
-        <li>Current id: {id}</li>
-        <li>Current name: {name}</li>
-        <li>Current login: {login}</li>
+        <li><FormattedMessage as="span" message="profile.userData.currentId"/> {id}</li>
+        <li><FormattedMessage as="span" message="profile.userData.currentName"/> {name}</li>
+        <li><FormattedMessage as="span" message="profile.userData.currentLogin"/> {login}</li>
       </ul>
       <EditForm />
-      <button onClick={handleShowModal}>Delete User</button>
+      <button onClick={handleShowModal}>
+        <FormattedMessage as="span" message="profile.buttons.deleteUser"/>
+      </button>
       <ConfirmationModal
         isOpen={isOpen}
         onConfirm={handleDeleteUser}

@@ -1,8 +1,6 @@
-import { BoardValidationRule } from './board-validation-rule.enum';
-
 export const BoardValidationMessage = {
-  TITLE_REQUIRED: 'Title cannot be empty',
-  TITLE_MAX_LENGTH: `Title must be max ${BoardValidationRule.TITLE_MAX_LENGTH} characters`,
-  DESCRIPTION_REQUIRED: 'Description cannot be empty',
-  DESCRIPTION_MAX_LENGTH: `Description must be max ${BoardValidationRule.DESCRIPTION_MAX_LENGTH} characters`,
+  TITLE_REQUIRED: 'validationMessages.board.titleRequired',
+  TITLE_MAX_LENGTH: 'validationMessages.board.titleMaxLength',
+  DESCRIPTION_REQUIRED: 'validationMessages.board.descriptionRequired',
+  DESCRIPTION_MAX_LENGTH: 'validationMessages.board.descriptionMaxLength',
 } as const;

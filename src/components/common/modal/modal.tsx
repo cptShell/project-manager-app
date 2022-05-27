@@ -10,6 +10,7 @@ type Props = {
 };
 
 export const Modal: FC<Props> = ({ children, isOpen, onClose }) => {
+
   const handleClose = (): void => {
     onClose();
   };
