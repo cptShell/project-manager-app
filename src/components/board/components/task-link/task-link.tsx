@@ -92,6 +92,9 @@ export const TaskLink: FC<Props> = ({
 
       item.position = taskPosition;
     },
+    drop(item, monitor) {
+      console.log('drop', item, monitor);
+    },
   });
 
   const [{ isDragging }, drag] = useDrag({
