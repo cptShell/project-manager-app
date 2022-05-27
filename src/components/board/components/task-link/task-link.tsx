@@ -2,7 +2,7 @@ import { Identifier, XYCoord } from 'dnd-core';
 import { FC, useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemType } from '~/common/enums/enums';
-import { TaskDto } from '~/common/types/types';
+import { DragTaskItem, TaskDto, TaskPosition } from '~/common/types/types';
 import { ConfirmationModal } from '~/components/common/confirmation-modal/confirmation-modal';
 import { Button } from '../button';
 
@@ -11,17 +11,6 @@ type Props = {
   onClick: () => void;
   moveTask: (dragPosition: TaskPosition, hoverPosition: TaskPosition) => void;
   taskPosition: TaskPosition;
-};
-
-type TaskPosition = {
-  columnX: number;
-  taskY: number;
-};
-
-type DragItem = {
-  position: TaskPosition;
-  id: string;
-  type: string;
 };
 
 export const TaskLink: FC<Props> = ({
@@ -42,7 +31,7 @@ export const TaskLink: FC<Props> = ({
   };
 
   const [{ handlerId }, drop] = useDrop<
-    DragItem,
+    DragTaskItem,
     void,
     { handlerId: Identifier | null }
   >({
@@ -52,7 +41,7 @@ export const TaskLink: FC<Props> = ({
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item: DragItem, monitor) {
+    hover(item: DragTaskItem, monitor) {
       console.log(monitor);
       if (!taskRef.current) {
         return;
@@ -99,7 +88,7 @@ export const TaskLink: FC<Props> = ({
 
   const [{ isDragging }, drag] = useDrag({
     type: ItemType.TASK,
-    item: (): DragItem => {
+    item: (): DragTaskItem => {
       return { id, position: taskPosition, type: ItemType.TASK };
     },
     collect: (monitor) => {

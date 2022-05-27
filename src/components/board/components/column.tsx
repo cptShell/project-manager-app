@@ -1,5 +1,9 @@
 import { FC, useRef, useState } from 'react';
-import { FullColumnDto } from '~/common/types/types';
+import {
+  DragColumnItem,
+  FullColumnDto,
+  TaskPosition,
+} from '~/common/types/types';
 import { useDrag, useDrop } from 'react-dnd';
 import type { Identifier, XYCoord } from 'dnd-core';
 import { column as columnActions, task as taskActions } from '~/store/actions';
@@ -12,11 +16,6 @@ import { TaskLink } from './task-link/task-link';
 import { ItemType } from '~/common/enums/enums';
 import styles from '../styles.module.scss';
 
-type TaskPosition = {
-  columnX: number;
-  taskY: number;
-};
-
 type Props = {
   moveColumn: (dragIndex: number, hoverIndex: number) => void;
   moveTask: (dragPosition: TaskPosition, hoverPosition: TaskPosition) => void;
@@ -24,12 +23,6 @@ type Props = {
   boardId: string;
   columnIndex: number;
 };
-
-interface DragItem {
-  index: number;
-  id: string;
-  type: string;
-}
 
 export const Column: FC<Props> = ({
   item,
@@ -45,7 +38,7 @@ export const Column: FC<Props> = ({
   const columnRef = useRef<HTMLDivElement>(null);
 
   const [{ handlerId }, drop] = useDrop<
-    DragItem,
+    DragColumnItem,
     void,
     { handlerId: Identifier | null }
   >({
@@ -55,7 +48,7 @@ export const Column: FC<Props> = ({
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item: DragItem, monitor) {
+    hover(item: DragColumnItem, monitor) {
       if (!columnRef.current) {
         return;
       }
