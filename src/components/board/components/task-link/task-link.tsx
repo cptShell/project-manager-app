@@ -1,4 +1,4 @@
-import { Identifier } from 'dnd-core';
+import { Identifier, XYCoord } from 'dnd-core';
 import { FC, useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemType } from '~/common/enums/enums';
@@ -58,26 +58,35 @@ export const TaskLink: FC<Props> = ({
         return;
       }
       const { position: dragPosition } = item;
+      const { columnX: dragColumnX, taskY: dragTaskY } = dragPosition;
+      const { columnX: hoverColumnX, taskY: hoverTaskY } = taskPosition;
 
-      if (
-        dragPosition.columnX === taskPosition.columnX &&
-        dragPosition.taskY === taskPosition.taskY
-      ) {
+      if (dragColumnX === hoverColumnX && dragTaskY === hoverTaskY) {
         return;
       }
 
-      // const hoverBoundingRect = taskRef.current?.getBoundingClientRect();
-      // const deadZoneY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      // const clientOffset = monitor.getClientOffset();
-      // const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
+      const hoverBoundingRect = taskRef.current?.getBoundingClientRect();
+      const deadZoneY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const deadZoneX = (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
+      const clientOffset = monitor.getClientOffset();
+      const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
+      const hoverClientX = (clientOffset as XYCoord).x - hoverBoundingRect.left;
 
-      // if (dragIndex < hoverIndex && hoverClientY < deadZoneY) {
-      //   return;
-      // }
+      if (dragTaskY < hoverTaskY && hoverClientY < deadZoneY) {
+        return;
+      }
 
-      // if (dragIndex > hoverIndex && hoverClientY > deadZoneY) {
-      //   return;
-      // }
+      if (dragTaskY > hoverTaskY && hoverClientY > deadZoneY) {
+        return;
+      }
+
+      if (dragColumnX < hoverColumnX && hoverClientX < deadZoneX) {
+        return;
+      }
+
+      if (dragColumnX > hoverColumnX && hoverClientX > deadZoneX) {
+        return;
+      }
 
       moveTask(dragPosition, taskPosition);
 
