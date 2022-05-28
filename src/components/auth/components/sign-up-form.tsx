@@ -59,9 +59,9 @@ export const SignUpForm: FC = () => {
           <FormattedMessage as="span" message="auth.buttons.signUp" />
         </button>
       </form>
-      <div className={styles['signinup-container']}>
+      <div className={styles['message-container']}>
         Already have an account?
-        <a className={styles['signinup-button']} onClick={handleRedirect}>
+        <a className={styles['message-button']} onClick={handleRedirect}>
           Sign In
         </a>
       </div>
