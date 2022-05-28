@@ -1,8 +1,13 @@
 :root {
   --font-size-100: 16px;
+  --font-size-200: 24px;
+  --font-size-300: 30px;
+  --font-size-400: 45px;
+  --font-weight-400: 400;
+  --font-weight-500: 500;
+  --font-weight-600: 600;
   --overlay-background: rgb(0 0 0 / 10%);
   --modal-background: #c9c9eb;
-  --footer-background-color: #768be7;
   --color-black: #000;
   --color-white: #fff;
   --color-purple-100: #5030e533;
@@ -10,7 +15,9 @@
   --color-purple-300: #5030e5;
   --color-purple-400: #0d062d;
   --color-gray-100: #f5f5f5;
+  --color-gray-200: #dbdbdb;
   --color-gray-300: #787486;
   --shadow: 0 0 4px 1px #0000001a;
   --shadow-hover: 0 0 8px 2px #0000001a;
+  --not-found-page-background: #000000b3;
 }

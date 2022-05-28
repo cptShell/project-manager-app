@@ -4,13 +4,17 @@ import { useDrag, useDrop } from 'react-dnd';
 import { ItemType } from '~/common/enums/enums';
 import { DragTaskItem, TaskDto, TaskPosition } from '~/common/types/types';
 import { ConfirmationModal } from '~/components/common/confirmation-modal/confirmation-modal';
+import { Modal } from '~/components/common/modal/modal';
 import { Button } from '../button';
+import { Task } from '../task';
 
 type Props = {
   data: TaskDto;
   onClick: () => void;
   moveTask: (dragPosition: TaskPosition, hoverPosition: TaskPosition) => void;
   taskPosition: TaskPosition;
+  boardId: string;
+  columnId: string;
 };
 
 export const TaskLink: FC<Props> = ({
@@ -18,9 +22,12 @@ export const TaskLink: FC<Props> = ({
   onClick,
   moveTask,
   taskPosition,
+  boardId,
+  columnId,
 }) => {
   const { id, title, description } = data;
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const taskRef = useRef<HTMLDivElement>(null);
 
   const handleOpenConfirmation = (): void => {
@@ -28,6 +35,12 @@ export const TaskLink: FC<Props> = ({
   };
   const handleCloseConfirmation = (): void => {
     setConfirmationModalOpen(false);
+  };
+  const handleModalOpen = (): void => {
+    setIsOpen(true);
+  };
+  const handleModalClose = (): void => {
+    setIsOpen(false);
   };
 
   const [{ handlerId }, drop] = useDrop<
@@ -42,7 +55,6 @@ export const TaskLink: FC<Props> = ({
       };
     },
     hover(item: DragTaskItem, monitor) {
-      console.log(monitor);
       if (!taskRef.current) {
         return;
       }
@@ -109,7 +121,10 @@ export const TaskLink: FC<Props> = ({
         onClose={handleCloseConfirmation}
         onConfirm={onClick}
       />
-      <li key={id}>
+      <Modal isOpen={isOpen} onClose={handleModalClose}>
+        <Task item={data} boardId={boardId} columnId={columnId} />
+      </Modal>
+      <li key={id} onClick={handleModalOpen}>
         <h3>{title}</h3>
         <p>{description}</p>
         <Button

@@ -137,6 +137,8 @@ export const Column: FC<Props> = ({
                 onClick={handleDeleteTask}
                 moveTask={moveTask}
                 taskPosition={taskPosition}
+                columnId={columnId}
+                boardId={boardId}
               />
             );
           })}
