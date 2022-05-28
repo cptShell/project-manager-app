@@ -1,7 +1,8 @@
 import { FC, useState } from 'react';
+import styles from './styles.module.scss';
 import { TaskDto } from '~/common/types/types';
 import { ConfirmationModal } from '~/components/common/confirmation-modal/confirmation-modal';
-import { Button } from '../button';
+import bucketImg from '~/assets/images/delete-bucket.svg';
 
 type Props = {
   data: TaskDto;
@@ -26,10 +27,23 @@ export const TaskLink: FC<Props> = ({ data, onClick }) => {
         onClose={handleCloseConfirmation}
         onConfirm={onClick}
       />
-      <li key={id}>
-        <h3>{title}</h3>
-        <p>{description}</p>
-        <Button title={'board.buttons.deleteColumn'} onClick={handleOpenConfirmation} />
+      <li className={styles['column-item']}
+        key={id}>
+        <div className={styles['column-top']}>
+          <h3 className={styles['column-title']}>
+            {title}
+          </h3>
+          <img className={styles['column-img']}
+            src={bucketImg}
+            onClick={handleOpenConfirmation}
+            alt="delete">
+          </img>
+        </div>
+        <div className={styles['column-bottom']}>
+          <p className={styles['column-text']}>
+            {description}
+          </p>
+        </div>
       </li>
     </>
   );

@@ -1,0 +1,130 @@
+.column-item {
+  min-width: 355px;
+  background: var(--color-gray-100);
+  padding: 20px;
+  border-radius: 3px;
+  opacity: 0.8;
+  transition: opacity 0.2s, box-shadow 0.2s;
+}
+
+.column-item:hover {
+  box-shadow: var(--shadow);
+  opacity: 1;
+}
+
+.column-header {
+  width: 100%;
+  height: 44px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  border-bottom: 3px solid var(--color-purple-300);
+}
+
+.title-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.title-before,
+.title-before-edit {
+  min-width: 8px;
+  min-height: 8px;
+  border-radius: 10px;
+  background: var(--color-purple-300);
+}
+
+.title-before-edit {
+  min-width: 54px;
+  background: transparent;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancel,
+.accept {
+  max-width: 22px;
+  max-height: 22px;
+  border-radius: 5px;
+}
+
+.title,
+.title-edit {
+  margin: 0;
+  padding: 0 8px;
+}
+
+.title-edit {
+  display: none;
+}
+
+.input-edit {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  outline: none;
+  border-bottom: 1px solid var(--color-purple-300);
+  margin-left: 20px;
+}
+
+.title-after,
+.title-after-edit {
+  min-width: 22px;
+  max-height: 22px;
+  border-radius: 10px;
+  padding: 0 5px;
+  background: var(--color-gray-200);
+  color: var(--color-gray-300);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-after-edit {
+  display: none;
+}
+
+.add-task,
+.add-task-edit,
+.delete-column,
+.delete-column-edit {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+}
+
+.add-task-edit,
+.delete-column-edit {
+  display: none;
+}
+
+.cancel:hover,
+.accept:hover,
+.add-task:hover,
+.delete-column:hover {
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+.task-list {
+  max-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 5px 0 2px;
+  overflow-y: auto;
+}
+
+.task-list::-webkit-scrollbar {
+  max-width: 6px;
+  background: var(--color-gray-200);
+  border-radius: 50px;
+}
+
+.task-list::-webkit-scrollbar-thumb {
+  background: var(--color-gray-100);
+  border-radius: 50px;
+  border: 1px solid var(--color-gray-200);
+}

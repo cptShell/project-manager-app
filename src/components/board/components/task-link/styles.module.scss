@@ -1,0 +1,36 @@
+.column-item {
+  list-style: none;
+  max-width: 438px;
+  min-height: 175px;
+  background: var(--color-white);
+  border-radius: 3px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.column-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column-title {
+  max-width: 250px;
+  padding: 10px;
+  margin: 0;
+}
+
+.column-img {
+  max-width: 24px;
+  max-height: 24px;
+  border-radius: 6px;
+}
+
+.column-img:hover {
+  box-shadow: var(--shadow);
+}
+
+.column-bottom {
+  padding: 10px;
+}
