@@ -1,5 +1,12 @@
 :root {
-  --font-size-100: 16px;
+  --font-size-100: 12px;
+  --font-size-200: 16px;
+  --font-size-300: 24px;
+  --font-size-400: 30px;
+  --font-size-500: 45px;
+  --font-weight-400: 400;
+  --font-weight-500: 500;
+  --font-weight-600: 600;
   --overlay-background: rgb(0 0 0 / 10%);
   --modal-background: #c9c9eb;
   --footer-background-color: #768be7;
@@ -14,4 +21,5 @@
   --color-gray-300: #787486;
   --shadow: 0 0 4px 1px #0000001a;
   --shadow-hover: 0 0 8px 2px #0000001a;
+  --not-found-page-background: #000000b3;
 }

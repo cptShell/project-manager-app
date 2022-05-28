@@ -81,14 +81,20 @@ export const Column: FC<Props> = ({ item, boardId }) => {
         <ul className={styles['task-list']}>
           {item.tasks &&
             [...item.tasks].map((task) => {
-              const { id } = task;
+              const { id, columnId, boardId } = task;
               const handleDeleteTask = (): void => {
                 dispatch(
                   taskActions.removeTask({ boardId, columnId, taskId: id }),
                 );
               };
               return (
-                <TaskLink key={id} data={task} onClick={handleDeleteTask} />
+                <TaskLink
+                  key={id}
+                  data={task}
+                  onClick={handleDeleteTask}
+                  columnId={columnId}
+                  boardId={boardId}
+                />
               );
             })}
         </ul>

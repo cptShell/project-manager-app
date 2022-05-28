@@ -4,13 +4,12 @@ import { createPortal } from 'react-dom';
 import styles from './styles.module.scss';
 
 type Props = {
-  children: JSX.Element,
-  isOpen: boolean,
-  onClose: () => void,
+  children: JSX.Element;
+  isOpen: boolean;
+  onClose: () => void;
 };
 
 export const Modal: FC<Props> = ({ children, isOpen, onClose }) => {
-
   const handleClose = (): void => {
     onClose();
   };

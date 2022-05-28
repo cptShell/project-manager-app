@@ -1,34 +1,51 @@
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import styles from './styles.module.scss';
 import { TaskDto } from '~/common/types/types';
 import { ConfirmationModal } from '~/components/common/confirmation-modal/confirmation-modal';
+import { Modal } from '~/components/common/modal/modal';
+import { Task } from '../task';
 import bucketImg from '~/assets/images/delete-bucket.svg';
 
 type Props = {
   data: TaskDto;
   onClick: () => void;
+  columnId: string;
+  boardId: string;
 };
 
-export const TaskLink: FC<Props> = ({ data, onClick }) => {
+export const TaskLink: FC<Props> = ({ data, onClick, columnId, boardId }) => {
   const { id, title, description } = data;
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleOpenConfirmation = (): void => {
+  const handleOpenConfirmation = (e: React.MouseEvent): void => {
     setConfirmationModalOpen(true);
+    e.stopPropagation();
   };
   const handleCloseConfirmation = (): void => {
     setConfirmationModalOpen(false);
   };
+  const handleModalOpen = (): void => {
+    setIsOpen(true);
+  };
+  const handleModalClose = (): void => {
+    setIsOpen(false);
+  };
 
   return (
-    <>
+    <div>
       <ConfirmationModal
         isOpen={confirmationModalOpen}
         onClose={handleCloseConfirmation}
         onConfirm={onClick}
       />
+      <Modal isOpen={isOpen} onClose={handleModalClose}>
+        <Task item={data} boardId={boardId} columnId={columnId} />
+      </Modal>
       <li className={styles['column-item']}
-        key={id}>
+        key={id}
+        onClick={handleModalOpen}
+      >
         <div className={styles['column-top']}>
           <h3 className={styles['column-title']}>
             {title}
@@ -45,6 +62,6 @@ export const TaskLink: FC<Props> = ({ data, onClick }) => {
           </p>
         </div>
       </li>
-    </>
+    </div>
   );
 };
