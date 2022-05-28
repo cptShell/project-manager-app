@@ -81,7 +81,7 @@ export const Column: FC<Props> = ({ item, boardId }) => {
         <ul className={styles['task-list']}>
           {item.tasks &&
             [...item.tasks].map((task) => {
-              const { id, columnId, boardId } = task;
+              const { id } = task;
               const handleDeleteTask = (): void => {
                 dispatch(
                   taskActions.removeTask({ boardId, columnId, taskId: id }),
