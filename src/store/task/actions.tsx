@@ -21,7 +21,11 @@ export const createTask = createAsyncThunk<
   },
 );
 
-export const update = createAsyncThunk<TaskDto, TaskResponse, AsyncThunkConfig>(
+export const updateTask = createAsyncThunk<
+  TaskDto,
+  TaskResponse,
+  AsyncThunkConfig
+>(
   ActionType.UPDATE,
   async ({ boardId, columnId, createTaskResponseDto }, { extra }) => {
     const { taskApi } = extra;

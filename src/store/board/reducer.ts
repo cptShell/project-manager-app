@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from '~/common/enums/enums';
 import { BoardDto, FullBoardDto } from '~/common/types/types';
 import { createColumn, removeColumn } from '../column/actions';
-import { createTask, removeTask } from '../task/actions';
+import { createTask, removeTask, updateTask } from '../task/actions';
 import { getAll, create, update, getById, removeBoard } from './actions';
 
 type State = {
@@ -92,7 +92,27 @@ export const reducer = createReducer(initialState, (builder) => {
       currentColumn?.tasks.push(action.payload);
     }
   });
+  builder.addCase(updateTask.fulfilled, (state, action) => {
+    const updatedTask = action.payload;
+    const { columnId } = action.meta.arg;
+    const { currentBoard } = state;
+    if (!currentBoard) {
+      return;
+    }
 
+    const currentColumn = currentBoard.columns.find(
+      (column) => column.id === columnId,
+    );
+    if (!currentColumn) {
+      return;
+    }
+
+    const task = currentColumn.tasks.find((task) => task.id === updatedTask.id);
+    if (task) {
+      task.title = updatedTask.title;
+      task.description = updatedTask.description;
+    }
+  });
   builder.addCase(update.fulfilled, (state, action) => {
     const targetBoard = state.boards.find((board) => {
       return action.payload.id === board.id;

@@ -49,7 +49,13 @@ export const Column: FC<Props> = ({ item, boardId }) => {
                 );
               };
               return (
-                <TaskLink key={id} data={task} onClick={handleDeleteTask} />
+                <TaskLink
+                  key={id}
+                  data={task}
+                  onClick={handleDeleteTask}
+                  boardId={boardId}
+                  columnId={columnId}
+                />
               );
             })}
         </ul>
@@ -66,8 +72,14 @@ export const Column: FC<Props> = ({ item, boardId }) => {
         onClose={handleCloseConfirmation}
         onConfirm={handleDeleteColumn}
       />
-      <Button title={'board.column.buttons.addTask'} onClick={handleToggleModal} />
-      <Button title={'board.column.buttons.deleteTask'} onClick={handleOpenConfirmation} />
+      <Button
+        title={'board.column.buttons.addTask'}
+        onClick={handleToggleModal}
+      />
+      <Button
+        title={'board.column.buttons.deleteTask'}
+        onClick={handleOpenConfirmation}
+      />
     </div>
   );
 };
