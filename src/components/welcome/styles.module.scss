@@ -1,46 +1,87 @@
-.main {
-  width: 100%;
+.content-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 170px;
+  max-width: 1145px;
+  margin: 0 auto;
+  color: var(--color-purple-400);
+  row-gap: 50px;
+  margin-bottom: 30px;
 }
 
-.ul {
+.content-welcome {
   display: flex;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
+  flex-wrap: wrap;
+  max-width: 850px;
+  column-gap: 50px;
 }
 
-.li {
-  list-style: none;
-}
-
-.buttons-container {
-  position: sticky;
-  top: 0;
+.welcome-logo {
+  max-width: 330px;
   width: 100%;
-  padding: 20px 10px;
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  background: transparent;
+
+  img {
+    height: 334px;
+    width: 100%;
+  }
 }
 
-.button {
-  background: var(--color-black);
-  color: var(--color-white);
-  cursor: pointer;
-}
-
-.button:hover {
-  background-color: var(--color-white);
-  color: var(--color-black);
-}
-
-.team-members-ul {
+.welcome-text {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  max-width: 466px;
+  justify-content: center;
+  row-gap: 4px;
+
+  h2 {
+    font-size: var(--font-size-400);
+    font-weight: var(--font-weight-600);
+    margin: 0;
+  }
+}
+
+.content-course {
+  display: flex;
+  flex-flow: row-reverse wrap;
+  max-width: 850px;
+  align-items: center;
+  column-gap: 137px;
+  justify-content: center;
+}
+
+.course-logo {
+  max-width: 247px;
+  width: 100%;
+
+  img {
+    height: 260px;
+    width: 100%;
+  }
+}
+
+.content-text {
+  display: flex;
+  flex-direction: column;
+  max-width: 466px;
+  justify-content: center;
+  row-gap: 4px;
+
+  h2 {
+    font-size: var(--font-size-300);
+    font-weight: var(--font-weight-600);
+    margin: 0;
+  }
+}
+
+.content-team {
+  display: flex;
+  max-width: 850px;
+  flex-direction: column;
+  row-gap: 30px;
+
+  h2 {
+    font-size: var(--font-size-300);
+    font-weight: var(--font-weight-600);
+    margin: 0;
+  }
 }
