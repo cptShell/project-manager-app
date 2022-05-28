@@ -1,12 +1,21 @@
 a {
   text-decoration: none;
-  color: #000;
+  color: var(--color-black);
 }
 
 .wrapper {
+  font-size: var(--font-size-100);
+  width: 100%;
+  bottom: 0;
+  height: 80px;
+}
+
+.container {
+  max-width: 1145px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  background: var(--footer-background-color);
+  background: var(--color-gray-100);
 }
 
 .logo-wrapper {
@@ -19,22 +28,28 @@ a {
 }
 
 .date {
-  font: 32px sans-serif;
+  font: var(--font-size-100);
 }
 
 .github-wrapper {
   display: flex;
-  width: 630px;
+}
+
+.github-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 30px;
 }
 
 .github {
   display: flex;
   align-items: center;
-  margin: 5px;
+  flex-wrap: wrap;
 }
 
 .github-img {
-  width: 75px;
+  width: 50px;
 }
 
 .github-name {
