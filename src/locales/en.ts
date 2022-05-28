@@ -46,33 +46,33 @@ export const ENMessagesMap: AppLocalizationMap = {
     columnCreatingForm: {
       title: 'Column creating form',
       inputs: {
-        title: 'title',
+        title: 'Title',
       },
       buttons: {
         createColumn: 'Create column',
       },
     },
     taskCreatingForm: {
-      title: 'Task Creating',
+      title: 'Task creating',
       inputs: {
-        title: 'title',
-        description: 'description',
+        title: 'Title',
+        description: 'Description',
       },
       buttons: {
-        createTask: 'create task',
+        createTask: 'Create task',
       },
     },
     boardItem: {
       buttons: {
-        submit: 'submit',
-        cancel: 'cancel',
-        addTask: 'add task',
+        submit: 'Submit',
+        cancel: 'Cancel',
+        addTask: 'Add task',
       },
     },
     column: {
       buttons: {
-        addTask: 'add task',
-        deleteTask: 'delete task',
+        addTask: 'Add task',
+        deleteTask: 'Delete task',
       },
     },
   },
@@ -82,9 +82,9 @@ export const ENMessagesMap: AppLocalizationMap = {
       singUp: 'Sign Up',
     },
     inputs: {
-      name: 'name',
-      login: 'login',
-      password: 'password',
+      name: 'Name',
+      login: 'Login',
+      password: 'Password',
     },
     buttons: {
       signIn: 'Sign In',
@@ -95,8 +95,8 @@ export const ENMessagesMap: AppLocalizationMap = {
     title: 'User Settings',
     userData: {
       currentId: 'Current Id:',
-      currentName: 'name:',
-      currentLogin: 'login:',
+      currentName: 'Name:',
+      currentLogin: 'Login:',
     },
     buttons: {
       deleteUser: 'Delete User',
@@ -159,21 +159,21 @@ export const ENMessagesMap: AppLocalizationMap = {
   },
   validationMessages: {
     board: {
-      titleRequired: 'title is required',
+      titleRequired: 'Title is required',
       titleMaxLength: `Title must be max ${BoardValidationRule.TITLE_MAX_LENGTH} characters`,
       descriptionRequired: 'Description cannot be empty',
       descriptionMaxLength: `Description must be max ${BoardValidationRule.DESCRIPTION_MAX_LENGTH} characters`,
     },
     user: {
-      nameRequired: 'name is required',
+      nameRequired: 'Name is required',
       nameMinLength: `Name must be at least ${UserAuthValidationRule.NAME_MIN_LENGTH} characters`,
       nameMaxLength: `Name must be max ${UserAuthValidationRule.NAME_MAX_LENGTH} characters`,
-      loginRequired: 'login is required',
+      loginRequired: 'Login is required',
       loginMinLength: `Login must be at least ${UserAuthValidationRule.LOGIN_MIN_LENGTH} characters`,
       loginMaxLength: `Login must be max ${UserAuthValidationRule.LOGIN_MAX_LENGTH} characters`,
-      passwordRequired: 'password is required',
-      passwordMinLength: `Name must be at least ${UserAuthValidationRule.NAME_MIN_LENGTH} characters`,
-      passwordMaxLength: `Name must be max ${UserAuthValidationRule.NAME_MAX_LENGTH} characters`,
+      passwordRequired: 'Password is required',
+      passwordMinLength: `Password must be at least ${UserAuthValidationRule.PASSWORD_MIN_LENGTH} characters`,
+      passwordMaxLength: `Password must be max ${UserAuthValidationRule.PASSWORD_MAX_LENGTH} characters`,
     },
   },
 };

@@ -63,5 +63,5 @@ export const App: FC = () => {
       </Routes>
       <Footer />
     </>
-  ); 
+  );
 };
