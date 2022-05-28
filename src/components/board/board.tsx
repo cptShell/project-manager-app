@@ -6,6 +6,7 @@ import update from 'immutability-helper';
 import {
   column as columnActions,
   board as boardActions,
+  task as taskActions,
 } from '~/store/actions';
 import { AppRoute, DataStatus } from '~/common/enums/enums';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
@@ -13,12 +14,18 @@ import { Button } from './components/button';
 import { Modal } from '../common/modal/modal';
 import { CreateColumnForm } from './components/column-creating-form';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
-import { FullBoardDto, FullColumnDto } from '~/common/types/types';
+import {
+  ColumnDto,
+  FullBoardDto,
+  FullColumnDto,
+  UpdateTaskDto,
+} from '~/common/types/types';
 import { FormattedMessage, Header } from '../common/common';
 import { Column } from './components/column';
 import { NotFound } from '../not-found-page/not-found-page';
 import { Loader } from '../common/loader/loader';
 import styles from './styles.module.scss';
+import { TaskUpdatePayload } from '~/store/task/common';
 
 type TaskPosition = {
   columnX: number;
@@ -39,6 +46,50 @@ export const Board: FC = () => {
     board?.columns || [],
   );
 
+  const dropColumn = (dropIndex: number): void => {
+    const targetColumn = columns[dropIndex];
+    const createColumnResponseDto: ColumnDto = {
+      ...targetColumn,
+      order: dropIndex + 1,
+    };
+    const columnResponse = {
+      boardId: board?.id || '',
+      createColumnResponseDto,
+    };
+
+    dispatch(columnActions.update(columnResponse));
+  };
+
+  const dropTask = (dropPosition: TaskPosition): void => {
+    if (!board) {
+      return;
+    }
+
+    const { columnX: columnIndex, taskY: taskIndex } = dropPosition;
+    const targetColumn = columns[columnIndex];
+    const updatedColumnId = targetColumn.id;
+    const targetTask = targetColumn.tasks[taskIndex];
+    const prevColumn = board.columns.find((column) => {
+      return column.tasks.findIndex((task) => task.id === targetTask.id) !== -1;
+    });
+
+    const updateTaskResponseDto: UpdateTaskDto = {
+      ...targetTask,
+      columnId: updatedColumnId,
+      boardId: board.id,
+    };
+
+    //console.log(targetTask, updateTaskResponseDto, columnIndex);
+
+    const taskResponse: TaskUpdatePayload = {
+      columnId: prevColumn?.id || '',
+      boardId: board.id,
+      updateTaskResponseDto,
+    };
+
+    dispatch(taskActions.updateTask(taskResponse));
+  };
+
   const moveColumn = useCallback((dragIndex: number, hoverIndex: number) => {
     setColumns((prevColumns: Array<FullColumnDto>) =>
       update(prevColumns, {
@@ -54,6 +105,7 @@ export const Board: FC = () => {
     (dragPosition: TaskPosition, hoverPosition: TaskPosition) => {
       setColumns((prevColumns: Array<FullColumnDto>) => {
         const targetTasks = prevColumns[dragPosition.columnX].tasks;
+        const insertedTask = targetTasks[dragPosition.taskY];
 
         if (dragPosition.columnX === hoverPosition.columnX) {
           return update(prevColumns, {
@@ -67,8 +119,6 @@ export const Board: FC = () => {
             },
           });
         }
-
-        const insertedTask = targetTasks[dragPosition.taskY];
 
         return update(prevColumns, {
           [dragPosition.columnX]: {
@@ -144,7 +194,9 @@ export const Board: FC = () => {
             item={column}
             boardId={boardId}
             moveColumn={moveColumn}
+            dropColumn={dropColumn}
             moveTask={moveTask}
+            dropTask={dropTask}
             columnIndex={index}
           />
         ))}

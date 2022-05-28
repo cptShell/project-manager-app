@@ -5,7 +5,7 @@ import {
   GetAllPayload,
   TaskCreatePayload,
   TaskIdPayload,
-  TaskResponse,
+  TaskUpdatePayload,
 } from './common';
 
 export const createTask = createAsyncThunk<
@@ -23,17 +23,19 @@ export const createTask = createAsyncThunk<
 
 export const updateTask = createAsyncThunk<
   TaskDto,
-  TaskResponse,
+  TaskUpdatePayload,
   AsyncThunkConfig
 >(
   ActionType.UPDATE,
-  async ({ boardId, columnId, createTaskResponseDto }, { extra }) => {
+  async ({ boardId, columnId, updateTaskResponseDto }, { extra }) => {
     const { taskApi } = extra;
+    console.log(boardId, columnId, updateTaskResponseDto);
     const response = await taskApi.update(
       boardId,
       columnId,
-      createTaskResponseDto,
+      updateTaskResponseDto,
     );
+    console.log(response);
     return response;
   },
 );

@@ -1,8 +1,8 @@
 export type UpdateTaskDto = {
-  id: string;
   title: string;
-  order: number;
   description: string;
+  order: number;
   userId: string;
-  files: Array<{ filename: string; filesize: number }>;
+  boardId: string;
+  columnId: string;
 };

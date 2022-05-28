@@ -11,7 +11,12 @@ import { Task } from '../task';
 type Props = {
   data: TaskDto;
   onClick: () => void;
-  moveTask: (dragPosition: TaskPosition, hoverPosition: TaskPosition) => void;
+  moveTask: (
+    dragPosition: TaskPosition,
+    hoverPosition: TaskPosition,
+    isEnd: boolean,
+  ) => void;
+  dropTask: (dropPosition: TaskPosition) => void;
   taskPosition: TaskPosition;
   boardId: string;
   columnId: string;
@@ -24,6 +29,7 @@ export const TaskLink: FC<Props> = ({
   taskPosition,
   boardId,
   columnId,
+  dropTask,
 }) => {
   const { id, title, description } = data;
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
@@ -89,12 +95,17 @@ export const TaskLink: FC<Props> = ({
         return;
       }
 
-      moveTask(dragPosition, taskPosition);
+      moveTask(dragPosition, taskPosition, false);
 
       item.position = taskPosition;
     },
-    drop(item, monitor) {
-      console.log('drop', item, monitor);
+    drop(item) {
+      if (!taskRef.current) {
+        return;
+      }
+      const { position: dropPosition } = item;
+
+      dropTask(dropPosition);
     },
   });
 

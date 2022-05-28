@@ -17,11 +17,17 @@ import { ItemType } from '~/common/enums/enums';
 import styles from '../styles.module.scss';
 
 type Props = {
-  moveColumn: (dragIndex: number, hoverIndex: number) => void;
-  moveTask: (dragPosition: TaskPosition, hoverPosition: TaskPosition) => void;
+  moveColumn: (dragIndex: number, hoverIndex: number, isEnd: boolean) => void;
+  moveTask: (
+    dragPosition: TaskPosition,
+    hoverPosition: TaskPosition,
+    isEnd: boolean,
+  ) => void;
   item: FullColumnDto;
   boardId: string;
   columnIndex: number;
+  dropColumn: (dropIndex: number) => void;
+  dropTask: (dropTask: TaskPosition) => void;
 };
 
 export const Column: FC<Props> = ({
@@ -30,6 +36,8 @@ export const Column: FC<Props> = ({
   moveColumn,
   moveTask,
   columnIndex,
+  dropColumn,
+  dropTask,
 }) => {
   const { id: columnId, title, tasks } = item;
   const dispatch = useAppDispatch();
@@ -72,9 +80,16 @@ export const Column: FC<Props> = ({
         return;
       }
 
-      moveColumn(dragIndex, hoverIndex);
+      moveColumn(dragIndex, hoverIndex, false);
 
       item.index = hoverIndex;
+    },
+    drop() {
+      if (!columnRef.current) {
+        return;
+      }
+
+      dropColumn(columnIndex);
     },
   });
 
@@ -136,6 +151,7 @@ export const Column: FC<Props> = ({
                 data={task}
                 onClick={handleDeleteTask}
                 moveTask={moveTask}
+                dropTask={dropTask}
                 taskPosition={taskPosition}
                 columnId={columnId}
                 boardId={boardId}

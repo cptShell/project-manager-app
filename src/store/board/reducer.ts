@@ -24,6 +24,12 @@ export const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(getById.fulfilled, (state, action) => {
     state.currentBoardStatus = DataStatus.FULFILLED;
+    action.payload.columns.sort((columnA, columnB) => {
+      return columnA.order - columnB.order;
+    });
+    action.payload.columns.forEach((column) => {
+      column.tasks.sort((taskA, taskB) => taskA.order - taskB.order);
+    });
     state.currentBoard = action.payload;
   });
 
