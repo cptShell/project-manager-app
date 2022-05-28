@@ -1,6 +1,5 @@
 .main {
   padding: 0 20px;
-  height: calc(100vh - 130px);
 }
 
 .board-title-container {
@@ -14,13 +13,13 @@
   margin: 0;
 }
 
-.edit-board-title {
+.board-title-icon {
   max-width: 25px;
   max-height: 25px;
   border-radius: 6px;
 }
 
-.edit-board-title:hover {
+.board-title-icon:hover {
   cursor: pointer;
   box-shadow: var(--shadow);
 }
@@ -31,9 +30,10 @@
 }
 
 .column-wrapper {
-  height: calc(100% - 130px);
+  height: calc(100vh - 130px - 44px - 45px);
   display: flex;
   gap: 15px;
+  padding-bottom: 15px;
 }
 
 .section {
@@ -61,7 +61,7 @@
   width: 150px;
 }
 
-.add-column-column {
+.add-column-wrapper {
   opacity: 0.5;
   min-width: 355px;
   max-height: 65px;
@@ -75,7 +75,7 @@
   transition: opacity 0.2s, box-shadow 0.2s;
 }
 
-.add-column-column:hover {
+.add-column-wrapper:hover {
   opacity: 0.7;
   box-shadow: var(--shadow);
 }

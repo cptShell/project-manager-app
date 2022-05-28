@@ -22,7 +22,7 @@ export const Column: FC<Props> = ({ item, boardId }) => {
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
-  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
 
   const handleDeleteColumn = (): void => {
     dispatch(columnActions.removeColumn({ boardId, columnId }));
@@ -41,13 +41,13 @@ export const Column: FC<Props> = ({ item, boardId }) => {
   };
 
   const handleEdit = (): void => {
-    setIsEditOpen(!isEditOpen);
+    setIsEdit(!isEdit);
   };
   const handleCancelEdit = (): void => {
-    setIsEditOpen(!isEditOpen);
+    setIsEdit(!isEdit);
   };
   const handleAcceptEdit = (): void => {
-    setIsEditOpen(!isEditOpen);
+    setIsEdit(!isEdit);
   };
   const handleAddTask = (e: React.MouseEvent): void => {
     handleToggleModal();
@@ -56,7 +56,7 @@ export const Column: FC<Props> = ({ item, boardId }) => {
 
   return (
     <div className={styles['column-item']}>
-      {isEditOpen ?
+      {isEdit ?
         <div className={styles['column-header']}>
           <div className={styles['title-wrapper']}>
             <div className={styles['title-before-edit']}>
