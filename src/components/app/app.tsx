@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector, useEffect } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
 import { Profile } from '../profile/profile';
 import { Loader } from '../common/loader/loader';
+import { Footer } from '../footer/footer';
 
 export const App: FC = () => {
   const dispatch = useAppDispatch();
@@ -38,26 +39,29 @@ export const App: FC = () => {
   }
 
   return (
-    <Routes>
-      <Route
-        path={AppRoute.ROOT}
-        element={<Navigate to={AppRoute.WELCOME} />}
-      />
-      <Route
-        element={
-          <PrivateRoute redirectTo={AppRoute.SIGN_IN}>
-            <Layout />
-          </PrivateRoute>
-        }
-      >
-        <Route path={AppRoute.MAIN} element={<Main />} />
-        <Route path={AppRoute.PROFILE} element={<Profile />} />
-      </Route>
-      <Route path={AppRoute.$BOARD_ID} element={<Board />} />
-      <Route path={AppRoute.SIGN_IN} element={<Auth />} />
-      <Route path={AppRoute.SIGN_UP} element={<Auth />} />
-      <Route path={AppRoute.WELCOME} element={<Welcome />} />
-      <Route path={AppRoute.NOT_FOUND} element={<NotFound />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route
+          path={AppRoute.ROOT}
+          element={<Navigate to={AppRoute.WELCOME} />}
+        />
+        <Route
+          element={
+            <PrivateRoute redirectTo={AppRoute.SIGN_IN}>
+              <Layout />
+            </PrivateRoute>
+          }
+        >
+          <Route path={AppRoute.MAIN} element={<Main />} />
+          <Route path={AppRoute.PROFILE} element={<Profile />} />
+        </Route>
+        <Route path={AppRoute.$BOARD_ID} element={<Board />} />
+        <Route path={AppRoute.SIGN_IN} element={<Auth />} />
+        <Route path={AppRoute.SIGN_UP} element={<Auth />} />
+        <Route path={AppRoute.WELCOME} element={<Welcome />} />
+        <Route path={AppRoute.NOT_FOUND} element={<NotFound />} />
+      </Routes>
+      <Footer />
+    </>
   );
 };
