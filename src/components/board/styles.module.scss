@@ -1,5 +1,8 @@
 .main {
-  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 0 20px 10px;
 }
 
 .board-title-container {
@@ -30,14 +33,11 @@
 }
 
 .column-wrapper {
-  height: calc(100vh - 130px - 44px - 45px);
   display: flex;
   gap: 15px;
-  padding-bottom: 15px;
 }
 
 .section {
-  height: 100%;
   overflow-x: auto;
   scroll-behavior: smooth;
   display: flex;

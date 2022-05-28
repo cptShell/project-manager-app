@@ -6,7 +6,6 @@
   border-radius: 3px;
   opacity: 0.8;
   transition: opacity 0.2s, box-shadow 0.2s;
-  overflow-y: auto;
 }
 
 .column-item:hover {
@@ -95,7 +94,7 @@
 }
 
 .task-list-wrapper {
-  height: calc(100% - 44px);
+  height: calc(100vh - 435px);
   display: flex;
   flex-direction: column;
 }
