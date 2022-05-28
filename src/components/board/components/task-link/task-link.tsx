@@ -34,6 +34,14 @@ export const TaskLink: FC<Props> = ({ data, onClick, columnId, boardId }) => {
 
   return (
     <>
+      <ConfirmationModal
+        isOpen={confirmationModalOpen}
+        onClose={handleCloseConfirmation}
+        onConfirm={onClick}
+      />
+      <Modal isOpen={isOpen} onClose={handleModalClose}>
+        <Task item={data} boardId={boardId} columnId={columnId} />
+      </Modal>
       <li className={styles['column-item']}
         key={id}
         onClick={handleModalOpen}
@@ -53,14 +61,6 @@ export const TaskLink: FC<Props> = ({ data, onClick, columnId, boardId }) => {
             {description}
           </p>
         </div>
-        <ConfirmationModal
-          isOpen={confirmationModalOpen}
-          onClose={handleCloseConfirmation}
-          onConfirm={onClick}
-        />
-        <Modal isOpen={isOpen} onClose={handleModalClose}>
-          <Task item={data} boardId={boardId} columnId={columnId} />
-        </Modal>
       </li>
     </>
   );
