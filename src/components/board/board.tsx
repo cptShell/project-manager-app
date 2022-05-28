@@ -72,14 +72,11 @@ export const Board: FC = () => {
         onClose={handleCloseConfirmation}
         onConfirm={handleConfirm}
       />
-      <div className={styles['board-title-container']}>
-        <h1 className={styles['board-title']}>{board.title}</h1>
-        <img className={styles['edit-board-title']} src={editImg} alt="edit board title" onClick={handleEdit} />
-      </div>
       <section className={styles.section}>
-        <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
-          <CreateColumnForm id={boardId} onClose={handleToggleModal} />
-        </Modal>
+        <div className={styles['board-title-container']}>
+          <h1 className={styles['board-title']}>{board.title}</h1>
+          <img className={styles['edit-board-title']} src={editImg} alt="edit board title" onClick={handleEdit} />
+        </div>
         <div className={styles['column-wrapper']}>
           {board.columns &&
             [...board.columns].map((column) => (
@@ -91,6 +88,9 @@ export const Board: FC = () => {
           </div>
         </div>
         <Button title={'board.buttons.backToMainPage'} onClick={handleReturn} />
+        <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
+          <CreateColumnForm id={boardId} onClose={handleToggleModal} />
+        </Modal>
       </section>
     </main>
   );

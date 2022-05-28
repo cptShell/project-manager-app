@@ -63,12 +63,8 @@ export const Column: FC<Props> = ({ item, boardId }) => {
               <img className={styles['cancel']} src={cancelImg} alt="cancel" onClick={handleCancelEdit} />
               <img className={styles['accept']} src={acceptImg} alt="accept" onClick={handleAcceptEdit} />
             </div>
-            <h3 className={styles['title-edit']}>{title}</h3>
             <input className={styles['input-edit']} type="text" placeholder={title} />
-            <div className={styles['title-after-edit']}>1</div>
           </div>
-          <img className={styles['add-task-edit']} src={addImg} alt="add task" />
-          <img className={styles['delete-column-edit']} src={bucketImg} alt="delete column" />
         </div>
         :
         <div className={styles['column-header']} onClick={handleEdit}>
@@ -81,7 +77,7 @@ export const Column: FC<Props> = ({ item, boardId }) => {
           <img className={styles['delete-column']} src={bucketImg} alt="delete column" onClick={handleOpenConfirmation} />
         </div>
       }
-      <div>
+      <div className={styles['task-list-wrapper']}>
         <ul className={styles['task-list']}>
           {item.tasks &&
             [...item.tasks].map((task) => {

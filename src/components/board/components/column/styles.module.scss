@@ -1,10 +1,12 @@
 .column-item {
+  height: 100%;
   min-width: 355px;
   background: var(--color-gray-100);
   padding: 20px;
   border-radius: 3px;
   opacity: 0.8;
   transition: opacity 0.2s, box-shadow 0.2s;
+  overflow-y: auto;
 }
 
 .column-item:hover {
@@ -24,6 +26,7 @@
 
 .title-wrapper {
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
 }
@@ -50,14 +53,9 @@
   border-radius: 5px;
 }
 
-.title,
-.title-edit {
+.title {
   margin: 0;
   padding: 0 8px;
-}
-
-.title-edit {
-  display: none;
 }
 
 .input-edit {
@@ -69,8 +67,7 @@
   margin-left: 20px;
 }
 
-.title-after,
-.title-after-edit {
+.title-after {
   min-width: 22px;
   max-height: 22px;
   border-radius: 10px;
@@ -82,22 +79,11 @@
   align-items: center;
 }
 
-.title-after-edit {
-  display: none;
-}
-
 .add-task,
-.add-task-edit,
-.delete-column,
-.delete-column-edit {
+.delete-column {
   width: 20px;
   height: 20px;
   border-radius: 6px;
-}
-
-.add-task-edit,
-.delete-column-edit {
-  display: none;
 }
 
 .cancel:hover,
@@ -108,8 +94,13 @@
   box-shadow: var(--shadow);
 }
 
+.task-list-wrapper {
+  height: calc(100% - 44px);
+  display: flex;
+  flex-direction: column;
+}
+
 .task-list {
-  max-height: 60vh;
   display: flex;
   flex-direction: column;
   gap: 20px;
