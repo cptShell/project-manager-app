@@ -36,8 +36,14 @@ export const Task: FC<Props> = ({
     mode: 'onChange',
   });
 
-  const handleTitleEdit = (): void => setIsTitleEdit(true);
-  const handleDescriptionEdit = (): void => setIsDescriptionEdit(true);
+  const handleTitleEdit = (): void => {
+    setIsTitleEdit(true);
+    setIsDescriptionEdit(false);
+  };
+  const handleDescriptionEdit = (): void => {
+    setIsDescriptionEdit(true);
+    setIsTitleEdit(false);
+  };
 
   const onSubmit = ({ title, description }: TaskDto): void => {
     const updateTaskResponseDto: UpdateTaskDto = {
