@@ -24,19 +24,19 @@
   }
 }
 
-.description {
-  display: flex;
-  row-gap: 5px;
-  flex-direction: column;
+.description-title {
   color: var(--color-purple-300);
   font-weight: var(--font-weight-600);
+}
 
-  input {
-    background: var(--color-purple-200);
-    border-radius: 3px;
-    padding: 33px;
-    border: none;
-  }
+.description {
+  background: var(--color-purple-200);
+  border-radius: 3px;
+  padding: 16px 20px;
+  border: none;
+  resize: none;
+  width: 100%;
+  min-height: 90px;
 }
 
 .button {

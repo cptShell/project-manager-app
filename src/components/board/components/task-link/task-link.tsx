@@ -137,6 +137,7 @@ export const TaskLink: FC<Props> = ({
           item={data}
           boardId={boardId}
           columnId={columnId}
+          handleModalClose={handleModalClose}
         />
       </Modal>
       <li className={styles['column-item']} key={id} onClick={handleModalOpen}>

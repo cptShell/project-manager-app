@@ -19,6 +19,7 @@ type Props = {
   setTaskInfo: (taskInfo: TaskInfo) => void;
   columnId: string;
   boardId: string;
+  handleModalClose: () => void;
 };
 
 export const Task: FC<Props> = ({
@@ -27,6 +28,7 @@ export const Task: FC<Props> = ({
   boardId,
   taskInfo,
   setTaskInfo,
+  handleModalClose,
 }) => {
   const dispatch = useAppDispatch();
   const [isTitleEdit, setIsTitleEdit] = useState(false);
@@ -67,6 +69,7 @@ export const Task: FC<Props> = ({
     setIsDescriptionEdit(false);
     setTaskInfo({ title, description });
     dispatch(taskActions.updateTask(taskResponse));
+    handleModalClose();
   };
 
   const { title, description } = getValues();
@@ -90,15 +93,22 @@ export const Task: FC<Props> = ({
         </>
       )}
       {isDescriptionEdit ? (
-        <TextInput
-          className={styles['description']}
-          title="board.taskCreatingForm.inputs.description"
-          formRegisterValues={register(InputName.DESCRIPTION)}
-        />
+        <>
+          <FormattedMessage
+            className={styles['description-title']}
+            as="span"
+            message={'board.taskCreatingForm.inputs.description'}
+          />
+          <textarea
+            className={styles['description']}
+            title="board.taskCreatingForm.inputs.description"
+            {...register(InputName.DESCRIPTION)}
+          />
+        </>
       ) : (
         <>
           <FormattedMessage
-            className={styles['description']}
+            className={styles['description-title']}
             as="span"
             message={'board.taskCreatingForm.inputs.description'}
           />
