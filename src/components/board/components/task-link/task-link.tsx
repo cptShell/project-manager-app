@@ -12,11 +12,7 @@ import bucketImg from '~/assets/images/delete-bucket.svg';
 type Props = {
   data: TaskDto;
   onClick: () => void;
-  moveTask: (
-    dragPosition: TaskPosition,
-    hoverPosition: TaskPosition,
-    isEnd: boolean,
-  ) => void;
+  moveTask: (dragPosition: TaskPosition, hoverPosition: TaskPosition) => void;
   dropTask: (dropPosition: TaskPosition) => void;
   taskPosition: TaskPosition;
   boardId: string;
@@ -35,6 +31,7 @@ export const TaskLink: FC<Props> = ({
   const { id, title, description } = data;
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [taskInfo, setTaskInfo] = useState({ title, description });
   const taskRef = useRef<HTMLDivElement>(null);
 
   const handleOpenConfirmation = (e: MouseEvent): void => {
@@ -97,7 +94,7 @@ export const TaskLink: FC<Props> = ({
         return;
       }
 
-      moveTask(dragPosition, taskPosition, false);
+      moveTask(dragPosition, taskPosition);
 
       item.position = taskPosition;
     },
@@ -126,7 +123,6 @@ export const TaskLink: FC<Props> = ({
   const opacity = isDragging ? 0 : 1;
 
   drag(drop(taskRef));
-
   return (
     <div style={{ opacity }} ref={taskRef} data-handler-id={handlerId}>
       <ConfirmationModal
@@ -135,11 +131,17 @@ export const TaskLink: FC<Props> = ({
         onConfirm={onClick}
       />
       <Modal isOpen={isOpen} onClose={handleModalClose}>
-        <Task item={data} boardId={boardId} columnId={columnId} />
+        <Task
+          taskInfo={taskInfo}
+          setTaskInfo={setTaskInfo}
+          item={data}
+          boardId={boardId}
+          columnId={columnId}
+        />
       </Modal>
       <li className={styles['column-item']} key={id} onClick={handleModalOpen}>
         <div className={styles['column-top']}>
-          <h3 className={styles['column-title']}>{title}</h3>
+          <h3 className={styles['column-title']}>{taskInfo.title}</h3>
           <img
             className={styles['column-img']}
             src={bucketImg}
@@ -148,7 +150,7 @@ export const TaskLink: FC<Props> = ({
           ></img>
         </div>
         <div className={styles['column-bottom']}>
-          <p className={styles['column-text']}>{description}</p>
+          <p className={styles['column-text']}>{taskInfo.description}</p>
         </div>
       </li>
     </div>

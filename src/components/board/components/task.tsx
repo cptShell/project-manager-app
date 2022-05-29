@@ -1,25 +1,37 @@
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { TaskDto } from '~/common/types/types';
+import { TaskDto, UpdateTaskDto } from '~/common/types/types';
 import { useAppDispatch } from '~/hooks/hooks';
 import { task as taskActions } from '~/store/actions';
-import { TaskResponse } from '~/store/task/common';
+import { TaskUpdatePayload } from '~/store/task/common';
+
+type TaskInfo = {
+  title: string;
+  description: string;
+};
 
 type Props = {
   item: TaskDto;
+  taskInfo: TaskInfo;
+  setTaskInfo: (taskInfo: TaskInfo) => void;
   columnId: string;
   boardId: string;
 };
 
-export const Task: FC<Props> = ({ item, columnId, boardId }) => {
-  const { title: initialTitle, description: initialDescription } = item;
+export const Task: FC<Props> = ({
+  item,
+  columnId,
+  boardId,
+  taskInfo,
+  setTaskInfo,
+}) => {
   const dispatch = useAppDispatch();
   const [isTitleEdit, setIsTitleEdit] = useState(false);
   const [isDescriptionEdit, setIsDescriptionEdit] = useState(false);
   const { register, handleSubmit, getValues } = useForm<TaskDto>({
     defaultValues: {
-      title: initialTitle,
-      description: initialDescription,
+      title: taskInfo.title,
+      description: taskInfo.description,
     },
     mode: 'onChange',
   });
@@ -28,14 +40,23 @@ export const Task: FC<Props> = ({ item, columnId, boardId }) => {
   const handleDescriptionEdit = (): void => setIsDescriptionEdit(true);
 
   const onSubmit = ({ title, description }: TaskDto): void => {
-    const updatedItem = { ...item, title, description };
-    const taskResponse: TaskResponse = {
-      createTaskResponseDto: updatedItem,
+    const updateTaskResponseDto: UpdateTaskDto = {
+      title,
+      description,
+      order: item.order,
+      userId: item.userId,
+      boardId,
+      columnId,
+    };
+    const taskResponse: TaskUpdatePayload = {
+      updateTaskResponseDto,
+      taskId: item.id,
       boardId,
       columnId,
     };
     setIsTitleEdit(false);
     setIsDescriptionEdit(false);
+    setTaskInfo({ title, description });
     dispatch(taskActions.updateTask(taskResponse));
   };
 
