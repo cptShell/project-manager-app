@@ -17,6 +17,7 @@ export type TaskCreatePayload = {
 export type TaskUpdatePayload = {
   boardId: string;
   columnId: string;
+  taskId: string;
   updateTaskResponseDto: UpdateTaskDto;
 };
 

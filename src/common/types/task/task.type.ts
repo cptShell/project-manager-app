@@ -1,4 +1,4 @@
-export type UpdateTaskDto = {
+export type TaskDto = {
   id: string;
   title: string;
   order: number;

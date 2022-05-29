@@ -18,6 +18,7 @@ import {
   ColumnDto,
   FullBoardDto,
   FullColumnDto,
+  TaskPosition,
   UpdateTaskDto,
 } from '~/common/types/types';
 import { FormattedMessage, Header } from '../common/common';
@@ -26,11 +27,6 @@ import { NotFound } from '../not-found-page/not-found-page';
 import { Loader } from '../common/loader/loader';
 import styles from './styles.module.scss';
 import { TaskUpdatePayload } from '~/store/task/common';
-
-type TaskPosition = {
-  columnX: number;
-  taskY: number;
-};
 
 export const Board: FC = () => {
   const navigate = useNavigate();
@@ -74,16 +70,18 @@ export const Board: FC = () => {
     });
 
     const updateTaskResponseDto: UpdateTaskDto = {
-      ...targetTask,
-      columnId: updatedColumnId,
+      title: targetTask.title,
+      order: dropPosition.taskY + 1,
+      description: targetTask.description,
+      userId: targetTask.userId,
       boardId: board.id,
+      columnId: updatedColumnId,
     };
-
-    //console.log(targetTask, updateTaskResponseDto, columnIndex);
 
     const taskResponse: TaskUpdatePayload = {
       columnId: prevColumn?.id || '',
       boardId: board.id,
+      taskId: targetTask.id,
       updateTaskResponseDto,
     };
 
