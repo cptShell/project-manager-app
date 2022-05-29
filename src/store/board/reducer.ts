@@ -118,6 +118,7 @@ export const reducer = createReducer(initialState, (builder) => {
       (task) => task.id === updatedTask.id,
     );
     if (taskIndex !== -1) {
+      console.log(currentColumn.tasks[taskIndex].title, updatedTask.title);
       currentColumn.tasks[taskIndex].title = updatedTask.title;
       currentColumn.tasks[taskIndex].description = updatedTask.description;
     }
@@ -128,6 +129,7 @@ export const reducer = createReducer(initialState, (builder) => {
       });
       targetColumn?.tasks.push(insertedTask);
     }
+    console.log(action.payload);
   });
   builder.addCase(update.fulfilled, (state, action) => {
     const targetBoard = state.boards.find((board) => {
