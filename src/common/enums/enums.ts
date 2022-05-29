@@ -4,3 +4,4 @@ export * from './api/api';
 export * from './validation/validation';
 export * from './ui/ui';
 export * from './exceptions/exceptions';
+export * from './item-type/item-type';

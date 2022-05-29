@@ -1,5 +1,10 @@
 import { ApiPath, ContentType, HttpMethod } from '~/common/enums/enums';
-import { CreateTaskDto, TaskDto } from '~/common/types/types';
+import {
+  CreateTaskDto,
+  TaskDto,
+  UpdateTaskDto,
+  UpdateTaskResponseDto,
+} from '~/common/types/types';
 import { Http } from '~/services/http/http.service';
 
 type Constructor = {
@@ -54,22 +59,19 @@ export class TaskApi {
     });
   }
 
-  update(boardId: string, columnId: string, task: TaskDto): Promise<TaskDto> {
-    const { id: taskId, title, order, description, userId } = task;
+  update(
+    boardId: string,
+    columnId: string,
+    taskId: string,
+    task: UpdateTaskDto,
+  ): Promise<UpdateTaskResponseDto> {
     const path = `${ApiPath.$BOARD_ID_$COLUMN_ID_TASK}/${taskId}`
       .replace(':boardId', boardId)
       .replace(':columnId', columnId);
     return this.#http.load(`${this.#apiPrefix}${path}`, {
       method: HttpMethod.PUT,
       contentType: ContentType.JSON,
-      payload: JSON.stringify({
-        title,
-        order,
-        description,
-        userId,
-        boardId,
-        columnId,
-      }),
+      payload: JSON.stringify(task),
     });
   }
 }

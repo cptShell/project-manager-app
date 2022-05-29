@@ -4,7 +4,5 @@ export type TaskDto = {
   order: number;
   description: string;
   userId: string;
-  boardId: string;
-  columnId: string;
-  files: Array<string>;
+  files: Array<{ filename: string; filesize: number }>;
 };
