@@ -19,7 +19,7 @@
   input {
     background: var(--color-purple-200);
     border: 3px none;
-    height: 50px;
+    padding: 13px;
   }
 }
 
@@ -33,13 +33,13 @@
   input {
     background: var(--color-purple-200);
     border: 3px none;
-    height: 90px;
+    padding: 33px;
   }
 }
 
 .button {
   background: var(--color-purple-300);
-  border: 3px none;
+  border: 3px;
   color: var(--color-white);
   height: 49px;
 }

@@ -41,7 +41,7 @@ export const CreateColumnForm: FC<Props> = ({ id, onClose }) => {
       />
 
       <FormattedMessage
-      className={styles['button']}
+        className={styles['button']}
         as="button"
         message="board.columnCreatingForm.buttons.createColumn"
       />
