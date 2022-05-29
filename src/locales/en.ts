@@ -27,8 +27,8 @@ export const ENMessagesMap: AppLocalizationMap = {
       title: 'Board creating form',
       inputs: {
         titles: {
-          title: 'title',
-          description: 'description',
+          title: 'Title',
+          description: 'Description',
         },
       },
       buttons: {

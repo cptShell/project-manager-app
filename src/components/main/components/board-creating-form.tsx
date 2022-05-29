@@ -4,9 +4,10 @@ import { board as boardActions } from '~/store/actions';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { createBoard } from '~/validation-schemas/validation-schemas';
 import { FormattedMessage, TextInput } from '~/components/common/common';
-import { CreateBoardDto } from '~/common/types/types';
+import { AppLocalizationKey, CreateBoardDto } from '~/common/types/types';
 import { InputName } from '~/common/enums/enums';
 import { useAppDispatch } from '~/hooks/hooks';
+import styles from './styles.module.scss';
 
 type Props = {
   isOpen: boolean;
@@ -31,21 +32,39 @@ export const BoardCreatingForm: FC<Props> = ({ isOpen, setIsOpen }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(handleCreateForm)}>
-      <FormattedMessage as="h2" message="main.boardCreatingForm.title" />
+    <form
+      className={styles['wrapper']}
+      onSubmit={handleSubmit(handleCreateForm)}
+    >
       <TextInput
+        className={styles['title']}
         title="main.boardCreatingForm.inputs.titles.title"
         formRegisterValues={register(InputName.TITLE)}
         errorMessage={titleError?.message}
       />
-      <TextInput
-        title="main.boardCreatingForm.inputs.titles.description"
-        formRegisterValues={register(InputName.DESCRIPTION)}
-        errorMessage={descriptionError?.message}
+      <div>
+        <FormattedMessage
+          className={styles['description-title']}
+          as="span"
+          message={'main.boardCreatingForm.inputs.titles.description'}
+        />
+        <textarea
+          className={styles['description']}
+          {...register(InputName.DESCRIPTION)}
+        />
+        {Boolean(descriptionError?.message) && (
+          <FormattedMessage
+            as="span"
+            message={descriptionError?.message as AppLocalizationKey}
+          />
+        )}
+      </div>
+
+      <FormattedMessage
+        className={styles['button']}
+        as="button"
+        message="main.boardCreatingForm.buttons.createBoard"
       />
-      <button>
-        <FormattedMessage as="span" message="main.boardCreatingForm.buttons.createBoard" />
-      </button>
     </form>
   );
 };

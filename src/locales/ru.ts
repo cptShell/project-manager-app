@@ -27,12 +27,12 @@ export const RUMessagesMap: AppLocalizationMap = {
       title: 'Создание борда',
       inputs: {
         titles: {
-          title: 'заглавие',
-          description: 'описание',
+          title: 'Заглавие',
+          description: 'Описание',
         },
       },
       buttons: {
-        createBoard: 'Создать',
+        createBoard: 'Создать доску',
       },
     },
   },
