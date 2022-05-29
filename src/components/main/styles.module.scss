@@ -45,11 +45,10 @@
 .board-img {
   max-width: 24px;
   max-height: 24px;
-  transition: 0.5s;
 }
 
 .board-img:hover {
-  max-height: 28px;
+  box-shadow: var(--shadow);
 }
 
 .board-bottom {

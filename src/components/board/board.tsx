@@ -22,7 +22,7 @@ import {
   UpdateTaskDto,
 } from '~/common/types/types';
 import { FormattedMessage, Header } from '../common/common';
-import { Column } from './components/column';
+import { Column } from './components/column/column';
 import { NotFound } from '../not-found-page/not-found-page';
 import { Loader } from '../common/loader/loader';
 import styles from './styles.module.scss';
@@ -172,34 +172,36 @@ export const Board: FC = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <Header />
-      <ConfirmationModal
-        isOpen={Boolean(choosedId)}
-        onClose={handleCloseConfirmation}
-        onConfirm={handleConfirm}
-      />
-      <h1>
-        <FormattedMessage as="span" message="board.title" /> {board.title}
-      </h1>
-      <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
-        <CreateColumnForm id={boardId} onClose={handleToggleModal} />
-      </Modal>
-      <Button title={'board.buttons.addColumn'} onClick={handleToggleModal} />
-      <div className={styles['column-wrapper']}>
-        {columns.map((column, index) => (
-          <Column
-            key={column.id}
-            item={column}
-            boardId={boardId}
-            moveColumn={moveColumn}
-            dropColumn={dropColumn}
-            moveTask={moveTask}
-            dropTask={dropTask}
-            columnIndex={index}
-          />
-        ))}
-      </div>
-      <Button title={'board.buttons.backToMainPage'} onClick={handleReturn} />
+      <main className={styles.main}>
+        <Header />
+        <ConfirmationModal
+          isOpen={Boolean(choosedId)}
+          onClose={handleCloseConfirmation}
+          onConfirm={handleConfirm}
+        />
+        <h1>
+          <FormattedMessage as="span" message="board.title" /> {board.title}
+        </h1>
+        <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
+          <CreateColumnForm id={boardId} onClose={handleToggleModal} />
+        </Modal>
+        <Button title={'board.buttons.addColumn'} onClick={handleToggleModal} />
+        <div className={styles['column-wrapper']}>
+          {columns.map((column, index) => (
+            <Column
+              key={column.id}
+              item={column}
+              boardId={boardId}
+              moveColumn={moveColumn}
+              dropColumn={dropColumn}
+              moveTask={moveTask}
+              dropTask={dropTask}
+              columnIndex={index}
+            />
+          ))}
+        </div>
+        <Button title={'board.buttons.backToMainPage'} onClick={handleReturn} />
+      </main>
     </DndProvider>
   );
 };

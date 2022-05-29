@@ -1,12 +1,13 @@
 import { Identifier, XYCoord } from 'dnd-core';
-import { FC, useRef, useState } from 'react';
+import { FC, useRef, useState, MouseEvent } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemType } from '~/common/enums/enums';
 import { DragTaskItem, TaskDto, TaskPosition } from '~/common/types/types';
 import { ConfirmationModal } from '~/components/common/confirmation-modal/confirmation-modal';
 import { Modal } from '~/components/common/modal/modal';
-import { Button } from '../button';
 import { Task } from '../task';
+import styles from './styles.module.scss';
+import bucketImg from '~/assets/images/delete-bucket.svg';
 
 type Props = {
   data: TaskDto;
@@ -36,8 +37,9 @@ export const TaskLink: FC<Props> = ({
   const [isOpen, setIsOpen] = useState(false);
   const taskRef = useRef<HTMLDivElement>(null);
 
-  const handleOpenConfirmation = (): void => {
+  const handleOpenConfirmation = (e: MouseEvent): void => {
     setConfirmationModalOpen(true);
+    e.stopPropagation();
   };
   const handleCloseConfirmation = (): void => {
     setConfirmationModalOpen(false);
@@ -135,13 +137,19 @@ export const TaskLink: FC<Props> = ({
       <Modal isOpen={isOpen} onClose={handleModalClose}>
         <Task item={data} boardId={boardId} columnId={columnId} />
       </Modal>
-      <li key={id} onClick={handleModalOpen}>
-        <h3>{title}</h3>
-        <p>{description}</p>
-        <Button
-          title={'board.buttons.deleteColumn'}
-          onClick={handleOpenConfirmation}
-        />
+      <li className={styles['column-item']} key={id} onClick={handleModalOpen}>
+        <div className={styles['column-top']}>
+          <h3 className={styles['column-title']}>{title}</h3>
+          <img
+            className={styles['column-img']}
+            src={bucketImg}
+            onClick={handleOpenConfirmation}
+            alt="delete"
+          ></img>
+        </div>
+        <div className={styles['column-bottom']}>
+          <p className={styles['column-text']}>{description}</p>
+        </div>
       </li>
     </div>
   );
