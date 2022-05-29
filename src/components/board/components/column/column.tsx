@@ -33,6 +33,8 @@ type Props = {
   columnIndex: number;
   dropColumn: (dropIndex: number) => void;
   dropTask: (dropTask: TaskPosition) => void;
+  handleDeleteColumn: () => void;
+  updateColumns: () => void;
 };
 
 export const Column: FC<Props> = ({
@@ -43,6 +45,8 @@ export const Column: FC<Props> = ({
   columnIndex,
   dropColumn,
   dropTask,
+  handleDeleteColumn,
+  updateColumns,
 }) => {
   const { id: columnId, tasks } = item;
   const dispatch = useAppDispatch();
@@ -116,10 +120,6 @@ export const Column: FC<Props> = ({
   });
 
   const opacity = isDragging ? 0.5 : 1;
-
-  const handleDeleteColumn = (): void => {
-    dispatch(columnActions.removeColumn({ boardId, columnId }));
-  };
 
   const handleToggleModal = (): void => {
     setIsModalOpen(!isModalOpen);
@@ -206,7 +206,7 @@ export const Column: FC<Props> = ({
           <div className={styles['title-wrapper']}>
             <div className={styles['title-before']} />
             <h3 className={styles.title}>{title}</h3>
-            <div className={styles['title-after']}>1</div>
+            <div className={styles['title-after']}>{item.tasks.length}</div>
           </div>
           <img
             className={styles['add-task']}
@@ -230,11 +230,15 @@ export const Column: FC<Props> = ({
               columnX: columnIndex,
               taskY: index,
             };
-            const handleDeleteTask = (): void => {
-              dispatch(
+
+            const handleDeleteTask = async (): Promise<void> => {
+              await dispatch(
                 taskActions.removeTask({ boardId, columnId, taskId: id }),
               );
+
+              updateColumns();
             };
+
             return (
               <TaskLink
                 key={id}
@@ -245,6 +249,7 @@ export const Column: FC<Props> = ({
                 taskPosition={taskPosition}
                 columnId={columnId}
                 boardId={boardId}
+                updateColumns={updateColumns}
               />
             );
           })}
@@ -255,6 +260,7 @@ export const Column: FC<Props> = ({
           boardId={boardId}
           columnId={columnId}
           onClose={handleToggleModal}
+          updateColumns={updateColumns}
         />
       </Modal>
       <ConfirmationModal

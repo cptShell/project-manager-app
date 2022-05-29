@@ -11,9 +11,10 @@ import { column as columnActions } from '~/store/actions';
 type Props = {
   id: string;
   onClose: () => void;
+  updateColumns: () => void;
 };
 
-export const CreateColumnForm: FC<Props> = ({ id, onClose }) => {
+export const CreateColumnForm: FC<Props> = ({ id, onClose, updateColumns }) => {
   const { register, handleSubmit, formState } = useForm<CreateColumnDto>({
     resolver: joiResolver(createColumn),
   });
@@ -21,11 +22,13 @@ export const CreateColumnForm: FC<Props> = ({ id, onClose }) => {
   const dispatch = useAppDispatch();
 
   const handleCreateColumn = handleSubmit(
-    ({ title }: CreateColumnDto): void => {
+    async ({ title }: CreateColumnDto): Promise<void> => {
       const createColumnDto = {
         title,
       };
-      dispatch(columnActions.createColumn({ id, createColumnDto }));
+      await dispatch(columnActions.createColumn({ id, createColumnDto }));
+
+      updateColumns();
       onClose();
     },
   );
@@ -39,7 +42,10 @@ export const CreateColumnForm: FC<Props> = ({ id, onClose }) => {
         errorMessage={titleError?.message}
       />
       <button>
-        <FormattedMessage as="span" message="board.columnCreatingForm.buttons.createColumn" />
+        <FormattedMessage
+          as="span"
+          message="board.columnCreatingForm.buttons.createColumn"
+        />
       </button>
     </form>
   );

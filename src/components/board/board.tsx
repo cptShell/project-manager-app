@@ -42,6 +42,15 @@ export const Board: FC = () => {
     board?.columns || [],
   );
 
+  const updateColumns = (): void => {
+    if (boardId) {
+      dispatch(boardActions.getById(boardId)).then((data) => {
+        const currentBoard = data.payload as FullBoardDto;
+        setColumns(currentBoard.columns);
+      });
+    }
+  };
+
   const dropColumn = (dropIndex: number): void => {
     const targetColumn = columns[dropIndex];
     const createColumnResponseDto: ColumnDto = {
@@ -136,12 +145,7 @@ export const Board: FC = () => {
   );
 
   useEffect(() => {
-    if (boardId) {
-      dispatch(boardActions.getById(boardId)).then((data) => {
-        const currentBoard = data.payload as FullBoardDto;
-        setColumns(currentBoard.columns);
-      });
-    }
+    updateColumns();
   }, []);
 
   const handleReturn = (): void => {
@@ -183,22 +187,47 @@ export const Board: FC = () => {
           <FormattedMessage as="span" message="board.title" /> {board.title}
         </h1>
         <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
-          <CreateColumnForm id={boardId} onClose={handleToggleModal} />
+          <CreateColumnForm
+            id={boardId}
+            onClose={handleToggleModal}
+            updateColumns={updateColumns}
+          />
         </Modal>
         <Button title={'board.buttons.addColumn'} onClick={handleToggleModal} />
         <div className={styles['column-wrapper']}>
-          {columns.map((column, index) => (
-            <Column
-              key={column.id}
-              item={column}
-              boardId={boardId}
-              moveColumn={moveColumn}
-              dropColumn={dropColumn}
-              moveTask={moveTask}
-              dropTask={dropTask}
-              columnIndex={index}
-            />
-          ))}
+          {columns.map((column, index) => {
+            const handleDeleteColumn = (): void => {
+              const deleteIndex = columns.findIndex(
+                (item) => item.id === column.id,
+              );
+
+              if (deleteIndex !== -1) {
+                const updatedColumns = [...columns];
+                const { id: columnId } = updatedColumns.splice(
+                  deleteIndex,
+                  1,
+                )[0];
+
+                dispatch(columnActions.removeColumn({ boardId, columnId }));
+                setColumns(updatedColumns);
+              }
+            };
+
+            return (
+              <Column
+                key={column.id}
+                item={column}
+                boardId={boardId}
+                moveColumn={moveColumn}
+                dropColumn={dropColumn}
+                moveTask={moveTask}
+                dropTask={dropTask}
+                columnIndex={index}
+                handleDeleteColumn={handleDeleteColumn}
+                updateColumns={updateColumns}
+              />
+            );
+          })}
         </div>
         <Button title={'board.buttons.backToMainPage'} onClick={handleReturn} />
       </main>
