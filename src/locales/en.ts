@@ -60,6 +60,7 @@ export const ENMessagesMap: AppLocalizationMap = {
       },
       buttons: {
         createTask: 'Create task',
+        editTask: 'Edit task',
       },
     },
     boardItem: {

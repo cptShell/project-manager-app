@@ -22,8 +22,8 @@ export const Modal: FC<Props> = ({ children, isOpen, onClose }) => {
     return null;
   }
   return createPortal(
-    <div className={styles.wrapper} onClick={handleClose}>
-      <div className={styles.innerWrapper} onClick={blockBubbling}>
+    <div className={styles['wrapper']} onClick={handleClose}>
+      <div className={styles['inner-wrapper']} onClick={blockBubbling}>
         {children}
       </div>
     </div>,
