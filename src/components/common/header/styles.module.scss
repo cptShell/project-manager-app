@@ -1,0 +1,111 @@
+.header {
+  width: 100%;
+  min-height: 88px;
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-gray-200);
+  display: flex;
+}
+
+.header-container {
+  min-width: 1145px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.header-left {
+  display: flex;
+  gap: 24px;
+  opacity: 0.8;
+}
+
+.header-left:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.create-board-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.create-board-span {
+  color: var(--color-purple-300);
+}
+
+.header-right {
+  display: flex;
+  gap: 50px;
+}
+
+.user {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-name {
+  padding-right: 10px;
+}
+
+.avatar-img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50px;
+}
+
+.arrow-img {
+  width: 18px;
+  height: 18px;
+  border-radius: 50px;
+  transition: transform 0.5s;
+}
+
+.user:hover .arrow-img {
+  transform: rotate(-180deg);
+}
+
+.user-menu {
+  display: none;
+  width: 100%;
+  position: absolute;
+  top: 100%;
+}
+
+.edit-user,
+.log-out {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-white);
+  box-shadow: var(--shadow);
+  padding: 10px 15px;
+}
+
+.edit-user:hover,
+.log-out:hover {
+  box-shadow: var(--shadow-hover);
+  cursor: pointer;
+}
+
+.user-menu-span {
+  padding: 5px 0;
+}
+
+.edit-img,
+.log-out-img {
+  width: 25px;
+  height: 25px;
+}
+
+.user:hover .user-menu {
+  display: block;
+}
