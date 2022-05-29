@@ -14,7 +14,10 @@ export const RUMessagesMap: AppLocalizationMap = {
   },
   modals: {
     confirmation: {
-      title: 'Вы уверены?',
+      deleteBoard: 'Вы уверены что хотите удалить эту доску?',
+      deleteColumn: 'Вы уверены что хотите удалить эту колонку?',
+      deleteTask: 'Вы уверены что хотите удалить это задание?',
+      deleteUser: 'Вы уверены что хотите удалить свой аккаунт?',
       buttons: {
         confirm: 'Да',
         reject: 'Нет',

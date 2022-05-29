@@ -258,6 +258,7 @@ export const Column: FC<Props> = ({
         />
       </Modal>
       <ConfirmationModal
+        message={'modals.confirmation.deleteColumn'}
         isOpen={confirmationModalOpen}
         onClose={handleCloseConfirmation}
         onConfirm={handleDeleteColumn}
