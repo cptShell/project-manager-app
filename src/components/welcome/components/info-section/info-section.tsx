@@ -9,9 +9,7 @@ type Props = {
 export const InfoSection: FC<Props> = ({ content }) => {
   return (
     <section>
-      <p>
-        <FormattedMessage as={'span'} message={content} />
-      </p>
+      <FormattedMessage as={'p'} message={content} />
     </section>
   );
 };

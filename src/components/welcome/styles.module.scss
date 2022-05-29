@@ -7,6 +7,7 @@
   color: var(--color-purple-400);
   row-gap: 50px;
   margin-bottom: 30px;
+  padding-left: 20px;
 }
 
 .content-welcome {
@@ -14,6 +15,7 @@
   flex-wrap: wrap;
   max-width: 850px;
   column-gap: 50px;
+  width: 100%;
 }
 
 .welcome-logo {
@@ -45,8 +47,15 @@
   flex-flow: row-reverse wrap;
   max-width: 850px;
   align-items: center;
-  column-gap: 137px;
-  justify-content: center;
+  column-gap: 30px;
+  justify-content: space-between;
+  width: 100%;
+
+  @media (max-width: 865px) {
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: baseline;
+  }
 }
 
 .course-logo {
