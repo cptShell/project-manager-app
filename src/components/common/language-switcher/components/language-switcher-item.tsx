@@ -20,7 +20,7 @@ export const LanguageSwitcherItem: FC<Props> = ({
     onLanguageChange(label);
   };
   return (
-    <li className={styles.li}>
+    <li className={styles.wrapper}>
       <button className={ifActive} onClick={handleLanguageChange}>
         {label}
       </button>
