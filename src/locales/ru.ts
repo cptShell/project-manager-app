@@ -14,7 +14,10 @@ export const RUMessagesMap: AppLocalizationMap = {
   },
   modals: {
     confirmation: {
-      title: 'Вы уверены?',
+      deleteBoard: 'Вы уверены что хотите удалить эту доску?',
+      deleteColumn: 'Вы уверены что хотите удалить эту колонку?',
+      deleteTask: 'Вы уверены что хотите удалить это задание?',
+      deleteUser: 'Вы уверены что хотите удалить свой аккаунт?',
       buttons: {
         confirm: 'Да',
         reject: 'Нет',
@@ -27,12 +30,12 @@ export const RUMessagesMap: AppLocalizationMap = {
       title: 'Создание борда',
       inputs: {
         titles: {
-          title: 'заглавие',
-          description: 'описание',
+          title: 'Заглавие',
+          description: 'Описание',
         },
       },
       buttons: {
-        createBoard: 'Создать',
+        createBoard: 'Создать доску',
       },
     },
   },
@@ -59,7 +62,8 @@ export const RUMessagesMap: AppLocalizationMap = {
         description: 'описание',
       },
       buttons: {
-        createTask: 'создать таск',
+        createTask: 'Создать задачу',
+        editTask: 'Изменить задачу',
       },
     },
     boardItem: {

@@ -40,7 +40,7 @@ export const updateTask = createAsyncThunk<
       taskId,
       updateTaskResponseDto,
     );
-    console.log(response);
+
     return response;
   },
 );

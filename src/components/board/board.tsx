@@ -41,7 +41,7 @@ export const Board: FC = () => {
   const [columns, setColumns] = useState<Array<FullColumnDto>>(
     board?.columns || [],
   );
-  console.log(1);
+
   const dropColumn = (dropIndex: number): void => {
     const targetColumn = columns[dropIndex];
     const createColumnResponseDto: ColumnDto = {
@@ -175,6 +175,7 @@ export const Board: FC = () => {
       <main className={styles.main}>
         <Header />
         <ConfirmationModal
+          message={'modals.confirmation.deleteColumn'}
           isOpen={Boolean(choosedId)}
           onClose={handleCloseConfirmation}
           onConfirm={handleConfirm}

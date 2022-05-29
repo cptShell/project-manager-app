@@ -1,5 +1,6 @@
 import { FC, useRef, useState } from 'react';
 import {
+  ColumnDto,
   DragColumnItem,
   FullColumnDto,
   TaskPosition,
@@ -18,6 +19,11 @@ import acceptImg from '~/assets/images/accept.svg';
 import { useDrag, useDrop } from 'react-dnd';
 import { Identifier, XYCoord } from 'dnd-core';
 import { ItemType } from '~/common/enums/enums';
+import { useForm } from 'react-hook-form';
+
+type FormData = {
+  title: string;
+};
 
 type Props = {
   moveColumn: (dragIndex: number, hoverIndex: number) => void;
@@ -38,12 +44,16 @@ export const Column: FC<Props> = ({
   dropColumn,
   dropTask,
 }) => {
-  const { id: columnId, title, tasks } = item;
+  const { id: columnId, tasks } = item;
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [title, setTitle] = useState(item.title);
   const columnRef = useRef<HTMLDivElement>(null);
+  const { register, handleSubmit, reset } = useForm<FormData>({
+    mode: 'onChange',
+  });
 
   const [{ handlerId }, drop] = useDrop<
     DragColumnItem,
@@ -123,14 +133,32 @@ export const Column: FC<Props> = ({
     setConfirmationModalOpen(false);
   };
 
-  const handleEdit = (): void => {
-    setIsEdit(!isEdit);
+  const handleEditOpen = (): void => {
+    setIsEdit(true);
   };
-  const handleCancelEdit = (): void => {
-    setIsEdit(!isEdit);
+  const handleDeclineEdit = (): void => {
+    reset();
+    setIsEdit(false);
   };
-  const handleAcceptEdit = (): void => {
-    setIsEdit(!isEdit);
+  const handleAcceptEdit = (data: FormData): void => {
+    const createColumnResponseDto: ColumnDto = {
+      id: item.id,
+      title,
+      order: item.order,
+    };
+    const columnResponse = {
+      boardId,
+      createColumnResponseDto,
+    };
+
+    dispatch(columnActions.update(columnResponse));
+
+    setIsEdit(false);
+    setTitle(data.title);
+    reset();
+  };
+  const submit = (): void => {
+    handleSubmit(handleAcceptEdit)();
   };
   const handleAddTask = (e: React.MouseEvent): void => {
     handleToggleModal();
@@ -154,24 +182,27 @@ export const Column: FC<Props> = ({
                 className={styles['cancel']}
                 src={cancelImg}
                 alt="cancel"
-                onClick={handleCancelEdit}
+                onClick={handleDeclineEdit}
               />
               <img
                 className={styles['accept']}
                 src={acceptImg}
                 alt="accept"
-                onClick={handleAcceptEdit}
+                onClick={submit}
               />
             </div>
-            <input
-              className={styles['input-edit']}
-              type="text"
-              placeholder={title}
-            />
+            <form onSubmit={handleSubmit(handleAcceptEdit)}>
+              <input
+                {...register('title')}
+                className={styles['input-edit']}
+                type="text"
+                placeholder={title}
+              />
+            </form>
           </div>
         </div>
       ) : (
-        <div className={styles['column-header']} onClick={handleEdit}>
+        <div className={styles['column-header']} onClick={handleEditOpen}>
           <div className={styles['title-wrapper']}>
             <div className={styles['title-before']} />
             <h3 className={styles.title}>{title}</h3>
@@ -227,6 +258,7 @@ export const Column: FC<Props> = ({
         />
       </Modal>
       <ConfirmationModal
+        message={'modals.confirmation.deleteColumn'}
         isOpen={confirmationModalOpen}
         onClose={handleCloseConfirmation}
         onConfirm={handleDeleteColumn}

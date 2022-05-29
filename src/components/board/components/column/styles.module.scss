@@ -5,6 +5,7 @@
   padding: 20px;
   border-radius: 3px;
   opacity: 0.8;
+  overflow-wrap: break-word;
   transition: opacity 0.2s, box-shadow 0.2s;
 }
 
@@ -18,7 +19,7 @@
   height: 44px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
   border-bottom: 3px solid var(--color-purple-300);
 }

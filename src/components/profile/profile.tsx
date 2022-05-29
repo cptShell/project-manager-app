@@ -30,17 +30,27 @@ export const Profile: FC = () => {
 
   return (
     <>
-      <FormattedMessage as="h2" message="profile.title"/>
+      <FormattedMessage as="h2" message="profile.title" />
       <ul>
-        <li><FormattedMessage as="span" message="profile.userData.currentId"/> {id}</li>
-        <li><FormattedMessage as="span" message="profile.userData.currentName"/> {name}</li>
-        <li><FormattedMessage as="span" message="profile.userData.currentLogin"/> {login}</li>
+        <li>
+          <FormattedMessage as="span" message="profile.userData.currentId" />{' '}
+          {id}
+        </li>
+        <li>
+          <FormattedMessage as="span" message="profile.userData.currentName" />{' '}
+          {name}
+        </li>
+        <li>
+          <FormattedMessage as="span" message="profile.userData.currentLogin" />{' '}
+          {login}
+        </li>
       </ul>
       <EditForm />
       <button onClick={handleShowModal}>
-        <FormattedMessage as="span" message="profile.buttons.deleteUser"/>
+        <FormattedMessage as="span" message="profile.buttons.deleteUser" />
       </button>
       <ConfirmationModal
+        message={'modals.confirmation.deleteUser'}
         isOpen={isOpen}
         onConfirm={handleDeleteUser}
         onClose={hanldeCloseModal}

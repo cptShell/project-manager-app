@@ -14,7 +14,10 @@ export const ENMessagesMap: AppLocalizationMap = {
   },
   modals: {
     confirmation: {
-      title: 'Are you sure?',
+      deleteBoard: 'Are you sure you want to delete this board?',
+      deleteColumn: 'Are you sure you want to delete this column?',
+      deleteTask: 'Are you sure you want to delete this task?',
+      deleteUser: 'Are you sure you want to delete your account?',
       buttons: {
         confirm: 'Yes',
         reject: 'No',
@@ -27,8 +30,8 @@ export const ENMessagesMap: AppLocalizationMap = {
       title: 'Board creating form',
       inputs: {
         titles: {
-          title: 'title',
-          description: 'description',
+          title: 'Title',
+          description: 'Description',
         },
       },
       buttons: {
@@ -60,6 +63,7 @@ export const ENMessagesMap: AppLocalizationMap = {
       },
       buttons: {
         createTask: 'Create task',
+        editTask: 'Edit task',
       },
     },
     boardItem: {
