@@ -1,4 +1,4 @@
-import { CreateTaskDto, TaskDto } from '~/common/types/types';
+import { CreateTaskDto, TaskDto, UpdateTaskDto } from '~/common/types/types';
 
 export enum ActionType {
   CREATE = 'task/create',
@@ -12,6 +12,13 @@ export type TaskCreatePayload = {
   boardId: string;
   columnId: string;
   createTaskDto: CreateTaskDto;
+};
+
+export type TaskUpdatePayload = {
+  boardId: string;
+  columnId: string;
+  taskId: string;
+  updateTaskResponseDto: UpdateTaskDto;
 };
 
 export type TaskResponse = {

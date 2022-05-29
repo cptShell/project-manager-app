@@ -24,6 +24,12 @@ export const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(getById.fulfilled, (state, action) => {
     state.currentBoardStatus = DataStatus.FULFILLED;
+    action.payload.columns.sort((columnA, columnB) => {
+      return columnA.order - columnB.order;
+    });
+    action.payload.columns.forEach((column) => {
+      column.tasks.sort((taskA, taskB) => taskA.order - taskB.order);
+    });
     state.currentBoard = action.payload;
   });
 
@@ -94,6 +100,7 @@ export const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(updateTask.fulfilled, (state, action) => {
     const updatedTask = action.payload;
+    const targetColumnId = updatedTask.columnId;
     const { columnId } = action.meta.arg;
     const { currentBoard } = state;
     if (!currentBoard) {
@@ -107,11 +114,22 @@ export const reducer = createReducer(initialState, (builder) => {
       return;
     }
 
-    const task = currentColumn.tasks.find((task) => task.id === updatedTask.id);
-    if (task) {
-      task.title = updatedTask.title;
-      task.description = updatedTask.description;
+    const taskIndex = currentColumn.tasks.findIndex(
+      (task) => task.id === updatedTask.id,
+    );
+    if (taskIndex !== -1) {
+      console.log(currentColumn.tasks[taskIndex].title, updatedTask.title);
+      currentColumn.tasks[taskIndex].title = updatedTask.title;
+      currentColumn.tasks[taskIndex].description = updatedTask.description;
     }
+    if (targetColumnId !== currentColumn.id) {
+      const [insertedTask] = currentColumn.tasks.splice(taskIndex, 1);
+      const targetColumn = currentBoard.columns.find((column) => {
+        return column.id === targetColumnId;
+      });
+      targetColumn?.tasks.push(insertedTask);
+    }
+    console.log(action.payload);
   });
   builder.addCase(update.fulfilled, (state, action) => {
     const targetBoard = state.boards.find((board) => {

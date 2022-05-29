@@ -1,4 +1,7 @@
-import { BoardValidationRule, UserAuthValidationRule } from '~/common/enums/enums';
+import {
+  BoardValidationRule,
+  UserAuthValidationRule,
+} from '~/common/enums/enums';
 import { AppLocalizationMap } from '~/common/types/types';
 
 export const RUMessagesMap: AppLocalizationMap = {
@@ -112,15 +115,15 @@ export const RUMessagesMap: AppLocalizationMap = {
       signIn: 'Вход',
       signUp: 'Регестрация',
     },
-    title: 'Добро пожаловать',
+    titleWelcome: 'Добро пожаловать!',
     aboutProject: `
     Это приложение предназначено для облегчения совместной работы в командах.
     Здесь вы можете планировать и распределять задачи, контролировать ход работы и экспериментировать.
     С этой страницы вы можете перейти на экран регистрации или,
     если вы уже наш пользователь, переходите сразу в рабочую область.
     `,
+    titleCourse: 'Курс',
     aboutCourse: `
-    Результаты перевода
     Это приложение было создано во время школьного курса React Rolling Scopes.
     Курс предназначен для новых студентов, обладающих знаниями
     и практическим опытом использования следующих технологий и инструментов:
@@ -133,20 +136,24 @@ export const RUMessagesMap: AppLocalizationMap = {
     Chrome DevTools Figma
     Understanding the concept of REST API
     `,
+    titleMembers: 'Наша команда',
     teamMembers: {
       item0: {
         name: 'Евгений',
-        aboutMe: 'О себе: Mock',
+        aboutMe:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu quam, euismod nec mi nec, scelerisque convallis neque. Pellentesque egestas eros vitae nunc efficitur consectetur. Phasellus auctor volutpat posuere. Donec porta rutrum arcu, in pretium turpis convallis vitae. Aliquam erat volutpat. Etiam pellentesque magna et tincidunt elementum. Vestibulum eu nulla mi. In dui nunc, lobortis id vulputate et, mattis vitae nibh.',
         contribution: 'Вклад: Mock',
       },
       item1: {
         name: 'Николай',
-        aboutMe: 'О себе: Mock',
+        aboutMe:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu quam, euismod nec mi nec, scelerisque convallis neque. Pellentesque egestas eros vitae nunc efficitur consectetur. Phasellus auctor volutpat posuere. Donec porta rutrum arcu, in pretium turpis convallis vitae. Aliquam erat volutpat. Etiam pellentesque magna et tincidunt elementum. Vestibulum eu nulla mi. In dui nunc, lobortis id vulputate et, mattis vitae nibh.',
         contribution: 'Вклад: Mock',
       },
       item2: {
         name: 'Алексей',
-        aboutMe: 'О себе: Mock',
+        aboutMe:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu quam, euismod nec mi nec, scelerisque convallis neque. Pellentesque egestas eros vitae nunc efficitur consectetur. Phasellus auctor volutpat posuere. Donec porta rutrum arcu, in pretium turpis convallis vitae. Aliquam erat volutpat. Etiam pellentesque magna et tincidunt elementum. Vestibulum eu nulla mi. In dui nunc, lobortis id vulputate et, mattis vitae nibh.',
         contribution: 'Вклад: Mock',
       },
     },
@@ -166,8 +173,8 @@ export const RUMessagesMap: AppLocalizationMap = {
       loginMinLength: `Длинна должна быть не менее ${UserAuthValidationRule.LOGIN_MIN_LENGTH} символов`,
       loginMaxLength: `Длинна должна быть не более ${UserAuthValidationRule.LOGIN_MAX_LENGTH} символов`,
       passwordRequired: 'пароль обязателен',
-      passwordMinLength: `Длинна должна быть не менее ${UserAuthValidationRule.NAME_MIN_LENGTH} символов`,
-      passwordMaxLength: `Длинна должна быть не более ${UserAuthValidationRule.NAME_MAX_LENGTH} символов`,
+      passwordMinLength: `Длинна должна быть не менее ${UserAuthValidationRule.PASSWORD_MIN_LENGTH} символов`,
+      passwordMaxLength: `Длинна должна быть не более ${UserAuthValidationRule.PASSWORD_MAX_LENGTH} символов`,
     },
   },
 };

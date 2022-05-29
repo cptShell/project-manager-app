@@ -115,13 +115,14 @@ export const ENMessagesMap: AppLocalizationMap = {
       signIn: 'Sign In',
       signUp: 'Sign Up',
     },
-    title: 'Welcome',
+    titleWelcome: 'Welcome!',
     aboutProject: `
     This application is designed to help facilitate collaboration in teams. 
     Here you can plan and distribute tasks, control the progress of work and experiment.
     From this page you can go to the registration screen or, 
     if you are already our user, go directly to the workspace.
     `,
+    titleCourse: 'Course',
     aboutCourse: `
     This application was created during the school's React Rolling Scopes course. 
     The course is intended for new students who have knowledge and practical 
@@ -135,20 +136,24 @@ export const ENMessagesMap: AppLocalizationMap = {
     Chrome DevTools Figma
     Understanding the concept of REST API
     `,
+    titleMembers: 'Our team',
     teamMembers: {
       item0: {
         name: 'Evgeny',
-        aboutMe: 'About me: Mock',
+        aboutMe:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu quam, euismod nec mi nec, scelerisque convallis neque. Pellentesque egestas eros vitae nunc efficitur consectetur. Phasellus auctor volutpat posuere. Donec porta rutrum arcu, in pretium turpis convallis vitae. Aliquam erat volutpat. Etiam pellentesque magna et tincidunt elementum. Vestibulum eu nulla mi. In dui nunc, lobortis id vulputate et, mattis vitae nibh.',
         contribution: 'Contribution: Mock',
       },
       item1: {
         name: 'Nickolas',
-        aboutMe: 'About me: Mock',
+        aboutMe:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu quam, euismod nec mi nec, scelerisque convallis neque. Pellentesque egestas eros vitae nunc efficitur consectetur. Phasellus auctor volutpat posuere. Donec porta rutrum arcu, in pretium turpis convallis vitae. Aliquam erat volutpat. Etiam pellentesque magna et tincidunt elementum. Vestibulum eu nulla mi. In dui nunc, lobortis id vulputate et, mattis vitae nibh.',
         contribution: 'Contribution: Mock',
       },
       item2: {
         name: 'Alexei',
-        aboutMe: 'About me: Mock',
+        aboutMe:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu quam, euismod nec mi nec, scelerisque convallis neque. Pellentesque egestas eros vitae nunc efficitur consectetur. Phasellus auctor volutpat posuere. Donec porta rutrum arcu, in pretium turpis convallis vitae. Aliquam erat volutpat. Etiam pellentesque magna et tincidunt elementum. Vestibulum eu nulla mi. In dui nunc, lobortis id vulputate et, mattis vitae nibh.',
         contribution: 'Contribution: Mock',
       },
     },
