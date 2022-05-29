@@ -11,10 +11,12 @@ import { Modal } from '../common/modal/modal';
 import { CreateColumnForm } from './components/column-creating-form';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
 import { FormattedMessage, Header } from '../common/common';
-import { Column } from './components/column';
+import { Column } from './components/column/column';
 import { NotFound } from '../not-found-page/not-found-page';
 import { Loader } from '../common/loader/loader';
 import styles from './styles.module.scss';
+import plusImg from '~/assets/images/plus.svg';
+import editImg from '~/assets/images/edit.svg';
 
 export const Board: FC = () => {
   const navigate = useNavigate();
@@ -51,6 +53,10 @@ export const Board: FC = () => {
     }
   };
 
+  const handleEdit = (): void => {
+    console.log('mock');
+  };
+
   if (status === DataStatus.REJECTED) {
     return <NotFound />;
   }
@@ -62,28 +68,33 @@ export const Board: FC = () => {
   return (
     <>
       <Header />
-      <ConfirmationModal
-        isOpen={Boolean(choosedId)}
-        onClose={handleCloseConfirmation}
-        onConfirm={handleConfirm}
-      />
-      <h1>
-        <FormattedMessage as="span" message="board.title" /> {board.title}
-      </h1>
-
-      <>
-        <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
-          <CreateColumnForm id={boardId} onClose={handleToggleModal} />
-        </Modal>
-        <Button title={'board.buttons.addColumn'} onClick={handleToggleModal} />
-        <div className={styles['column-wrapper']}>
-          {board.columns &&
-            [...board.columns].map((column) => (
-              <Column key={column.id} item={column} boardId={boardId} />
-            ))}
-        </div>
-        <Button title={'board.buttons.backToMainPage'} onClick={handleReturn} />
-      </>
+      <main className={styles.main}>
+        <ConfirmationModal
+          isOpen={Boolean(choosedId)}
+          onClose={handleCloseConfirmation}
+          onConfirm={handleConfirm}
+        />
+        <section className={styles.section}>
+          <div className={styles['board-title-container']}>
+            <h1 className={styles['board-title']}>{board.title}</h1>
+            <img className={styles['board-title-icon']} src={editImg} alt="edit board title" onClick={handleEdit} />
+          </div>
+          <div className={styles['column-wrapper']}>
+            {board.columns &&
+              [...board.columns].map((column) => (
+                <Column key={column.id} item={column} boardId={boardId} />
+              ))}
+            <div className={styles['add-column-wrapper']} onClick={handleToggleModal}>
+              <img className={styles['add-column-img']} src={plusImg} alt="plus" />
+              <FormattedMessage as="h3" message="board.buttons.addColumn" />
+            </div>
+          </div>
+          <Button title={'board.buttons.backToMainPage'} onClick={handleReturn} />
+          <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
+            <CreateColumnForm id={boardId} onClose={handleToggleModal} />
+          </Modal>
+        </section>
+      </main>
     </>
   );
 };

@@ -43,9 +43,8 @@ export const Main: FC = () => {
         />
         {boards.map(({ id, title, description }) => {
           const handleDelete = (e: React.MouseEvent): void => {
-            e.stopPropagation();
-            e.nativeEvent.stopImmediatePropagation();
             setChoosedId(id);
+            e.stopPropagation();
           };
           const handleClick = (): void => {
             navigate(`${AppRoute.BOARD}/${id}`);
