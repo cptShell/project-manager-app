@@ -1,9 +1,12 @@
 export type ModalsLocalizationKey = {
   confirmation: {
-    title: string,
+    deleteBoard: string;
+    deleteColumn: string;
+    deleteTask: string;
+    deleteUser: string;
     buttons: {
-      confirm: string,
-      reject: string,
-    },
-  },
+      confirm: string;
+      reject: string;
+    };
+  };
 };

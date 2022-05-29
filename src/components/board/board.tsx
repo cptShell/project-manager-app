@@ -175,6 +175,7 @@ export const Board: FC = () => {
       <main className={styles.main}>
         <Header />
         <ConfirmationModal
+          message={'modals.confirmation.deleteColumn'}
           isOpen={Boolean(choosedId)}
           onClose={handleCloseConfirmation}
           onConfirm={handleConfirm}

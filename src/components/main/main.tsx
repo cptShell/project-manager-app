@@ -40,6 +40,7 @@ export const Main: FC = () => {
           isOpen={Boolean(choosedId)}
           onClose={handleCloseConfirmation}
           onConfirm={handleConfirm}
+          message={'modals.confirmation.deleteBoard'}
         />
         {boards.map(({ id, title, description }) => {
           const handleDelete = (e: React.MouseEvent): void => {

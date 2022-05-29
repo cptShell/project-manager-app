@@ -14,7 +14,10 @@ export const ENMessagesMap: AppLocalizationMap = {
   },
   modals: {
     confirmation: {
-      title: 'Are you sure?',
+      deleteBoard: 'Are you sure you want to delete this board?',
+      deleteColumn: 'Are you sure you want to delete this column?',
+      deleteTask: 'Are you sure you want to delete this task?',
+      deleteUser: 'Are you sure you want to delete your account?',
       buttons: {
         confirm: 'Yes',
         reject: 'No',
