@@ -18,8 +18,9 @@
 
   input {
     background: var(--color-purple-200);
-    border: 3px;
+    border-radius: 3px;
     padding: 13px;
+    border: none;
   }
 }
 
@@ -32,14 +33,16 @@
 
   input {
     background: var(--color-purple-200);
-    border: 3px;
+    border-radius: 3px;
     padding: 33px;
+    border: none;
   }
 }
 
 .button {
   background: var(--color-purple-300);
-  border: 3px;
+  border-radius: 3px;
   color: var(--color-white);
   padding: 13px;
+  border: none;
 }
