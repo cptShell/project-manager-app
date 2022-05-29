@@ -43,7 +43,10 @@ export const TaskCreatingForm: FC<Props> = ({ boardId, columnId, onClose }) => {
         formRegisterValues={register(InputName.DESCRIPTION)}
       />
       <button>
-        <FormattedMessage as="span" message="board.taskCreatingForm.buttons.createTask" />
+        <FormattedMessage
+          as="span"
+          message="board.taskCreatingForm.buttons.createTask"
+        />
       </button>
     </form>
   );

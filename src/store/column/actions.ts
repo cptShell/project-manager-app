@@ -40,7 +40,9 @@ export const update = createAsyncThunk<
   ActionType.UPDATE,
   async ({ boardId, createColumnResponseDto }, { extra }) => {
     const { columnApi } = extra;
+
     const response = await columnApi.update(boardId, createColumnResponseDto);
+
     return response;
   },
 );

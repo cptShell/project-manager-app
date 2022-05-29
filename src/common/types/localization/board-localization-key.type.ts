@@ -18,9 +18,10 @@ export type BoardLocalizationKey = {
     title: string
     inputs: {
       title: string,
+      description: string,
     },
     buttons: {
-      createColumn: string
+      createTask: string,
     },
   },
   boardItem: {

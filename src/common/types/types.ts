@@ -6,3 +6,5 @@ export * from './board/board';
 export * from './column/column';
 export * from './navigation/navigation';
 export * from './task/task';
+export * from './drag-item/drag-item';
+export * from './task-position/task-position';

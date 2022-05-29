@@ -1,11 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AsyncThunkConfig, TaskDto } from '~/common/types/types';
+import {
+  AsyncThunkConfig,
+  TaskDto,
+  UpdateTaskResponseDto,
+} from '~/common/types/types';
 import {
   ActionType,
   GetAllPayload,
   TaskCreatePayload,
   TaskIdPayload,
-  TaskResponse,
+  TaskUpdatePayload,
 } from './common';
 
 export const createTask = createAsyncThunk<
@@ -22,18 +26,21 @@ export const createTask = createAsyncThunk<
 );
 
 export const updateTask = createAsyncThunk<
-  TaskDto,
-  TaskResponse,
+  UpdateTaskResponseDto,
+  TaskUpdatePayload,
   AsyncThunkConfig
 >(
   ActionType.UPDATE,
-  async ({ boardId, columnId, createTaskResponseDto }, { extra }) => {
+  async ({ taskId, boardId, columnId, updateTaskResponseDto }, { extra }) => {
     const { taskApi } = extra;
+
     const response = await taskApi.update(
       boardId,
       columnId,
-      createTaskResponseDto,
+      taskId,
+      updateTaskResponseDto,
     );
+
     return response;
   },
 );
