@@ -1,9 +1,9 @@
-import React, { FC, useState } from 'react';
-import styles from './styles.module.scss';
+import { FC, MouseEvent, useState } from 'react';
 import { TaskDto } from '~/common/types/types';
 import { ConfirmationModal } from '~/components/common/confirmation-modal/confirmation-modal';
 import { Modal } from '~/components/common/modal/modal';
 import { Task } from '../task';
+import styles from './styles.module.scss';
 import bucketImg from '~/assets/images/delete-bucket.svg';
 
 type Props = {
@@ -18,7 +18,7 @@ export const TaskLink: FC<Props> = ({ data, onClick, columnId, boardId }) => {
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleOpenConfirmation = (e: React.MouseEvent): void => {
+  const handleOpenConfirmation = (e: MouseEvent): void => {
     setConfirmationModalOpen(true);
     e.stopPropagation();
   };

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC, MouseEvent } from 'react';
 import { createPortal } from 'react-dom';
 
 import styles from './styles.module.scss';
@@ -14,7 +14,7 @@ export const Modal: FC<Props> = ({ children, isOpen, onClose }) => {
     onClose();
   };
 
-  const blockBubbling = (e: React.MouseEvent): void => {
+  const blockBubbling = (e: MouseEvent): void => {
     e.stopPropagation();
   };
 
