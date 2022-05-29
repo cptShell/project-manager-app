@@ -7,6 +7,7 @@ import { InputName } from '~/common/enums/enums';
 import { FormattedMessage, TextInput } from '~/components/common/common';
 import { useAppDispatch } from '~/hooks/hooks';
 import { column as columnActions } from '~/store/actions';
+import styles from './styles.module.scss';
 
 type Props = {
   id: string;
@@ -31,16 +32,19 @@ export const CreateColumnForm: FC<Props> = ({ id, onClose }) => {
   );
 
   return (
-    <form onSubmit={handleCreateColumn}>
-      <FormattedMessage as="h2" message="board.columnCreatingForm.title" />
+    <form onSubmit={handleCreateColumn} className={styles['wrapper']}>
       <TextInput
+        className={styles['title']}
         title="board.columnCreatingForm.inputs.title"
         formRegisterValues={register(InputName.TITLE)}
         errorMessage={titleError?.message}
       />
-      <button>
-        <FormattedMessage as="span" message="board.columnCreatingForm.buttons.createColumn" />
-      </button>
+
+      <FormattedMessage
+      className={styles['button']}
+        as="button"
+        message="board.columnCreatingForm.buttons.createColumn"
+      />
     </form>
   );
 };
