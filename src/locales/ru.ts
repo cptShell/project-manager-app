@@ -56,7 +56,8 @@ export const RUMessagesMap: AppLocalizationMap = {
         description: 'описание',
       },
       buttons: {
-        createTask: 'создать таск',
+        createTask: 'Создать задачу',
+        editTask: 'Изменить задачу',
       },
     },
     boardItem: {

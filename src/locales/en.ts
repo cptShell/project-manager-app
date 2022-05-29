@@ -1,4 +1,7 @@
-import { BoardValidationRule, UserAuthValidationRule } from '~/common/enums/enums';
+import {
+  BoardValidationRule,
+  UserAuthValidationRule,
+} from '~/common/enums/enums';
 import { AppLocalizationMap } from '~/common/types/types';
 
 export const ENMessagesMap: AppLocalizationMap = {
@@ -57,6 +60,7 @@ export const ENMessagesMap: AppLocalizationMap = {
       },
       buttons: {
         createTask: 'Create task',
+        editTask: 'Edit task',
       },
     },
     boardItem: {
