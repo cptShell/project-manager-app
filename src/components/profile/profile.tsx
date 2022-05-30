@@ -1,15 +1,18 @@
 import { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '~/common/enums/enums';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { user as userActions } from '~/store/actions';
 import { FormattedMessage } from '../common/common';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
 import { EditForm } from './components/edit-form';
+import arrowImg from '~/assets/images/back-arrow.svg';
+import styles from './styles.module.scss';
 
 export const Profile: FC = () => {
   const dispatch = useAppDispatch();
-  const { name, login, id } = useAppSelector(({ auth }) => ({
-    name: auth.user?.name,
-    login: auth.user?.login,
+  const navigate = useNavigate();
+  const { id } = useAppSelector(({ auth }) => ({
     id: auth.user?.id,
   }));
   const [isOpen, setOpen] = useState(false);
@@ -18,7 +21,7 @@ export const Profile: FC = () => {
     setOpen(true);
   };
 
-  const hanldeCloseModal = (): void => {
+  const handleCloseModal = (): void => {
     setOpen(false);
   };
 
@@ -28,33 +31,39 @@ export const Profile: FC = () => {
     }
   };
 
+  const handleReturn = (): void => {
+    navigate(AppRoute.MAIN);
+  };
+
   return (
-    <>
-      <FormattedMessage as="h2" message="profile.title" />
-      <ul>
-        <li>
-          <FormattedMessage as="span" message="profile.userData.currentId" />{' '}
-          {id}
-        </li>
-        <li>
-          <FormattedMessage as="span" message="profile.userData.currentName" />{' '}
-          {name}
-        </li>
-        <li>
-          <FormattedMessage as="span" message="profile.userData.currentLogin" />{' '}
-          {login}
-        </li>
-      </ul>
+    <div className={styles['wrapper']}>
+      <div className={styles['back-to-main-container']} onClick={handleReturn}>
+        <img
+          className={styles['back-to-main-icon']}
+          src={arrowImg}
+          alt="back arrow"
+        />
+        <FormattedMessage
+          className={styles['back-to-main']}
+          as="h3"
+          message="board.buttons.backToMainPage"
+        />
+      </div>
       <EditForm />
-      <button onClick={handleShowModal}>
-        <FormattedMessage as="span" message="profile.buttons.deleteUser" />
-      </button>
+
+      <FormattedMessage
+        onClick={handleShowModal}
+        as="button"
+        message="profile.buttons.deleteUser"
+        className={styles['delete-button']}
+      />
+
       <ConfirmationModal
         message={'modals.confirmation.deleteUser'}
         isOpen={isOpen}
         onConfirm={handleDeleteUser}
-        onClose={hanldeCloseModal}
+        onClose={handleCloseModal}
       />
-    </>
+    </div>
   );
 };

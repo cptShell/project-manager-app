@@ -1,0 +1,40 @@
+.wrapper {
+  padding: 0 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1145px;
+  flex-grow: 1;
+  row-gap: 30px;
+}
+
+.delete-button {
+  color: var(--color-purple-300);
+  font-weight: var(--font-weight-600);
+  border: 0;
+  background: 0;
+  cursor: pointer;
+}
+
+.back-to-main-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  margin-right: auto;
+}
+
+.back-to-main-container:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.back-to-main-icon {
+  width: 25px;
+  height: 25px;
+  border-radius: 6px;
+}
