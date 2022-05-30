@@ -8,8 +8,11 @@
 }
 
 .header-container {
-  min-width: 1145px;
+  max-width: 1145px;
+  width: 100%;
+  padding: 0 20px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
 }
@@ -68,7 +71,8 @@
   width: 18px;
   height: 18px;
   border-radius: 50px;
-  transition: transform 0.5s;
+  transform: rotate(-90deg);
+  transition: transform 0.2s;
 }
 
 .user:hover .arrow-img {
