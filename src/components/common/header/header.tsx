@@ -1,5 +1,6 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import clsx from 'clsx';
 import { AppRoute } from '~/common/enums/enums';
 import { BoardCreatingForm } from '~/components/main/components/board-creating-form';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
@@ -18,6 +19,20 @@ export const Header: FC = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const userName = useAppSelector((state) => state.auth.user?.name);
+  const [isScrolled, setIsScrolled] = useState(!!window.pageYOffset);
+
+  const handleScroll = (): void => {
+    const isTop = window.pageYOffset !== 0;
+    setIsScrolled(isTop);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const handleSignOut = (): void => {
     dispatch(authActions.signOut());
@@ -36,29 +51,71 @@ export const Header: FC = () => {
   };
 
   return (
-    <header className={styles.header}>
+    <header
+      className={clsx(styles.header, {
+        [styles.minimized]: isScrolled,
+      })}
+    >
       <div className={styles['header-container']}>
         <BoardCreatingForm isOpen={isOpen} onClose={handleCloseCreateBoard} />
         <div className={styles['header-left']} onClick={handleOpenCreateBoard}>
-          <img className={styles['create-board-icon']} src={plusImg} alt="create board" />
-          <FormattedMessage className={styles['create-board-span']} as="span" message="header.nav.createBoard" />
+          <img
+            className={styles['create-board-icon']}
+            src={plusImg}
+            alt="create board"
+          />
+          <FormattedMessage
+            className={styles['create-board-span']}
+            as="span"
+            message="header.nav.createBoard"
+          />
         </div>
         <div className={styles['header-right']}>
           <LanguageSwitcher />
           <div className={styles['user']}>
             <div className={styles['user-container']}>
               <span className={styles['user-name']}>{userName}</span>
-              <img className={styles['avatar-img']} src={avatarImg} alt="avatar" />
-              <img className={styles['arrow-img']} src={arrowImg} alt="menu arrow" />
+              <img
+                className={styles['avatar-img']}
+                src={avatarImg}
+                alt="avatar"
+              />
+              <img
+                className={styles['arrow-img']}
+                src={arrowImg}
+                alt="menu arrow"
+              />
             </div>
             <div className={styles['user-menu']}>
-              <div className={styles['user-menu-option']} onClick={handleEditUser}>
-                <FormattedMessage className={styles['user-menu-span']} as="span" message="header.nav.editUser" />
-                <img className={styles['edit-img']} src={editImg} alt="edit profile" />
+              <div
+                className={styles['user-menu-option']}
+                onClick={handleEditUser}
+              >
+                <FormattedMessage
+                  className={styles['user-menu-span']}
+                  as="span"
+                  message="header.nav.editUser"
+                />
+                <img
+                  className={styles['edit-img']}
+                  src={editImg}
+                  alt="edit profile"
+                />
               </div>
-              <div className={styles['user-menu-option']} onClick={handleSignOut}>
-                <FormattedMessage className={styles['user-menu-span']} as="span" message="header.nav.signOut" />
-                <img className={styles['log-out-img']} src={exitImg} alt="log out" />
+              <div
+                className={styles['user-menu-option']}
+                onClick={handleSignOut}
+              >
+                <FormattedMessage
+                  className={styles['user-menu-span']}
+                  as="span"
+                  message="header.nav.signOut"
+                />
+                <img
+                  className={styles['log-out-img']}
+                  src={exitImg}
+                  alt="log out"
+                />
               </div>
             </div>
           </div>
