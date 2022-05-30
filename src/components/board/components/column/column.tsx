@@ -182,9 +182,11 @@ export const Column: FC<Props> = ({
     setIsEdit(false);
   };
   const handleAcceptEdit = (data: FormData): void => {
+    const newTitle = data.title || title;
+
     const createColumnResponseDto: ColumnDto = {
       id: item.id,
-      title,
+      title: newTitle,
       order: item.order,
     };
     const columnResponse = {
@@ -195,7 +197,7 @@ export const Column: FC<Props> = ({
     dispatch(columnActions.update(columnResponse));
 
     setIsEdit(false);
-    setTitle(data.title);
+    setTitle(newTitle);
     reset();
   };
   const submit = (): void => {
@@ -235,6 +237,7 @@ export const Column: FC<Props> = ({
             <form onSubmit={handleSubmit(handleAcceptEdit)}>
               <input
                 {...register('title')}
+                defaultValue={title}
                 className={styles['input-edit']}
                 type="text"
                 placeholder={title}
