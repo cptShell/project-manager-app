@@ -26,7 +26,6 @@ import { NotFound } from '../not-found-page/not-found-page';
 import { Loader } from '../common/loader/loader';
 import styles from './styles.module.scss';
 import { TaskUpdatePayload } from '~/store/task/common';
-import editImg from '~/assets/images/edit.svg';
 import plusImg from '~/assets/images/plus.svg';
 import arrowImg from '~/assets/images/back-arrow.svg';
 
@@ -182,17 +181,14 @@ export const Board: FC = () => {
           onClose={handleCloseConfirmation}
           onConfirm={handleConfirm}
         />
-        <section className={styles.section}>
-          <div className={styles['board-header']}>
-            <div className={styles['back-to-main-container']} onClick={handleReturn}>
-              <img className={styles['back-to-main-icon']} src={arrowImg} alt="back arrow" />
-              <FormattedMessage className={styles['back-to-main']} as="h3" message="board.buttons.backToMainPage" />
-            </div>
-            <div className={styles['board-title-container']}>
-              <h1 className={styles['board-title']}>{board.title}</h1>
-              <img className={styles['board-title-icon']} src={editImg} alt="edit board title" />
-            </div>
+        <div className={styles['board-header']}>
+          <div className={styles['back-to-main-container']} onClick={handleReturn}>
+            <img className={styles['back-to-main-icon']} src={arrowImg} alt="back arrow" />
+            <FormattedMessage className={styles['back-to-main']} as="h3" message="board.buttons.backToMainPage" />
           </div>
+          <h1 className={styles['board-title']}>{board.title}</h1>
+        </div>
+        <section className={styles.section}>
           <div className={styles['column-wrapper']}>
             {columns.map((column, index) => (
               <Column
