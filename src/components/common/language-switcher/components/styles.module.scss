@@ -9,9 +9,16 @@
   outline: 0;
   cursor: pointer;
   padding: 0;
+  opacity: 0.8;
+  transition: opacity 0.2s;
 }
 
 .button-active {
   color: var(--color-purple-300);
   font-weight: 500;
+}
+
+.button:hover,
+.button-active:hover {
+  opacity: 1;
 }
