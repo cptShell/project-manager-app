@@ -2,6 +2,7 @@ import { FC, useRef, useState } from 'react';
 import {
   ColumnDto,
   DragColumnItem,
+  DragTaskItem,
   FullColumnDto,
   TaskPosition,
 } from '~/common/types/types';
@@ -57,6 +58,46 @@ export const Column: FC<Props> = ({
   const columnRef = useRef<HTMLDivElement>(null);
   const { register, handleSubmit, reset } = useForm<FormData>({
     mode: 'onChange',
+  });
+
+  const [{ handlerId: taskColumnHandlerId }, dropOnColumn] = useDrop<
+    DragTaskItem,
+    void,
+    { handlerId: Identifier | null }
+  >({
+    accept: ItemType.TASK,
+    collect(monitor) {
+      return {
+        handlerId: monitor.getHandlerId(),
+      };
+    },
+    hover(item: DragTaskItem) {
+      if (tasks.length) {
+        return;
+      }
+
+      const newTaskPostion: TaskPosition = {
+        columnX: columnIndex,
+        taskY: 0,
+      };
+      const currentPosition = item.position;
+
+      moveTask(currentPosition, newTaskPostion);
+
+      item.position = newTaskPostion;
+    },
+    drop() {
+      if (tasks.length) {
+        return;
+      }
+
+      const dropPosition: TaskPosition = {
+        columnX: columnIndex,
+        taskY: 0,
+      };
+
+      dropTask(dropPosition);
+    },
   });
 
   const [{ handlerId }, drop] = useDrop<
@@ -222,8 +263,15 @@ export const Column: FC<Props> = ({
           />
         </div>
       )}
-      <div className={styles['task-list-wrapper']}>
-        <ul className={styles['task-list']}>
+      <div
+        className={styles['task-list-wrapper']}
+        data-handler-id={taskColumnHandlerId}
+      >
+        <ul
+          style={{ minHeight: '150px' }}
+          className={styles['task-list']}
+          ref={dropOnColumn}
+        >
           {tasks.map((task, index) => {
             const { id } = task;
             const taskPosition: TaskPosition = {

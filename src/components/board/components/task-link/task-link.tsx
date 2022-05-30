@@ -68,7 +68,7 @@ export const TaskLink: FC<Props> = ({
       const { columnX: dragColumnX, taskY: dragTaskY } = dragPosition;
       const { columnX: hoverColumnX, taskY: hoverTaskY } = taskPosition;
 
-      if (dragColumnX === hoverColumnX && dragTaskY === hoverTaskY) {
+      if (item.id === id) {
         return;
       }
 

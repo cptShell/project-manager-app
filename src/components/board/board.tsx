@@ -42,12 +42,12 @@ export const Board: FC = () => {
     board?.columns || [],
   );
 
-  const updateColumns = (): void => {
+  const updateColumns = async (): Promise<void> => {
     if (boardId) {
-      dispatch(boardActions.getById(boardId)).then((data) => {
-        const currentBoard = data.payload as FullBoardDto;
-        setColumns(currentBoard.columns);
-      });
+      const data = await dispatch(boardActions.getById(boardId)).unwrap();
+      const currentBoard = data as FullBoardDto;
+
+      setColumns(currentBoard.columns);
     }
   };
 
@@ -203,10 +203,10 @@ export const Board: FC = () => {
 
               if (deleteIndex !== -1) {
                 const updatedColumns = [...columns];
-                const { id: columnId } = updatedColumns.splice(
+                const [{ id: columnId }] = updatedColumns.splice(
                   deleteIndex,
                   1,
-                )[0];
+                );
 
                 dispatch(columnActions.removeColumn({ boardId, columnId }));
                 setColumns(updatedColumns);
