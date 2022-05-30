@@ -192,7 +192,6 @@ export const Board: FC = () => {
               <h1 className={styles['board-title']}>{board.title}</h1>
               <img className={styles['board-title-icon']} src={editImg} alt="edit board title" />
             </div>
-            <span className="flex-ghost"></span>
           </div>
           <div className={styles['column-wrapper']}>
             {columns.map((column, index) => (

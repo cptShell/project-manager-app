@@ -36,7 +36,7 @@ export const Main: FC = () => {
   return (
     <main className={styles.main}>
       <div className={styles['outer-wrapper']}>
-        <h1 className={styles.h1}>Projects</h1>
+        <h1 className={styles.title}>Projects</h1>
         <ul className={styles.wrapper}>
           <ConfirmationModal
             isOpen={Boolean(choosedId)}
@@ -61,7 +61,7 @@ export const Main: FC = () => {
                     src={bucketImg}
                     onClick={handleDelete}
                     alt="delete"
-                  ></img>
+                  />
                 </div>
                 <div className={styles['board-bottom']}>
                   <p className={styles['board-text']}>{description}</p>

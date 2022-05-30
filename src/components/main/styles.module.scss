@@ -1,12 +1,13 @@
 .main {
-  display: flex;
-  justify-content: center;
   flex-grow: 1;
+  font-size: var(--font-size-50);
 }
 
-.h1 {
+.title {
+  margin: 0 auto;
+  max-width: 1145px;
   padding: 30px 20px;
-  margin: 0;
+  font-size: var(--font-size-400);
 }
 
 .wrapper {
@@ -51,6 +52,7 @@
   max-width: 250px;
   padding: 10px;
   margin: 0;
+  font-size: var(--font-size-200);
 }
 
 .board-img {
