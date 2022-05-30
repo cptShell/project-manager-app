@@ -36,7 +36,7 @@ export const SignUpForm: FC = () => {
         className={styles['form-wrapper']}
         onSubmit={handleSubmit(handleSignUp)}
       >
-        <FormattedMessage as="h1" message="auth.titles.singUp" />
+        <FormattedMessage as="h1" message="auth.titles.signUp" />
         <TextInput
           title={'auth.inputs.name'}
           formRegisterValues={register(InputName.NAME)}
@@ -60,9 +60,9 @@ export const SignUpForm: FC = () => {
         </button>
       </form>
       <div className={styles['message-container']}>
-        Already have an account?
+        <FormattedMessage as="span" message="auth.messages.alreadyHave" />
         <a className={styles['message-button']} onClick={handleRedirect}>
-          Sign In
+          <FormattedMessage as="span" message="auth.buttons.signIn" />
         </a>
       </div>
     </div>

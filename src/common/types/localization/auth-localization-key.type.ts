@@ -1,16 +1,19 @@
 export type AuthLocalizationKey = {
   titles: {
-    singIn: string,
-    singUp: string,
-  },
+    signIn: string;
+    signUp: string;
+  };
   inputs: {
-    name: string,
-    login: string,
-    password: string,
-  },
+    name: string;
+    login: string;
+    password: string;
+  };
   buttons: {
-    signIn: string
-    signUp: string
-  },
+    signIn: string;
+    signUp: string;
+  };
+  messages: {
+    dontHave: string;
+    alreadyHave: string;
+  };
 };
-  

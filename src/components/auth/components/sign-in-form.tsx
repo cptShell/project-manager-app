@@ -32,7 +32,7 @@ export const SignInForm: FC = () => {
         className={styles['form-wrapper']}
         onSubmit={handleSubmit(handleSignIn)}
       >
-        <FormattedMessage as="h1" message="auth.titles.singIn" />
+        <FormattedMessage as="h1" message="auth.titles.signIn" />
         <TextInput
           className={styles['form-label']}
           title={'auth.inputs.login'}
@@ -50,9 +50,9 @@ export const SignInForm: FC = () => {
         </button>
       </form>
       <div className={styles['message-container']}>
-        Don’t have an account?
+        <FormattedMessage as="span" message="auth.messages.dontHave" />
         <a className={styles['message-button']} onClick={handleRedirect}>
-          Sign Up
+          <FormattedMessage as="span" message="auth.buttons.signUp" />
         </a>
       </div>
     </div>
