@@ -2,6 +2,7 @@ import { FC, useRef, useState } from 'react';
 import {
   ColumnDto,
   DragColumnItem,
+  DragTaskItem,
   FullColumnDto,
   TaskPosition,
 } from '~/common/types/types';
@@ -33,6 +34,8 @@ type Props = {
   columnIndex: number;
   dropColumn: (dropIndex: number) => void;
   dropTask: (dropTask: TaskPosition) => void;
+  handleDeleteColumn: () => void;
+  updateColumns: () => void;
 };
 
 export const Column: FC<Props> = ({
@@ -43,6 +46,8 @@ export const Column: FC<Props> = ({
   columnIndex,
   dropColumn,
   dropTask,
+  handleDeleteColumn,
+  updateColumns,
 }) => {
   const { id: columnId, tasks } = item;
   const dispatch = useAppDispatch();
@@ -53,6 +58,46 @@ export const Column: FC<Props> = ({
   const columnRef = useRef<HTMLDivElement>(null);
   const { register, handleSubmit, reset } = useForm<FormData>({
     mode: 'onChange',
+  });
+
+  const [{ handlerId: taskColumnHandlerId }, dropOnColumn] = useDrop<
+    DragTaskItem,
+    void,
+    { handlerId: Identifier | null }
+  >({
+    accept: ItemType.TASK,
+    collect(monitor) {
+      return {
+        handlerId: monitor.getHandlerId(),
+      };
+    },
+    hover(item: DragTaskItem) {
+      if (tasks.length) {
+        return;
+      }
+
+      const newTaskPostion: TaskPosition = {
+        columnX: columnIndex,
+        taskY: 0,
+      };
+      const currentPosition = item.position;
+
+      moveTask(currentPosition, newTaskPostion);
+
+      item.position = newTaskPostion;
+    },
+    drop() {
+      if (tasks.length) {
+        return;
+      }
+
+      const dropPosition: TaskPosition = {
+        columnX: columnIndex,
+        taskY: 0,
+      };
+
+      dropTask(dropPosition);
+    },
   });
 
   const [{ handlerId }, drop] = useDrop<
@@ -116,10 +161,6 @@ export const Column: FC<Props> = ({
   });
 
   const opacity = isDragging ? 0.5 : 1;
-
-  const handleDeleteColumn = (): void => {
-    dispatch(columnActions.removeColumn({ boardId, columnId }));
-  };
 
   const handleToggleModal = (): void => {
     setIsModalOpen(!isModalOpen);
@@ -206,7 +247,7 @@ export const Column: FC<Props> = ({
           <div className={styles['title-wrapper']}>
             <div className={styles['title-before']} />
             <h3 className={styles.title}>{title}</h3>
-            <div className={styles['title-after']}>1</div>
+            <div className={styles['title-after']}>{item.tasks.length}</div>
           </div>
           <img
             className={styles['add-task']}
@@ -222,19 +263,30 @@ export const Column: FC<Props> = ({
           />
         </div>
       )}
-      <div className={styles['task-list-wrapper']}>
-        <ul className={styles['task-list']}>
+      <div
+        className={styles['task-list-wrapper']}
+        data-handler-id={taskColumnHandlerId}
+      >
+        <ul
+          style={{ minHeight: '150px' }}
+          className={styles['task-list']}
+          ref={dropOnColumn}
+        >
           {tasks.map((task, index) => {
             const { id } = task;
             const taskPosition: TaskPosition = {
               columnX: columnIndex,
               taskY: index,
             };
-            const handleDeleteTask = (): void => {
-              dispatch(
+
+            const handleDeleteTask = async (): Promise<void> => {
+              await dispatch(
                 taskActions.removeTask({ boardId, columnId, taskId: id }),
               );
+
+              updateColumns();
             };
+
             return (
               <TaskLink
                 key={id}
@@ -245,6 +297,7 @@ export const Column: FC<Props> = ({
                 taskPosition={taskPosition}
                 columnId={columnId}
                 boardId={boardId}
+                updateColumns={updateColumns}
               />
             );
           })}
@@ -255,6 +308,7 @@ export const Column: FC<Props> = ({
           boardId={boardId}
           columnId={columnId}
           onClose={handleToggleModal}
+          updateColumns={updateColumns}
         />
       </Modal>
       <ConfirmationModal

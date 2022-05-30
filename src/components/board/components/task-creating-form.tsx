@@ -11,22 +11,33 @@ type Props = {
   boardId: string;
   columnId: string;
   onClose: () => void;
+  updateColumns: () => void;
 };
 
-export const TaskCreatingForm: FC<Props> = ({ boardId, columnId, onClose }) => {
+export const TaskCreatingForm: FC<Props> = ({
+  boardId,
+  columnId,
+  onClose,
+  updateColumns,
+}) => {
   const { register, handleSubmit, reset } = useForm<CreateTaskDto>();
   const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.auth.user?.id);
 
-  const handleCreateForm = ({ title, description }: CreateTaskDto): void => {
+  const handleCreateForm = async ({
+    title,
+    description,
+  }: CreateTaskDto): Promise<void> => {
     if (userId) {
-      dispatch(
+      await dispatch(
         taskActions.createTask({
           boardId,
           columnId,
           createTaskDto: { title, description, userId },
         }),
       );
+
+      updateColumns();
       reset();
       onClose();
     }

@@ -8,17 +8,11 @@ import { task as taskActions } from '~/store/actions';
 import { TaskUpdatePayload } from '~/store/task/common';
 import styles from './styles.module.scss';
 
-type TaskInfo = {
-  title: string;
-  description: string;
-};
-
 type Props = {
   item: TaskDto;
-  taskInfo: TaskInfo;
-  setTaskInfo: (taskInfo: TaskInfo) => void;
   columnId: string;
   boardId: string;
+  updateColumns: () => void;
   handleModalClose: () => void;
 };
 
@@ -26,8 +20,7 @@ export const Task: FC<Props> = ({
   item,
   columnId,
   boardId,
-  taskInfo,
-  setTaskInfo,
+  updateColumns,
   handleModalClose,
 }) => {
   const dispatch = useAppDispatch();
@@ -35,8 +28,8 @@ export const Task: FC<Props> = ({
   const [isDescriptionEdit, setIsDescriptionEdit] = useState(false);
   const { register, handleSubmit, getValues } = useForm<TaskDto>({
     defaultValues: {
-      title: taskInfo.title,
-      description: taskInfo.description,
+      title: item.title,
+      description: item.description,
     },
     mode: 'onChange',
   });
@@ -50,7 +43,7 @@ export const Task: FC<Props> = ({
     setIsTitleEdit(false);
   };
 
-  const onSubmit = ({ title, description }: TaskDto): void => {
+  const onSubmit = async ({ title, description }: TaskDto): Promise<void> => {
     const updateTaskResponseDto: UpdateTaskDto = {
       title,
       description,
@@ -65,10 +58,12 @@ export const Task: FC<Props> = ({
       boardId,
       columnId,
     };
+
+    await dispatch(taskActions.updateTask(taskResponse));
+
+    updateColumns();
     setIsTitleEdit(false);
     setIsDescriptionEdit(false);
-    setTaskInfo({ title, description });
-    dispatch(taskActions.updateTask(taskResponse));
     handleModalClose();
   };
 

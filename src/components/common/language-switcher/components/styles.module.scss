@@ -1,0 +1,22 @@
+.wrapper {
+  list-style: none;
+}
+
+.button {
+  background: transparent;
+  border: none;
+  outline: 0;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  font-weight: var(--font-weight-500);
+}
+
+.button-active {
+  color: var(--color-purple-300);
+}
+
+.button:hover {
+  opacity: 1;
+}
