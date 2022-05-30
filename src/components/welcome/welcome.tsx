@@ -21,18 +21,20 @@ export const Welcome: FC = () => {
 
   return (
     <main>
-      <div>
-        <LanguageSwitcher />
-        <ul>
-          {buttonsData.map(({ to, title }, i) => (
-            <PageButton
-              className={styles.button}
-              path={to}
-              title={title}
-              key={`topButton${i}`}
-            />
-          ))}
-        </ul>
+      <div className={styles['wrapper']}>
+        <div className={styles['navigation-wrapper']}>
+          <LanguageSwitcher />
+          <ul className={styles['button-list']}>
+            {buttonsData.map(({ to, title }, i) => (
+              <PageButton
+                className={styles['button']}
+                path={to}
+                title={title}
+                key={`topButton${i}`}
+              />
+            ))}
+          </ul>
+        </div>
       </div>
       <div className={styles['content-wrapper']}>
         <div className={styles['content-welcome']}>
