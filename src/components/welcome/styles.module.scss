@@ -1,9 +1,21 @@
+.wrapper {
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.navigation-wrapper {
+  display: flex;
+  max-width: 1145px;
+  width: 100%;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
 .content-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 1145px;
-  margin: 0 auto;
+  margin: 30px auto;
   color: var(--color-purple-400);
   row-gap: 50px;
   margin-bottom: 30px;
@@ -93,4 +105,17 @@
     font-weight: var(--font-weight-600);
     margin: 0;
   }
+}
+
+.button-list {
+  display: flex;
+  column-gap: 30px;
+}
+
+.button {
+  color: var(--color-purple-300);
+  border: none;
+  background: none;
+  font-weight: var(--font-weight-500);
+  cursor: pointer;
 }
