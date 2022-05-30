@@ -1,3 +1,4 @@
+import { joiResolver } from '@hookform/resolvers/joi';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { InputName } from '~/common/enums/enums';
@@ -6,6 +7,7 @@ import { FormattedMessage, TextInput } from '~/components/common/common';
 import { useAppDispatch } from '~/hooks/hooks';
 import { task as taskActions } from '~/store/actions';
 import { TaskUpdatePayload } from '~/store/task/common';
+import { createTask } from '~/validation-schemas/validation-schemas';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -27,6 +29,7 @@ export const Task: FC<Props> = ({
   const [isTitleEdit, setIsTitleEdit] = useState(false);
   const [isDescriptionEdit, setIsDescriptionEdit] = useState(false);
   const { register, handleSubmit, getValues } = useForm<TaskDto>({
+    resolver: joiResolver(createTask),
     defaultValues: {
       title: item.title,
       description: item.description,
