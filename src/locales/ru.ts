@@ -145,19 +145,19 @@ export const RUMessagesMap: AppLocalizationMap = {
       item0: {
         name: 'Евгений',
         aboutMe:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu quam, euismod nec mi nec, scelerisque convallis neque. Pellentesque egestas eros vitae nunc efficitur consectetur. Phasellus auctor volutpat posuere. Donec porta rutrum arcu, in pretium turpis convallis vitae. Aliquam erat volutpat. Etiam pellentesque magna et tincidunt elementum. Vestibulum eu nulla mi. In dui nunc, lobortis id vulputate et, mattis vitae nibh.',
+          'Всем привет, я Женя и я вкалываю 24/7 на этих курсах. В этом приложении занимался в основном: валидацией, авторизацией, CI/CD, DnD, доской, колонками, тасками, формами для создания тасок/колонок/досок, бесконечно долго реализовывал дополнительный функционал с переносом таски при переносе на другие карточки и превью на месте, где таска упадет при дропе.',
         contribution: 'Вклад: Mock',
       },
       item1: {
         name: 'Николай',
         aboutMe:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu quam, euismod nec mi nec, scelerisque convallis neque. Pellentesque egestas eros vitae nunc efficitur consectetur. Phasellus auctor volutpat posuere. Donec porta rutrum arcu, in pretium turpis convallis vitae. Aliquam erat volutpat. Etiam pellentesque magna et tincidunt elementum. Vestibulum eu nulla mi. In dui nunc, lobortis id vulputate et, mattis vitae nibh.',
+          'Добрый вечер мы с Украины! Меня зовут Николай, иногда сплю и играю в спортивную Мафию, остальное время пишу код(хорошо что вы его не увидите). Мой вклад в проект: функционал Board page, Main page, модуль локализации, часть АПИ сервисов, стили для футера, Welcome page, SignIn/SignOut page, User Profile page и модалок.',
         contribution: 'Вклад: Mock',
       },
       item2: {
         name: 'Алексей',
         aboutMe:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu quam, euismod nec mi nec, scelerisque convallis neque. Pellentesque egestas eros vitae nunc efficitur consectetur. Phasellus auctor volutpat posuere. Donec porta rutrum arcu, in pretium turpis convallis vitae. Aliquam erat volutpat. Etiam pellentesque magna et tincidunt elementum. Vestibulum eu nulla mi. In dui nunc, lobortis id vulputate et, mattis vitae nibh.',
+          'Интересуюсь веб разработкой уже около двух лет и почти год занят обучением в школе Rs-school. Прямо говоря, это был непростой путь, но по итогу я очень благодарен всем, кого на нем повстречал, и за каждый из уроков, которые я вынес. В проекте я приложил руку к визуальной составляющей, локализации, модальным окнам и логике обработки ошибок.',
         contribution: 'Вклад: Mock',
       },
     },

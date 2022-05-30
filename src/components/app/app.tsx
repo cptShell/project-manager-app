@@ -47,7 +47,7 @@ export const App: FC = () => {
         />
         <Route
           element={
-            <PrivateRoute redirectTo={AppRoute.SIGN_IN}>
+            <PrivateRoute redirectTo={AppRoute.WELCOME}>
               <Layout />
             </PrivateRoute>
           }
