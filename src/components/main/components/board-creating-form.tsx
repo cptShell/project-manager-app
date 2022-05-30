@@ -35,7 +35,7 @@ export const BoardCreatingForm: FC<Props> = ({ isOpen, onClose }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <form
-        className={styles['wrapper']}
+        className={styles['form']}
         onSubmit={handleSubmit(handleCreateForm)}
       >
         <TextInput

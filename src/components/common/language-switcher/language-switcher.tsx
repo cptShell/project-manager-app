@@ -8,7 +8,7 @@ export const LanguageSwitcher: FC = () => {
   const { handleLanguageChange } = useAppTranslation();
 
   return (
-    <ul className={styles.ul}>
+    <ul className={styles.list}>
       {Object.values(AppLanguage).map((language) => (
         <LanguageSwitcherItem
           key={language}

@@ -2,8 +2,7 @@
   list-style: none;
 }
 
-.button,
-.button-active {
+.button {
   background: transparent;
   border: none;
   outline: 0;
@@ -15,10 +14,9 @@
 
 .button-active {
   color: var(--color-purple-300);
-  font-weight: 500;
+  font-weight: var(--font-weight-500);
 }
 
-.button:hover,
-.button-active:hover {
+.button:hover {
   opacity: 1;
 }

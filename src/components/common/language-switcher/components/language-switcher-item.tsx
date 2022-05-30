@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { FC } from 'react';
 import { AppLanguage } from '~/common/enums/enums';
 import { useAppTranslation } from '~/hooks/hooks';
@@ -14,14 +15,16 @@ export const LanguageSwitcherItem: FC<Props> = ({
 }) => {
   const { currentLanguage } = useAppTranslation();
   const isActive = currentLanguage === label;
-  const ifActive = isActive ? styles['button-active'] : styles.button;
+  const buttonClassName = clsx(styles.button, {
+    [styles['button-active']]: isActive,
+  });
 
   const handleLanguageChange = (): void => {
     onLanguageChange(label);
   };
   return (
     <li className={styles.wrapper}>
-      <button className={ifActive} onClick={handleLanguageChange}>
+      <button className={buttonClassName} onClick={handleLanguageChange}>
         {label}
       </button>
     </li>
