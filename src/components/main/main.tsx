@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '~/common/enums/enums';
 import { useAppSelector, useAppDispatch } from '~/hooks/hooks';
 import { board as boardActions } from '~/store/actions';
-import { Modal } from '../common/modal/modal';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
 import { BoardCreatingForm } from './components/board-creating-form';
 import styles from './styles.module.scss';
@@ -74,9 +73,7 @@ export const Main: FC = () => {
           </li>
         </ul>
       </div>
-      <Modal isOpen={isOpen} onClose={handleCreateBoard}>
-        <BoardCreatingForm isOpen={isOpen} setIsOpen={setIsOpen} />
-      </Modal>
+      <BoardCreatingForm isOpen={isOpen} onClose={handleCreateBoard} />
     </main>
   );
 };

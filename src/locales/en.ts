@@ -132,7 +132,7 @@ export const ENMessagesMap: AppLocalizationMap = {
     experience in using the following technologies and tools:
     
     JavaScript
-    typescript
+    TypeScript
     Git, GitHub (clone, add, commit, push, pull, merge, rebase, work with Pull Request)
     npm, webpack
     CSS3 / HTML5
