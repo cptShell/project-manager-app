@@ -17,6 +17,7 @@ type Props = {
   taskPosition: TaskPosition;
   boardId: string;
   columnId: string;
+  updateColumns: () => void;
 };
 
 export const TaskLink: FC<Props> = ({
@@ -27,11 +28,11 @@ export const TaskLink: FC<Props> = ({
   boardId,
   columnId,
   dropTask,
+  updateColumns,
 }) => {
   const { id, title, description } = data;
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [taskInfo, setTaskInfo] = useState({ title, description });
   const taskRef = useRef<HTMLDivElement>(null);
 
   const handleOpenConfirmation = (e: MouseEvent): void => {
@@ -67,7 +68,7 @@ export const TaskLink: FC<Props> = ({
       const { columnX: dragColumnX, taskY: dragTaskY } = dragPosition;
       const { columnX: hoverColumnX, taskY: hoverTaskY } = taskPosition;
 
-      if (dragColumnX === hoverColumnX && dragTaskY === hoverTaskY) {
+      if (item.id === id) {
         return;
       }
 
@@ -133,17 +134,16 @@ export const TaskLink: FC<Props> = ({
       />
       <Modal isOpen={isOpen} onClose={handleModalClose}>
         <Task
-          taskInfo={taskInfo}
-          setTaskInfo={setTaskInfo}
           item={data}
           boardId={boardId}
           columnId={columnId}
+          updateColumns={updateColumns}
           handleModalClose={handleModalClose}
         />
       </Modal>
       <li className={styles['column-item']} key={id} onClick={handleModalOpen}>
         <div className={styles['column-top']}>
-          <h3 className={styles['column-title']}>{taskInfo.title}</h3>
+          <h3 className={styles['column-title']}>{title}</h3>
           <img
             className={styles['column-img']}
             src={bucketImg}
@@ -152,7 +152,7 @@ export const TaskLink: FC<Props> = ({
           ></img>
         </div>
         <div className={styles['column-bottom']}>
-          <p className={styles['column-text']}>{taskInfo.description}</p>
+          <p className={styles['column-text']}>{description}</p>
         </div>
       </li>
     </div>

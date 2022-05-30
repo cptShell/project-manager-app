@@ -43,6 +43,15 @@ export const Board: FC = () => {
     board?.columns || [],
   );
 
+  const updateColumns = async (): Promise<void> => {
+    if (boardId) {
+      const data = await dispatch(boardActions.getById(boardId)).unwrap();
+      const currentBoard = data as FullBoardDto;
+
+      setColumns(currentBoard.columns);
+    }
+  };
+
   const dropColumn = (dropIndex: number): void => {
     const targetColumn = columns[dropIndex];
     const createColumnResponseDto: ColumnDto = {
@@ -137,12 +146,7 @@ export const Board: FC = () => {
   );
 
   useEffect(() => {
-    if (boardId) {
-      dispatch(boardActions.getById(boardId)).then((data) => {
-        const currentBoard = data.payload as FullBoardDto;
-        setColumns(currentBoard.columns);
-      });
-    }
+    updateColumns();
   }, []);
 
   const handleReturn = (): void => {
@@ -182,33 +186,76 @@ export const Board: FC = () => {
           onConfirm={handleConfirm}
         />
         <div className={styles['board-header']}>
-          <div className={styles['back-to-main-container']} onClick={handleReturn}>
-            <img className={styles['back-to-main-icon']} src={arrowImg} alt="back arrow" />
-            <FormattedMessage className={styles['back-to-main']} as="h3" message="board.buttons.backToMainPage" />
+          <div
+            className={styles['back-to-main-container']}
+            onClick={handleReturn}
+          >
+            <img
+              className={styles['back-to-main-icon']}
+              src={arrowImg}
+              alt="back arrow"
+            />
+            <FormattedMessage
+              className={styles['back-to-main']}
+              as="h3"
+              message="board.buttons.backToMainPage"
+            />
           </div>
           <h1 className={styles['board-title']}>{board.title}</h1>
         </div>
         <section className={styles.section}>
           <div className={styles['column-wrapper']}>
-            {columns.map((column, index) => (
-              <Column
-                key={column.id}
-                item={column}
-                boardId={boardId}
-                moveColumn={moveColumn}
-                dropColumn={dropColumn}
-                moveTask={moveTask}
-                dropTask={dropTask}
-                columnIndex={index}
+            {columns.map((column, index) => {
+              const handleDeleteColumn = (): void => {
+                const deleteIndex = columns.findIndex(
+                  (item) => item.id === column.id,
+                );
+
+                if (deleteIndex !== -1) {
+                  const updatedColumns = [...columns];
+                  const [{ id: columnId }] = updatedColumns.splice(
+                    deleteIndex,
+                    1,
+                  );
+
+                  dispatch(columnActions.removeColumn({ boardId, columnId }));
+                  setColumns(updatedColumns);
+                }
+              };
+
+              return (
+                <Column
+                  key={column.id}
+                  item={column}
+                  boardId={boardId}
+                  moveColumn={moveColumn}
+                  dropColumn={dropColumn}
+                  moveTask={moveTask}
+                  dropTask={dropTask}
+                  columnIndex={index}
+                  handleDeleteColumn={handleDeleteColumn}
+                  updateColumns={updateColumns}
+                />
+              );
+            })}
+            <div
+              className={styles['add-column-wrapper']}
+              onClick={handleToggleModal}
+            >
+              <img
+                className={styles['add-column-img']}
+                src={plusImg}
+                alt="plus"
               />
-            ))}
-            <div className={styles['add-column-wrapper']} onClick={handleToggleModal}>
-              <img className={styles['add-column-img']} src={plusImg} alt="plus" />
               <FormattedMessage as="h3" message="board.buttons.addColumn" />
             </div>
           </div>
           <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
-            <CreateColumnForm id={boardId} onClose={handleToggleModal} />
+            <CreateColumnForm
+              id={boardId}
+              onClose={handleToggleModal}
+              updateColumns={updateColumns}
+            />
           </Modal>
         </section>
       </main>
