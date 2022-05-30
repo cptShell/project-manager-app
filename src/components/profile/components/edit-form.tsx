@@ -17,7 +17,6 @@ export const EditForm: FC = () => {
   }));
   const dispatch = useAppDispatch();
 
-  const [isEditable, setIsEditable] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const { register, handleSubmit, formState } = useForm<SignUpUserDto>({
     resolver: joiResolver(signUpUser),
@@ -39,13 +38,11 @@ export const EditForm: FC = () => {
       dispatch(userActions.editAuthenticatedUser(payload));
     }
     setIsDisabled(true);
-    setIsEditable(false);
   };
 
   const handleDisabled = (e: MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
     setIsDisabled(false);
-    setIsEditable(true);
   };
 
   return (
@@ -76,7 +73,7 @@ export const EditForm: FC = () => {
         className={styles['form-label']}
       />
 
-      {!isEditable ? (
+      {isDisabled ? (
         <button onClick={handleDisabled} className={styles['form-button']}>
           <FormattedMessage
             as="span"
