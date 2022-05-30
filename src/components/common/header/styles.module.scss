@@ -101,7 +101,8 @@
   align-items: center;
   background: var(--color-white);
   box-shadow: var(--shadow);
-  padding: 10px 15px;
+  padding: 10px;
+  gap: 10px;
 }
 
 .user-menu-option:hover {
