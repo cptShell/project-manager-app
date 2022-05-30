@@ -8,6 +8,11 @@ export const Footer: FC = () => {
   return (
     <div className={styles['wrapper']}>
       <div className={styles['container']}>
+        <div className={styles['logo-wrapper']}>
+          <a href="https://rs.school/react/" target="_blank">
+            <img src={RSLogo} alt="RS School logo" />
+          </a>
+        </div>
         <div className={styles['github-container']}>
           {CONTRIBUTORS.map(({ name, link }, index) => {
             return (
@@ -27,12 +32,8 @@ export const Footer: FC = () => {
             );
           })}
         </div>
-
-        <div className={styles['logo-wrapper']}>
-          <a href="https://rs.school/react/" target="_blank">
-            <img src={RSLogo} alt="RS School logo" />
-          </a>
-          <span className={styles['date']}>2022</span>
+        <div className={styles['date-container']}>
+          <span>© 2022</span>
         </div>
       </div>
     </div>
