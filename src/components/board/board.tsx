@@ -20,7 +20,7 @@ import {
   TaskPosition,
   UpdateTaskDto,
 } from '~/common/types/types';
-import { FormattedMessage, Header } from '../common/common';
+import { FormattedMessage } from '../common/common';
 import { Column } from './components/column/column';
 import { NotFound } from '../not-found-page/not-found-page';
 import { Loader } from '../common/loader/loader';
@@ -177,7 +177,6 @@ export const Board: FC = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <Header />
       <main className={styles.main}>
         <ConfirmationModal
           message={'modals.confirmation.deleteColumn'}

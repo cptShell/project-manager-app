@@ -29,6 +29,7 @@
   height: 100%;
   display: flex;
   align-items: center;
+  gap: 20px;
 }
 
 .title-before,
@@ -65,7 +66,6 @@
   border: 0;
   outline: none;
   border-bottom: 1px solid var(--color-purple-300);
-  margin-left: 20px;
 }
 
 .title-after {
@@ -96,7 +96,7 @@
 }
 
 .task-list-wrapper {
-  height: calc(100vh - 435px);
+  height: calc(100vh - 460px);
   display: flex;
   flex-direction: column;
 }

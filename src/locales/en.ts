@@ -145,19 +145,19 @@ export const ENMessagesMap: AppLocalizationMap = {
       item0: {
         name: 'Evgeny',
         aboutMe:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu quam, euismod nec mi nec, scelerisque convallis neque. Pellentesque egestas eros vitae nunc efficitur consectetur. Phasellus auctor volutpat posuere. Donec porta rutrum arcu, in pretium turpis convallis vitae. Aliquam erat volutpat. Etiam pellentesque magna et tincidunt elementum. Vestibulum eu nulla mi. In dui nunc, lobortis id vulputate et, mattis vitae nibh.',
+          'Hello everyone, I am Zhenya and I work hard 24/7 on these courses. In this application, I mainly used: authentication, authorization, CI / CD, DnD, board, columns, tasks, forms for creating tasks / columns / boards, implemented additional functionality for an infinitely long time with the transfer of tasks when transferred to other cards and previews on the place where the task will fall when dropping.',
         contribution: 'Contribution: Mock',
       },
       item1: {
         name: 'Nickolas',
         aboutMe:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu quam, euismod nec mi nec, scelerisque convallis neque. Pellentesque egestas eros vitae nunc efficitur consectetur. Phasellus auctor volutpat posuere. Donec porta rutrum arcu, in pretium turpis convallis vitae. Aliquam erat volutpat. Etiam pellentesque magna et tincidunt elementum. Vestibulum eu nulla mi. In dui nunc, lobortis id vulputate et, mattis vitae nibh.',
+          'Good evening, we are from Ukraine! My name is Nikolai, sometimes I sleep and play sports Mafia, the rest of the time I write code (it"s good that you won"t see it). My contribution to the project: the functionality of the Board page, Main page, localization module, part of the service API, styles for the footer, Welcome page, SignIn/SignOut page, User Profile page and modals.',
         contribution: 'Contribution: Mock',
       },
       item2: {
         name: 'Alexei',
         aboutMe:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu quam, euismod nec mi nec, scelerisque convallis neque. Pellentesque egestas eros vitae nunc efficitur consectetur. Phasellus auctor volutpat posuere. Donec porta rutrum arcu, in pretium turpis convallis vitae. Aliquam erat volutpat. Etiam pellentesque magna et tincidunt elementum. Vestibulum eu nulla mi. In dui nunc, lobortis id vulputate et, mattis vitae nibh.',
+          'I have been interested in web development for about two years and have been studying at Rs-school for almost a year.  It was not an simple path, but in the end, I am very grateful to everyone I met and for all lesons I learned. In the project, I’ve had a hand in the component styling, localization, modal windows and error handling logic.',
         contribution: 'Contribution: Mock',
       },
     },
