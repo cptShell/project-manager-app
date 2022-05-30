@@ -1,18 +1,18 @@
 export type ProfileLocalizationKey = {
-    title: string,
-    userData: {
-        currentId: string,
-        currentName: string,
-        currentLogin: string,
-    },
+  title: string;
+  userData: {
+    currentId: string;
+    currentName: string;
+    currentLogin: string;
+  };
+  buttons: {
+    deleteUser: string;
+  };
+  editForm: {
+    title: string;
     buttons: {
-        deleteUser: string,
-    }
-    editForm: {
-        title: string,
-        buttons: {
-            editUser: string
-        }
-    }
+      editUser: string;
+      saveUser: string;
+    };
+  };
 };
-  

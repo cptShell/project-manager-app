@@ -103,12 +103,13 @@ export const ENMessagesMap: AppLocalizationMap = {
       currentLogin: 'Login:',
     },
     buttons: {
-      deleteUser: 'Delete User',
+      deleteUser: 'Delete an account',
     },
     editForm: {
-      title: 'Edit user',
+      title: 'Edit Profile',
       buttons: {
         editUser: 'Edit',
+        saveUser: 'Apply changes',
       },
     },
   },

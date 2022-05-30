@@ -9,6 +9,7 @@ type Props = {
   formRegisterValues: UseFormRegisterReturn;
   errorMessage?: string;
   className?: string;
+  disabled?: boolean;
 };
 
 export const TextInput: FC<Props> = ({
@@ -16,11 +17,16 @@ export const TextInput: FC<Props> = ({
   errorMessage,
   title,
   className,
+  disabled,
 }) => {
   return (
     <label className={className}>
       <FormattedMessage as="span" message={title} />
-      <input type={InputType.TEXT} {...formRegisterValues} />
+      <input
+        type={InputType.TEXT}
+        {...formRegisterValues}
+        disabled={disabled}
+      />
       {Boolean(errorMessage) && (
         <FormattedMessage
           as="span"

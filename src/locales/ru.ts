@@ -109,6 +109,7 @@ export const RUMessagesMap: AppLocalizationMap = {
       title: 'Правка пользователя',
       buttons: {
         editUser: 'Изменить',
+        saveUser: 'Применить изменения',
       },
     },
   },
