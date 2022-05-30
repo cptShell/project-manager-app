@@ -7,14 +7,15 @@ import { FormattedMessage, TextInput } from '~/components/common/common';
 import { AppLocalizationKey, CreateBoardDto } from '~/common/types/types';
 import { InputName } from '~/common/enums/enums';
 import { useAppDispatch } from '~/hooks/hooks';
+import { Modal } from '~/components/common/modal/modal';
 import styles from './styles.module.scss';
 
 type Props = {
   isOpen: boolean;
-  setIsOpen: (arg: boolean) => void;
+  onClose: () => void;
 };
 
-export const BoardCreatingForm: FC<Props> = ({ isOpen, setIsOpen }) => {
+export const BoardCreatingForm: FC<Props> = ({ isOpen, onClose }) => {
   const { register, handleSubmit, formState, reset } = useForm<CreateBoardDto>({
     resolver: joiResolver(createBoard),
   });
@@ -24,7 +25,7 @@ export const BoardCreatingForm: FC<Props> = ({ isOpen, setIsOpen }) => {
   const handleCreateForm = ({ title, description }: CreateBoardDto): void => {
     dispatch(boardActions.create({ title, description }));
     reset();
-    setIsOpen(false);
+    onClose();
   };
 
   if (!isOpen) {
@@ -32,39 +33,41 @@ export const BoardCreatingForm: FC<Props> = ({ isOpen, setIsOpen }) => {
   }
 
   return (
-    <form
-      className={styles['wrapper']}
-      onSubmit={handleSubmit(handleCreateForm)}
-    >
-      <TextInput
-        className={styles['title']}
-        title="main.boardCreatingForm.inputs.titles.title"
-        formRegisterValues={register(InputName.TITLE)}
-        errorMessage={titleError?.message}
-      />
-      <div>
-        <FormattedMessage
-          className={styles['description-title']}
-          as="span"
-          message={'main.boardCreatingForm.inputs.titles.description'}
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <form
+        className={styles['form']}
+        onSubmit={handleSubmit(handleCreateForm)}
+      >
+        <TextInput
+          className={styles['title']}
+          title="main.boardCreatingForm.inputs.titles.title"
+          formRegisterValues={register(InputName.TITLE)}
+          errorMessage={titleError?.message}
         />
-        <textarea
-          className={styles['description']}
-          {...register(InputName.DESCRIPTION)}
-        />
-        {Boolean(descriptionError?.message) && (
+        <div>
           <FormattedMessage
+            className={styles['description-title']}
             as="span"
-            message={descriptionError?.message as AppLocalizationKey}
+            message={'main.boardCreatingForm.inputs.titles.description'}
           />
-        )}
-      </div>
+          <textarea
+            className={styles['description']}
+            {...register(InputName.DESCRIPTION)}
+          />
+          {Boolean(descriptionError?.message) && (
+            <FormattedMessage
+              as="span"
+              message={descriptionError?.message as AppLocalizationKey}
+            />
+          )}
+        </div>
 
-      <FormattedMessage
-        className={styles['button']}
-        as="button"
-        message="main.boardCreatingForm.buttons.createBoard"
-      />
-    </form>
+        <FormattedMessage
+          className={styles['button']}
+          as="button"
+          message="main.boardCreatingForm.buttons.createBoard"
+        />
+      </form>
+    </Modal>
   );
 };

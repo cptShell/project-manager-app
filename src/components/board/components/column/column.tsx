@@ -206,7 +206,7 @@ export const Column: FC<Props> = ({
           <div className={styles['title-wrapper']}>
             <div className={styles['title-before']} />
             <h3 className={styles.title}>{title}</h3>
-            <div className={styles['title-after']}>1</div>
+            <div className={styles['title-after']}>{item.tasks.length}</div>
           </div>
           <img
             className={styles['add-task']}
