@@ -82,8 +82,8 @@ export const ENMessagesMap: AppLocalizationMap = {
   },
   auth: {
     titles: {
-      singIn: 'Sign In',
-      singUp: 'Sign Up',
+      signIn: 'Sign In',
+      signUp: 'Sign Up',
     },
     inputs: {
       name: 'Name',
@@ -93,6 +93,10 @@ export const ENMessagesMap: AppLocalizationMap = {
     buttons: {
       signIn: 'Sign In',
       signUp: 'Sign Up',
+    },
+    messages: {
+      dontHave: 'Don’t have an account?',
+      alreadyHave: 'Already have an account?',
     },
   },
   profile: {

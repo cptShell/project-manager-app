@@ -82,8 +82,8 @@ export const RUMessagesMap: AppLocalizationMap = {
   },
   auth: {
     titles: {
-      singIn: 'Вход',
-      singUp: 'Регистрация',
+      signIn: 'Вход',
+      signUp: 'Регистрация',
     },
     inputs: {
       name: 'Имя',
@@ -93,6 +93,10 @@ export const RUMessagesMap: AppLocalizationMap = {
     buttons: {
       signIn: 'Войти',
       signUp: 'Зарегистрироваться',
+    },
+    messages: {
+      dontHave: 'Нет учетной записи?',
+      alreadyHave: 'Уже зарегистрированы?',
     },
   },
   profile: {
