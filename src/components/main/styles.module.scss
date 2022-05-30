@@ -1,3 +1,14 @@
+.main {
+  flex-grow: 1;
+}
+
+.title {
+  margin: 0 auto;
+  max-width: 1145px;
+  padding: 30px 20px;
+  font-size: var(--font-size-600);
+}
+
 .wrapper {
   max-width: 1145px;
   display: grid;
@@ -40,6 +51,7 @@
   max-width: 250px;
   padding: 10px;
   margin: 0;
+  font-size: var(--font-size-400);
 }
 
 .board-img {
@@ -53,6 +65,8 @@
 
 .board-bottom {
   padding: 10px;
+  font-size: var(--font-size-100);
+  color: var(--color-gray-300);
 }
 
 .plus-img {

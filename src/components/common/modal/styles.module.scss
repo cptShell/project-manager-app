@@ -7,3 +7,10 @@
   align-items: center;
   justify-content: center;
 }
+
+.inner-wrapper {
+  background: var(--color-white);
+  border-radius: 3px;
+  max-width: 380px;
+  width: 100%;
+}

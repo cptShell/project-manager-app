@@ -127,6 +127,7 @@ export const TaskLink: FC<Props> = ({
   return (
     <div style={{ opacity }} ref={taskRef} data-handler-id={handlerId}>
       <ConfirmationModal
+        message={'modals.confirmation.deleteTask'}
         isOpen={confirmationModalOpen}
         onClose={handleCloseConfirmation}
         onConfirm={onClick}
@@ -137,6 +138,7 @@ export const TaskLink: FC<Props> = ({
           boardId={boardId}
           columnId={columnId}
           updateColumns={updateColumns}
+          handleModalClose={handleModalClose}
         />
       </Modal>
       <li className={styles['column-item']} key={id} onClick={handleModalOpen}>

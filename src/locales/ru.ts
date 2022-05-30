@@ -7,14 +7,17 @@ import { AppLocalizationMap } from '~/common/types/types';
 export const RUMessagesMap: AppLocalizationMap = {
   header: {
     nav: {
-      createBoard: 'Создание бордов',
-      editUser: 'Настройки пользователя',
+      createBoard: 'Создать доску',
+      editUser: 'Изменить пользователя',
       signOut: 'Выйти из аккаунта',
     },
   },
   modals: {
     confirmation: {
-      title: 'Вы уверены?',
+      deleteBoard: 'Вы уверены что хотите удалить эту доску?',
+      deleteColumn: 'Вы уверены что хотите удалить эту колонку?',
+      deleteTask: 'Вы уверены что хотите удалить это задание?',
+      deleteUser: 'Вы уверены что хотите удалить свой аккаунт?',
       buttons: {
         confirm: 'Да',
         reject: 'Нет',
@@ -24,67 +27,68 @@ export const RUMessagesMap: AppLocalizationMap = {
   main: {
     title: 'Привет',
     boardCreatingForm: {
-      title: 'Создание борда',
+      title: 'Создание доски',
       inputs: {
         titles: {
-          title: 'заглавие',
-          description: 'описание',
+          title: 'Название',
+          description: 'Описание',
         },
       },
       buttons: {
-        createBoard: 'Создать',
+        createBoard: 'Создать доску',
       },
     },
   },
   board: {
     title: 'Вы на странице',
     buttons: {
-      addColumn: 'Добавть колонку',
+      addColumn: 'Добавить колонку',
       deleteColumn: 'Удалить колонку',
-      backToMainPage: 'Назад на Главную',
+      backToMainPage: 'Назад на Главную страницу',
     },
     columnCreatingForm: {
-      title: 'Создание колонок',
+      title: 'Создание колонки',
       inputs: {
-        title: 'Заглавие',
+        title: 'Название',
       },
       buttons: {
-        createColumn: 'создать колонку',
+        createColumn: 'Создать колонку',
       },
     },
     taskCreatingForm: {
-      title: 'Создание тасков',
+      title: 'Создание задачи',
       inputs: {
-        title: 'заглавие',
-        description: 'описание',
+        title: 'Название',
+        description: 'Описание',
       },
       buttons: {
-        createTask: 'создать таск',
+        createTask: 'Создать задачу',
+        editTask: 'Изменить задачу',
       },
     },
     boardItem: {
       buttons: {
-        submit: 'отправить',
-        cancel: 'отменить',
-        addTask: 'добавить таск',
+        submit: 'Подтвердить',
+        cancel: 'Отменить',
+        addTask: 'Добавить задание',
       },
     },
     column: {
       buttons: {
-        addTask: 'добавить таск',
-        deleteTask: 'удалить таск',
+        addTask: 'Добавить задание',
+        deleteTask: 'Удалить задание',
       },
     },
   },
   auth: {
     titles: {
       singIn: 'Вход',
-      singUp: 'Регестрация',
+      singUp: 'Регистрация',
     },
     inputs: {
-      name: 'имя',
-      login: 'логин',
-      password: 'пароль',
+      name: 'Имя',
+      login: 'Имя пользователя',
+      password: 'Пароль',
     },
     buttons: {
       signIn: 'Войти',
@@ -94,25 +98,25 @@ export const RUMessagesMap: AppLocalizationMap = {
   profile: {
     title: 'Настройки пользователя',
     userData: {
-      currentId: 'текущий Id:',
-      currentName: 'имя:',
-      currentLogin: 'логин:',
+      currentId: 'Текущий Id:',
+      currentName: 'Имя:',
+      currentLogin: 'Имя пользователя:',
     },
     buttons: {
       deleteUser: 'Удалить пользователя',
     },
     editForm: {
-      title: 'Правка пользователя',
+      title: 'Изменить пользователя',
       buttons: {
-        editUser: 'Изменить',
+        editUser: 'Редактировать',
       },
     },
   },
   welcome: {
     buttons: {
-      mainPage: 'На Главную',
+      mainPage: 'Главная страница',
       signIn: 'Вход',
-      signUp: 'Регестрация',
+      signUp: 'Регистрация',
     },
     titleWelcome: 'Добро пожаловать!',
     aboutProject: `
@@ -128,7 +132,7 @@ export const RUMessagesMap: AppLocalizationMap = {
     и практическим опытом использования следующих технологий и инструментов:
     
     JavaScript
-    typescript
+    TypeScript
     Git, GitHub (clone, add, commit, push, pull, merge, rebase, work with Pull Request)
     npm, webpack
     CSS3 / HTML5
@@ -159,19 +163,19 @@ export const RUMessagesMap: AppLocalizationMap = {
   },
   validationMessages: {
     board: {
-      titleRequired: 'заглавие обязательно',
+      titleRequired: 'Название обязательно',
       titleMaxLength: `Длинна должна быть не более ${BoardValidationRule.TITLE_MAX_LENGTH} символов`,
       descriptionRequired: 'Описание обязательно',
       descriptionMaxLength: `Длинна должна быть не более ${BoardValidationRule.DESCRIPTION_MAX_LENGTH} символов`,
     },
     user: {
-      nameRequired: 'имя обязательно',
+      nameRequired: 'Имя обязательно',
       nameMinLength: `Длинна должна быть не менее ${UserAuthValidationRule.NAME_MIN_LENGTH} символов`,
       nameMaxLength: `Длинна должна быть не более ${UserAuthValidationRule.NAME_MAX_LENGTH} символов`,
-      loginRequired: 'логин обязателен',
+      loginRequired: 'Имя пользователя обязателен',
       loginMinLength: `Длинна должна быть не менее ${UserAuthValidationRule.LOGIN_MIN_LENGTH} символов`,
       loginMaxLength: `Длинна должна быть не более ${UserAuthValidationRule.LOGIN_MAX_LENGTH} символов`,
-      passwordRequired: 'пароль обязателен',
+      passwordRequired: 'Пароль обязателен',
       passwordMinLength: `Длинна должна быть не менее ${UserAuthValidationRule.PASSWORD_MIN_LENGTH} символов`,
       passwordMaxLength: `Длинна должна быть не более ${UserAuthValidationRule.PASSWORD_MAX_LENGTH} символов`,
     },
