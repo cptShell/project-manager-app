@@ -10,7 +10,6 @@ import {
 } from '~/store/actions';
 import { AppRoute, DataStatus } from '~/common/enums/enums';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
-import { Button } from './components/button';
 import { Modal } from '../common/modal/modal';
 import { CreateColumnForm } from './components/column-creating-form';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
@@ -27,6 +26,8 @@ import { NotFound } from '../not-found-page/not-found-page';
 import { Loader } from '../common/loader/loader';
 import styles from './styles.module.scss';
 import { TaskUpdatePayload } from '~/store/task/common';
+import plusImg from '~/assets/images/plus.svg';
+import arrowImg from '~/assets/images/back-arrow.svg';
 
 export const Board: FC = () => {
   const navigate = useNavigate();
@@ -172,36 +173,44 @@ export const Board: FC = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
+      <Header />
       <main className={styles.main}>
-        <Header />
         <ConfirmationModal
           message={'modals.confirmation.deleteColumn'}
           isOpen={Boolean(choosedId)}
           onClose={handleCloseConfirmation}
           onConfirm={handleConfirm}
         />
-        <h1>
-          <FormattedMessage as="span" message="board.title" /> {board.title}
-        </h1>
-        <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
-          <CreateColumnForm id={boardId} onClose={handleToggleModal} />
-        </Modal>
-        <Button title={'board.buttons.addColumn'} onClick={handleToggleModal} />
-        <div className={styles['column-wrapper']}>
-          {columns.map((column, index) => (
-            <Column
-              key={column.id}
-              item={column}
-              boardId={boardId}
-              moveColumn={moveColumn}
-              dropColumn={dropColumn}
-              moveTask={moveTask}
-              dropTask={dropTask}
-              columnIndex={index}
-            />
-          ))}
+        <div className={styles['board-header']}>
+          <div className={styles['back-to-main-container']} onClick={handleReturn}>
+            <img className={styles['back-to-main-icon']} src={arrowImg} alt="back arrow" />
+            <FormattedMessage className={styles['back-to-main']} as="h3" message="board.buttons.backToMainPage" />
+          </div>
+          <h1 className={styles['board-title']}>{board.title}</h1>
         </div>
-        <Button title={'board.buttons.backToMainPage'} onClick={handleReturn} />
+        <section className={styles.section}>
+          <div className={styles['column-wrapper']}>
+            {columns.map((column, index) => (
+              <Column
+                key={column.id}
+                item={column}
+                boardId={boardId}
+                moveColumn={moveColumn}
+                dropColumn={dropColumn}
+                moveTask={moveTask}
+                dropTask={dropTask}
+                columnIndex={index}
+              />
+            ))}
+            <div className={styles['add-column-wrapper']} onClick={handleToggleModal}>
+              <img className={styles['add-column-img']} src={plusImg} alt="plus" />
+              <FormattedMessage as="h3" message="board.buttons.addColumn" />
+            </div>
+          </div>
+          <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
+            <CreateColumnForm id={boardId} onClose={handleToggleModal} />
+          </Modal>
+        </section>
       </main>
     </DndProvider>
   );

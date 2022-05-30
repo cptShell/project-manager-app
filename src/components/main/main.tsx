@@ -33,44 +33,47 @@ export const Main: FC = () => {
   };
 
   return (
-    <section className={styles.section}>
-      <ul className={styles.wrapper}>
-        <ConfirmationModal
-          isOpen={Boolean(choosedId)}
-          onClose={handleCloseConfirmation}
-          onConfirm={handleConfirm}
-          message={'modals.confirmation.deleteBoard'}
-        />
-        {boards.map(({ id, title, description }) => {
-          const handleDelete = (e: React.MouseEvent): void => {
-            setChoosedId(id);
-            e.stopPropagation();
-          };
-          const handleClick = (): void => {
-            navigate(`${AppRoute.BOARD}/${id}`);
-          };
-          return (
-            <li className={styles['board-item']} onClick={handleClick} key={id}>
-              <div className={styles['board-top']}>
-                <h3 className={styles['board-title']}>{title}</h3>
-                <img
-                  className={styles['board-img']}
-                  src={bucketImg}
-                  onClick={handleDelete}
-                  alt="delete"
-                ></img>
-              </div>
-              <div className={styles['board-bottom']}>
-                <p className={styles['board-text']}>{description}</p>
-              </div>
-            </li>
-          );
-        })}
-        <li className={styles['add-board-board']} onClick={handleCreateBoard}>
-          <img className={styles['plus-img']} src={plusImg} alt="add board" />
-        </li>
-      </ul>
+    <main className={styles.main}>
+      <div className={styles['outer-wrapper']}>
+        <h1 className={styles.title}>Projects</h1>
+        <ul className={styles.wrapper}>
+          <ConfirmationModal
+            isOpen={Boolean(choosedId)}
+            onClose={handleCloseConfirmation}
+            onConfirm={handleConfirm}
+            message={'modals.confirmation.deleteBoard'}
+          />
+          {boards.map(({ id, title, description }) => {
+            const handleDelete = (e: React.MouseEvent): void => {
+              setChoosedId(id);
+              e.stopPropagation();
+            };
+            const handleClick = (): void => {
+              navigate(`${AppRoute.BOARD}/${id}`);
+            };
+            return (
+              <li className={styles['board-item']} onClick={handleClick} key={id}>
+                <div className={styles['board-top']}>
+                  <h3 className={styles['board-title']}>{title}</h3>
+                  <img
+                    className={styles['board-img']}
+                    src={bucketImg}
+                    onClick={handleDelete}
+                    alt="delete"
+                  />
+                </div>
+                <div className={styles['board-bottom']}>
+                  <p className={styles['board-text']}>{description}</p>
+                </div>
+              </li>
+            );
+          })}
+          <li className={styles['add-board-board']} onClick={handleCreateBoard}>
+            <img className={styles['plus-img']} src={plusImg} alt="add board" />
+          </li>
+        </ul>
+      </div>
       <BoardCreatingForm isOpen={isOpen} onClose={handleCreateBoard} />
-    </section>
+    </main>
   );
 };
