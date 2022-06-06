@@ -251,19 +251,21 @@ export const Column: FC<Props> = ({
             <div className={styles['title-before']} />
             <h3 className={styles.title}>{title}</h3>
             <div className={styles['title-after']}>{item.tasks.length}</div>
+            <div className={styles['control-wrapper']}>
+              <img
+                className={styles['add-task']}
+                src={addImg}
+                alt="add task"
+                onClick={handleAddTask}
+              />
+              <img
+                className={styles['delete-column']}
+                src={bucketImg}
+                alt="delete column"
+                onClick={handleOpenConfirmation}
+              />
+            </div>
           </div>
-          <img
-            className={styles['add-task']}
-            src={addImg}
-            alt="add task"
-            onClick={handleAddTask}
-          />
-          <img
-            className={styles['delete-column']}
-            src={bucketImg}
-            alt="delete column"
-            onClick={handleOpenConfirmation}
-          />
         </div>
       )}
       <div
