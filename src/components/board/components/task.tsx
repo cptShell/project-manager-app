@@ -87,7 +87,9 @@ export const Task: FC<Props> = ({
             as="span"
             message={'board.taskCreatingForm.inputs.title'}
           />
-          <p onClick={handleTitleEdit}>{title}</p>
+          <p className={styles['title-readable']} onClick={handleTitleEdit}>
+            {title}
+          </p>
         </>
       )}
       {isDescriptionEdit ? (
@@ -98,7 +100,7 @@ export const Task: FC<Props> = ({
             message={'board.taskCreatingForm.inputs.description'}
           />
           <textarea
-            className={styles['description']}
+            className={styles['description-writable']}
             title="board.taskCreatingForm.inputs.description"
             {...register(InputName.DESCRIPTION)}
           />
@@ -110,7 +112,12 @@ export const Task: FC<Props> = ({
             as="span"
             message={'board.taskCreatingForm.inputs.description'}
           />
-          <p onClick={handleDescriptionEdit}>{description}</p>
+          <p
+            className={styles['description-readable']}
+            onClick={handleDescriptionEdit}
+          >
+            {description}
+          </p>
         </>
       )}
       <FormattedMessage

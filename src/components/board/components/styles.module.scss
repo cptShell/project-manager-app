@@ -29,7 +29,7 @@
   font-weight: var(--font-weight-600);
 }
 
-.description {
+.description-writable {
   background: var(--color-purple-200);
   border-radius: 3px;
   padding: 16px 20px;
@@ -37,6 +37,11 @@
   resize: none;
   width: 100%;
   min-height: 90px;
+}
+
+.title-readable,
+.description-readable {
+  overflow-wrap: break-word;
 }
 
 .button {
