@@ -253,7 +253,9 @@ export const Column: FC<Props> = ({
         <div className={styles['column-header']} onClick={handleEditOpen}>
           <div className={styles['title-wrapper']}>
             <div className={styles['title-before']} />
-            <h3 className={styles.title}>{title}</h3>
+            <h3 title={title} className={styles.title}>
+              {title}
+            </h3>
             <div className={styles['title-after']}>{item.tasks.length}</div>
             <div className={styles['control-wrapper']}>
               <img
