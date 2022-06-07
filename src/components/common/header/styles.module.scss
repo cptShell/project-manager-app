@@ -30,11 +30,19 @@
 .header-left {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 30px;
   opacity: 0.8;
 }
 
-.header-left:hover {
+.create-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  opacity: 0.8;
+  transition: opacity ease 200ms;
+}
+
+.create-wrapper:hover {
   opacity: 1;
   cursor: pointer;
 }
@@ -122,4 +130,16 @@
 
 .user:hover .user-menu {
   display: block;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+  opacity: 0.8;
+  transition: opacity ease 200ms;
+}
+
+.logo:hover {
+  opacity: 1;
+  cursor: pointer;
 }
