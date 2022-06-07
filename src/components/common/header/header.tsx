@@ -13,6 +13,7 @@ import avatarImg from '~/assets/images/avatar.svg';
 import arrowImg from '~/assets/images/menu-arrow.svg';
 import editImg from '~/assets/images/edit.svg';
 import exitImg from '~/assets/images/exit.svg';
+import logo from '~/assets/images/logo.svg';
 
 export const Header: FC = () => {
   const dispatch = useAppDispatch();
@@ -50,6 +51,10 @@ export const Header: FC = () => {
     setIsOpen(false);
   };
 
+  const handleRedirect = (): void => {
+    navigate(AppRoute.WELCOME);
+  };
+
   return (
     <header
       className={clsx(styles.header, {
@@ -60,15 +65,23 @@ export const Header: FC = () => {
         <BoardCreatingForm isOpen={isOpen} onClose={handleCloseCreateBoard} />
         <div className={styles['header-left']} onClick={handleOpenCreateBoard}>
           <img
-            className={styles['create-board-icon']}
-            src={plusImg}
-            alt="create board"
+            onClick={handleRedirect}
+            className={styles.logo}
+            src={logo}
+            alt="monitor logo"
           />
-          <FormattedMessage
-            className={styles['create-board-span']}
-            as="span"
-            message="header.nav.createBoard"
-          />
+          <div className={styles['create-wrapper']}>
+            <img
+              className={styles['create-board-icon']}
+              src={plusImg}
+              alt="create board"
+            />
+            <FormattedMessage
+              className={styles['create-board-span']}
+              as="span"
+              message="header.nav.createBoard"
+            />
+          </div>
         </div>
         <div className={styles['header-right']}>
           <LanguageSwitcher />
