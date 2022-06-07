@@ -13,14 +13,17 @@
   display: flex;
   row-gap: 5px;
   flex-direction: column;
-  color: var(--color-purple-300);
-  font-weight: var(--font-weight-600);
 
   input {
     background: var(--color-purple-200);
     border-radius: 3px;
     padding: 13px;
     border: none;
+  }
+
+  span {
+    color: var(--color-purple-300);
+    font-weight: var(--font-weight-600);
   }
 }
 
@@ -29,7 +32,7 @@
   font-weight: var(--font-weight-600);
 }
 
-.description {
+.description-writable {
   background: var(--color-purple-200);
   border-radius: 3px;
   padding: 16px 20px;
@@ -37,6 +40,11 @@
   resize: none;
   width: 100%;
   min-height: 90px;
+}
+
+.title-readable,
+.description-readable {
+  overflow-wrap: break-word;
 }
 
 .button {
