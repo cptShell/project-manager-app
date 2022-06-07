@@ -1,6 +1,8 @@
 import { FC, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useDrag, useDrop } from 'react-dnd';
 import { Identifier, XYCoord } from 'dnd-core';
+import { joiResolver } from '@hookform/resolvers/joi';
 import {
   ColumnDto,
   CreateColumnDto,
@@ -16,14 +18,12 @@ import { TaskCreatingForm } from '../task-creating-form';
 import { ConfirmationModal } from '~/components/common/confirmation-modal/confirmation-modal';
 import { TaskLink } from '../task-link/task-link';
 import { ItemType } from '~/common/enums/enums';
-import { useForm } from 'react-hook-form';
+import { createColumn } from '~/validation-schemas/validation-schemas';
 import bucketImg from '~/assets/images/delete-bucket.svg';
 import addImg from '~/assets/images/add.svg';
 import cancelImg from '~/assets/images/cancel.svg';
 import acceptImg from '~/assets/images/accept.svg';
 import styles from './styles.module.scss';
-import { joiResolver } from '@hookform/resolvers/joi';
-import { createColumn } from '~/validation-schemas/validation-schemas';
 
 type FormData = {
   title: string;
