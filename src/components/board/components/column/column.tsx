@@ -1,26 +1,29 @@
 import { FC, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDrag, useDrop } from 'react-dnd';
+import { Identifier, XYCoord } from 'dnd-core';
+import { joiResolver } from '@hookform/resolvers/joi';
 import {
   ColumnDto,
+  CreateColumnDto,
   DragColumnItem,
   DragTaskItem,
   FullColumnDto,
   TaskPosition,
 } from '~/common/types/types';
 import { column as columnActions, task as taskActions } from '~/store/actions';
-import styles from './styles.module.scss';
 import { useAppDispatch } from '~/hooks/hooks';
 import { Modal } from '~/components/common/modal/modal';
 import { TaskCreatingForm } from '../task-creating-form';
 import { ConfirmationModal } from '~/components/common/confirmation-modal/confirmation-modal';
 import { TaskLink } from '../task-link/task-link';
+import { ItemType } from '~/common/enums/enums';
+import { createColumn } from '~/validation-schemas/validation-schemas';
 import bucketImg from '~/assets/images/delete-bucket.svg';
 import addImg from '~/assets/images/add.svg';
 import cancelImg from '~/assets/images/cancel.svg';
 import acceptImg from '~/assets/images/accept.svg';
-import { useDrag, useDrop } from 'react-dnd';
-import { Identifier, XYCoord } from 'dnd-core';
-import { ItemType } from '~/common/enums/enums';
-import { useForm } from 'react-hook-form';
+import styles from './styles.module.scss';
 
 type FormData = {
   title: string;
@@ -56,7 +59,8 @@ export const Column: FC<Props> = ({
   const [isEdit, setIsEdit] = useState(false);
   const [title, setTitle] = useState(item.title);
   const columnRef = useRef<HTMLDivElement>(null);
-  const { register, handleSubmit, reset } = useForm<FormData>({
+  const { register, handleSubmit, reset } = useForm<CreateColumnDto>({
+    resolver: joiResolver(createColumn),
     mode: 'onChange',
   });
 
@@ -249,21 +253,25 @@ export const Column: FC<Props> = ({
         <div className={styles['column-header']} onClick={handleEditOpen}>
           <div className={styles['title-wrapper']}>
             <div className={styles['title-before']} />
-            <h3 className={styles.title}>{title}</h3>
+            <h3 title={title} className={styles.title}>
+              {title}
+            </h3>
             <div className={styles['title-after']}>{item.tasks.length}</div>
+            <div className={styles['control-wrapper']}>
+              <img
+                className={styles['add-task']}
+                src={addImg}
+                alt="add task"
+                onClick={handleAddTask}
+              />
+              <img
+                className={styles['delete-column']}
+                src={bucketImg}
+                alt="delete column"
+                onClick={handleOpenConfirmation}
+              />
+            </div>
           </div>
-          <img
-            className={styles['add-task']}
-            src={addImg}
-            alt="add task"
-            onClick={handleAddTask}
-          />
-          <img
-            className={styles['delete-column']}
-            src={bucketImg}
-            alt="delete column"
-            onClick={handleOpenConfirmation}
-          />
         </div>
       )}
       <div
