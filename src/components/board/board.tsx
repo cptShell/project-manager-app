@@ -7,6 +7,7 @@ import {
   column as columnActions,
   board as boardActions,
   task as taskActions,
+  user as userActions,
 } from '~/store/actions';
 import { AppRoute, DataStatus } from '~/common/enums/enums';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
@@ -32,9 +33,10 @@ import arrowImg from '~/assets/images/back-arrow.svg';
 export const Board: FC = () => {
   const navigate = useNavigate();
   const { id: boardId } = useParams();
-  const { board, status } = useAppSelector(({ boards }) => ({
+  const { board, status, registerdUsers } = useAppSelector(({ boards }) => ({
     board: boards.currentBoard,
     status: boards.currentBoardStatus,
+    registerdUsers: boards.currentRegisteredUsers,
   }));
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -148,6 +150,12 @@ export const Board: FC = () => {
   useEffect(() => {
     updateColumns();
   }, []);
+
+  useEffect(() => {
+    dispatch(userActions.getUsers());
+  }, []);
+
+  console.log(registerdUsers);
 
   const handleReturn = (): void => {
     navigate(AppRoute.MAIN);

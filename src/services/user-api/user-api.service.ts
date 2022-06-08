@@ -44,4 +44,10 @@ export class UserApi {
       },
     );
   }
+
+  getUsers(): Promise<Array<UserDto>> {
+    return this.#http.load(`${this.#apiPrefix}${UserApiPath.USERS}`, {
+      method: HttpMethod.GET,
+    });
+  }
 }

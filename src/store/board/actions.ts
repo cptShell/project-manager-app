@@ -23,6 +23,7 @@ export const update = createAsyncThunk<BoardDto, BoardDto, AsyncThunkConfig>(
   async (payload, { extra }) => {
     const { boardApi } = extra;
     const response = await boardApi.update(payload);
+
     return response;
   },
 );
@@ -32,6 +33,7 @@ export const getAll = createAsyncThunk<Array<BoardDto>, void, AsyncThunkConfig>(
   async (_payload, { extra }) => {
     const { boardApi } = extra;
     const response = await boardApi.getAll();
+
     return response;
   },
 );
