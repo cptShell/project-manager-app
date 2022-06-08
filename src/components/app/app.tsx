@@ -1,3 +1,5 @@
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { FC } from 'react';
 import { Main } from '~/components/main/main';
 import { Board } from '~/components/board/board';
@@ -61,6 +63,7 @@ export const App: FC = () => {
         <Route path={AppRoute.WELCOME} element={<Welcome />} />
         <Route path={AppRoute.NOT_FOUND} element={<NotFound />} />
       </Routes>
+      <ToastContainer />
       <Footer />
     </>
   );

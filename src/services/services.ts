@@ -7,6 +7,7 @@ import { BoardApi } from './board-api/board-api.service';
 import { UserApi } from './user-api/user-api.service';
 import { ColumnApi } from './column-api/column-api-service';
 import { TaskApi } from './task-api/task-api-service';
+import { Notification } from './toast-api/notification.service';
 
 export const storage = new Storage({
   storage: localStorage,
@@ -42,3 +43,5 @@ export const userApi = new UserApi({
 });
 
 export const internationalization = new Internationalization();
+
+export const notification = new Notification();
