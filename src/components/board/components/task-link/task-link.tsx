@@ -2,7 +2,12 @@ import { Identifier, XYCoord } from 'dnd-core';
 import { FC, useRef, useState, MouseEvent } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemType } from '~/common/enums/enums';
-import { DragTaskItem, TaskDto, TaskPosition } from '~/common/types/types';
+import {
+  DragTaskItem,
+  TaskDto,
+  TaskPosition,
+  UserDto,
+} from '~/common/types/types';
 import { ConfirmationModal } from '~/components/common/confirmation-modal/confirmation-modal';
 import { Modal } from '~/components/common/modal/modal';
 import { Task } from '../task';
@@ -18,6 +23,7 @@ type Props = {
   boardId: string;
   columnId: string;
   updateColumns: () => void;
+  taskOwner: UserDto | undefined;
 };
 
 export const TaskLink: FC<Props> = ({
@@ -29,6 +35,7 @@ export const TaskLink: FC<Props> = ({
   columnId,
   dropTask,
   updateColumns,
+  taskOwner,
 }) => {
   const { id, title, description } = data;
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
@@ -154,6 +161,7 @@ export const TaskLink: FC<Props> = ({
         <div className={styles['column-bottom']}>
           <p className={styles['column-text']}>{description}</p>
         </div>
+        {taskOwner && <span>{taskOwner.name}</span>}
       </li>
     </div>
   );

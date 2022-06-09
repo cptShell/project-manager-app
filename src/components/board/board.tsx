@@ -20,6 +20,7 @@ import {
   FullColumnDto,
   TaskPosition,
   UpdateTaskDto,
+  UserDto,
 } from '~/common/types/types';
 import { FormattedMessage } from '../common/common';
 import { Column } from './components/column/column';
@@ -38,11 +39,11 @@ export const Board: FC = () => {
     status: boards.currentBoardStatus,
     registerdUsers: boards.currentRegisteredUsers,
   }));
-  const { usersMap } = useAppSelector(({ users }) => ({
-    usersMap: users.registeredUsers.reduce((result, user) => {
+  const usersMap: Map<string, UserDto> = useAppSelector(({ users }) =>
+    users.registeredUsers.reduce((result, user) => {
       return result.set(user.id, user);
     }, new Map()),
-  }));
+  );
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [choosedId, setChoosedId] = useState('');
@@ -245,6 +246,7 @@ export const Board: FC = () => {
                   columnIndex={index}
                   handleDeleteColumn={handleDeleteColumn}
                   updateColumns={updateColumns}
+                  usersMap={usersMap}
                 />
               );
             })}
