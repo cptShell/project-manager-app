@@ -25,18 +25,23 @@ import { FormattedMessage } from '../common/common';
 import { Column } from './components/column/column';
 import { NotFound } from '../not-found-page/not-found-page';
 import { Loader } from '../common/loader/loader';
-import styles from './styles.module.scss';
 import { TaskUpdatePayload } from '~/store/task/common';
 import plusImg from '~/assets/images/plus.svg';
 import arrowImg from '~/assets/images/back-arrow.svg';
+import styles from './styles.module.scss';
 
 export const Board: FC = () => {
   const navigate = useNavigate();
   const { id: boardId } = useParams();
-  const { board, status, registerdUsers } = useAppSelector(({ boards }) => ({
+  const { board, status } = useAppSelector(({ boards }) => ({
     board: boards.currentBoard,
     status: boards.currentBoardStatus,
     registerdUsers: boards.currentRegisteredUsers,
+  }));
+  const { usersMap } = useAppSelector(({ users }) => ({
+    usersMap: users.registeredUsers.reduce((result, user) => {
+      return result.set(user.id, user);
+    }, new Map()),
   }));
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -155,8 +160,6 @@ export const Board: FC = () => {
     dispatch(userActions.getUsers());
   }, []);
 
-  console.log(registerdUsers);
-
   const handleReturn = (): void => {
     navigate(AppRoute.MAIN);
   };
@@ -179,7 +182,7 @@ export const Board: FC = () => {
     return <NotFound />;
   }
 
-  if (!boardId || !board) {
+  if (!boardId || !board || !usersMap.size) {
     return <Loader />;
   }
 
