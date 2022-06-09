@@ -27,7 +27,7 @@ export const TextInput: FC<Props> = ({
   });
   return (
     <label className={className}>
-      <FormattedMessage as="span" message={title} />
+      <FormattedMessage className={styles.title} as="span" message={title} />
       <input
         className={inputStyle}
         type={InputType.TEXT}

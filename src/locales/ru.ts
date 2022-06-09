@@ -25,7 +25,7 @@ export const RUMessagesMap: AppLocalizationMap = {
     },
   },
   main: {
-    title: 'Привет',
+    title: 'Проекты',
     boardCreatingForm: {
       title: 'Создание доски',
       inputs: {

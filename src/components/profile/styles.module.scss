@@ -1,4 +1,5 @@
 .wrapper {
+  position: relative;
   padding: 0 15px;
   display: flex;
   flex-direction: column;
@@ -20,6 +21,9 @@
 }
 
 .back-to-main-container {
+  position: absolute;
+  top: 2%;
+  left: 20px;
   display: flex;
   align-items: center;
   gap: 10px;
