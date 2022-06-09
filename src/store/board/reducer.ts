@@ -1,21 +1,18 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from '~/common/enums/enums';
-import { BoardDto, FullBoardDto, UserDto } from '~/common/types/types';
+import { BoardDto, FullBoardDto } from '~/common/types/types';
 import { createColumn, removeColumn } from '../column/actions';
 import { createTask, removeTask, updateTask } from '../task/actions';
-import { getUsers } from '../user/actions';
 import { getAll, create, update, getById, removeBoard } from './actions';
 
 type State = {
   boards: Array<BoardDto>;
   currentBoard: FullBoardDto | null;
-  currentRegisteredUsers: Array<UserDto>;
   currentBoardStatus: DataStatus;
 };
 
 const initialState: State = {
   boards: [],
-  currentRegisteredUsers: [],
   currentBoard: null,
   currentBoardStatus: DataStatus.IDLE,
 };
@@ -23,14 +20,6 @@ const initialState: State = {
 export const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getAll.fulfilled, (state, action) => {
     state.boards = action.payload;
-  });
-
-  builder.addCase(getUsers.fulfilled, (state, action) => {
-    state.currentRegisteredUsers = action.payload;
-  });
-
-  builder.addCase(getUsers.rejected, (state) => {
-    state.currentBoardStatus = DataStatus.REJECTED;
   });
 
   builder.addCase(getById.fulfilled, (state, action) => {

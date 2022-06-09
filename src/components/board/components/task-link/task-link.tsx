@@ -139,15 +139,18 @@ export const TaskLink: FC<Props> = ({
         onClose={handleCloseConfirmation}
         onConfirm={onClick}
       />
-      <Modal isOpen={isOpen} onClose={handleModalClose}>
-        <Task
-          item={data}
-          boardId={boardId}
-          columnId={columnId}
-          updateColumns={updateColumns}
-          handleModalClose={handleModalClose}
-        />
-      </Modal>
+      {taskOwner && (
+        <Modal isOpen={isOpen} onClose={handleModalClose}>
+          <Task
+            item={data}
+            boardId={boardId}
+            columnId={columnId}
+            updateColumns={updateColumns}
+            handleModalClose={handleModalClose}
+            taskOwner={taskOwner}
+          />
+        </Modal>
+      )}
       <li className={styles['column-item']} key={id} onClick={handleModalOpen}>
         <div className={styles['column-top']}>
           <h3 className={styles['column-title']}>{title}</h3>

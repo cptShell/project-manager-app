@@ -37,7 +37,6 @@ export const Board: FC = () => {
   const { board, status } = useAppSelector(({ boards }) => ({
     board: boards.currentBoard,
     status: boards.currentBoardStatus,
-    registerdUsers: boards.currentRegisteredUsers,
   }));
   const usersMap: Map<string, UserDto> = useAppSelector(({ users }) =>
     users.registeredUsers.reduce((result, user) => {

@@ -58,6 +58,7 @@ export const ENMessagesMap: AppLocalizationMap = {
     taskCreatingForm: {
       title: 'Task creating',
       inputs: {
+        owner: 'Owner',
         title: 'Title',
         description: 'Description',
       },

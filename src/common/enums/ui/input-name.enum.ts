@@ -5,4 +5,5 @@ export enum InputName {
   TITLE = 'title',
   ORDER = 'order',
   DESCRIPTION = 'description',
+  OWNER = 'userId',
 }

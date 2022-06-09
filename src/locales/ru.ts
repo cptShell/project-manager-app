@@ -58,6 +58,7 @@ export const RUMessagesMap: AppLocalizationMap = {
     taskCreatingForm: {
       title: 'Создание задачи',
       inputs: {
+        owner: 'Владелец',
         title: 'Название',
         description: 'Описание',
       },

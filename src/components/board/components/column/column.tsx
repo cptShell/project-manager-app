@@ -302,7 +302,6 @@ export const Column: FC<Props> = ({
             };
 
             const taskOwner = usersMap.get(task.userId);
-            console.log(taskOwner);
 
             return (
               <TaskLink
