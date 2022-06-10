@@ -164,7 +164,7 @@ export const TaskLink: FC<Props> = ({
         <div className={styles['column-bottom']}>
           <p className={styles['column-text']}>{description}</p>
         </div>
-        {taskOwner && <span>{taskOwner.name}</span>}
+        {taskOwner && <span className={styles.owner}>{taskOwner.name}</span>}
       </li>
     </div>
   );
