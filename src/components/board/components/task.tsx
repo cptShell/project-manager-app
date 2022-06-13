@@ -48,22 +48,22 @@ export const Task: FC<Props> = ({
     mode: 'onChange',
   });
 
-  const closeAllEditables = (): void => {
+  const closeEditMode = (): void => {
     setIsTitleEdit(false);
     setIsDescriptionEdit(false);
     setIsOwnerEdit(false);
   };
 
   const handleTitleEdit = (): void => {
-    closeAllEditables();
+    closeEditMode();
     setIsTitleEdit(true);
   };
   const handleDescriptionEdit = (): void => {
-    closeAllEditables();
+    closeEditMode();
     setIsDescriptionEdit(true);
   };
   const handleOwnerEdit = (): void => {
-    closeAllEditables();
+    closeEditMode();
     setIsOwnerEdit(true);
   };
 
@@ -88,8 +88,6 @@ export const Task: FC<Props> = ({
     };
 
     await dispatch(taskActions.updateTask(taskResponse));
-
-    console.log(title, description, userId);
 
     updateColumns();
     handleModalClose();
