@@ -35,3 +35,14 @@ export const editAuthenticatedUser = createAsyncThunk<
   const editedUser = await userApi.editUser(editUserPayload);
   return editedUser;
 });
+
+export const getUsers = createAsyncThunk<
+  Array<UserDto>,
+  void,
+  AsyncThunkConfig
+>(ActionType.GET_USERS, async (_payload, { extra }) => {
+  const { userApi } = extra;
+
+  const users = await userApi.getUsers();
+  return users;
+});

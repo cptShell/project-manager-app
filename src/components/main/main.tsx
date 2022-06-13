@@ -52,7 +52,11 @@ export const Main: FC = () => {
               navigate(`${AppRoute.BOARD}/${id}`);
             };
             return (
-              <li className={styles['board-item']} onClick={handleClick} key={id}>
+              <li
+                className={styles['board-item']}
+                onClick={handleClick}
+                key={id}
+              >
                 <div className={styles['board-top']}>
                   <h3 className={styles['board-title']}>{title}</h3>
                   <img

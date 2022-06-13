@@ -10,6 +10,7 @@ import {
   DragTaskItem,
   FullColumnDto,
   TaskPosition,
+  UserDto,
 } from '~/common/types/types';
 import { column as columnActions, task as taskActions } from '~/store/actions';
 import { useAppDispatch } from '~/hooks/hooks';
@@ -39,6 +40,7 @@ type Props = {
   dropTask: (dropTask: TaskPosition) => void;
   handleDeleteColumn: () => void;
   updateColumns: () => void;
+  usersMap: Map<string, UserDto>;
 };
 
 export const Column: FC<Props> = ({
@@ -51,6 +53,7 @@ export const Column: FC<Props> = ({
   dropTask,
   handleDeleteColumn,
   updateColumns,
+  usersMap,
 }) => {
   const { id: columnId, tasks } = item;
   const dispatch = useAppDispatch();
@@ -298,6 +301,8 @@ export const Column: FC<Props> = ({
               updateColumns();
             };
 
+            const taskOwner = usersMap.get(task.userId);
+
             return (
               <TaskLink
                 key={id}
@@ -309,6 +314,7 @@ export const Column: FC<Props> = ({
                 columnId={columnId}
                 boardId={boardId}
                 updateColumns={updateColumns}
+                taskOwner={taskOwner}
               />
             );
           })}

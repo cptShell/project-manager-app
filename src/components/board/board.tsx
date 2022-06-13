@@ -7,6 +7,7 @@ import {
   column as columnActions,
   board as boardActions,
   task as taskActions,
+  user as userActions,
 } from '~/store/actions';
 import { AppRoute, DataStatus } from '~/common/enums/enums';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
@@ -19,15 +20,16 @@ import {
   FullColumnDto,
   TaskPosition,
   UpdateTaskDto,
+  UserDto,
 } from '~/common/types/types';
 import { FormattedMessage } from '../common/common';
 import { Column } from './components/column/column';
 import { NotFound } from '../not-found-page/not-found-page';
 import { Loader } from '../common/loader/loader';
-import styles from './styles.module.scss';
 import { TaskUpdatePayload } from '~/store/task/common';
 import plusImg from '~/assets/images/plus.svg';
 import arrowImg from '~/assets/images/back-arrow.svg';
+import styles from './styles.module.scss';
 
 export const Board: FC = () => {
   const navigate = useNavigate();
@@ -36,6 +38,11 @@ export const Board: FC = () => {
     board: boards.currentBoard,
     status: boards.currentBoardStatus,
   }));
+  const usersMap: Map<string, UserDto> = useAppSelector(({ users }) =>
+    users.registeredUsers.reduce((result, user) => {
+      return result.set(user.id, user);
+    }, new Map()),
+  );
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [choosedId, setChoosedId] = useState('');
@@ -149,6 +156,10 @@ export const Board: FC = () => {
     updateColumns();
   }, []);
 
+  useEffect(() => {
+    dispatch(userActions.getUsers());
+  }, []);
+
   const handleReturn = (): void => {
     navigate(AppRoute.MAIN);
   };
@@ -171,7 +182,7 @@ export const Board: FC = () => {
     return <NotFound />;
   }
 
-  if (!boardId || !board) {
+  if (!boardId || !board || !usersMap.size) {
     return <Loader />;
   }
 
@@ -234,6 +245,7 @@ export const Board: FC = () => {
                   columnIndex={index}
                   handleDeleteColumn={handleDeleteColumn}
                   updateColumns={updateColumns}
+                  usersMap={usersMap}
                 />
               );
             })}
