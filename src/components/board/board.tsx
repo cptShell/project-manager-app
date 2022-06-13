@@ -199,23 +199,24 @@ export const Board: FC = () => {
           onConfirm={handleConfirm}
         />
         <div className={styles['board-header']}>
+          <div
+            className={styles['back-to-main-container']}
+            onClick={handleReturn}
+          >
+            <img
+              className={styles['back-to-main-icon']}
+              src={arrowImg}
+              alt="back arrow"
+            />
+            <FormattedMessage
+              className={styles['back-to-main']}
+              as="h3"
+              message="board.buttons.backToMainPage"
+            />
+          </div>
           <div className={styles['board-header-top']}>
-            <div
-              className={styles['back-to-main-container']}
-              onClick={handleReturn}
-            >
-              <img
-                className={styles['back-to-main-icon']}
-                src={arrowImg}
-                alt="back arrow"
-              />
-              <FormattedMessage
-                className={styles['back-to-main']}
-                as="h3"
-                message="board.buttons.backToMainPage"
-              />
-            </div>
-            <div>
+            <h1 className={styles['board-title']}>{board.title}</h1>
+            <div className={styles['board-filter-container']}>
               <span>Only my tasks</span>
               <input
                 type="checkbox"
@@ -224,7 +225,6 @@ export const Board: FC = () => {
               />
             </div>
           </div>
-          <h1 className={styles['board-title']}>{board.title}</h1>
         </div>
         <section className={styles.section}>
           <div className={styles['column-wrapper']}>
