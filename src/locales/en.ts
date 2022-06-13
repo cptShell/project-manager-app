@@ -25,7 +25,7 @@ export const ENMessagesMap: AppLocalizationMap = {
     },
   },
   main: {
-    title: 'Hello',
+    title: 'Projects',
     boardCreatingForm: {
       title: 'Board creating form',
       inputs: {

@@ -8,6 +8,7 @@ import { BoardCreatingForm } from './components/board-creating-form';
 import styles from './styles.module.scss';
 import bucketImg from '~/assets/images/delete-bucket.svg';
 import plusImg from '~/assets/images/plus.svg';
+import { FormattedMessage } from '../common/common';
 
 export const Main: FC = () => {
   const boards = useAppSelector((state) => state.boards.boards);
@@ -35,7 +36,7 @@ export const Main: FC = () => {
   return (
     <main className={styles.main}>
       <div className={styles['outer-wrapper']}>
-        <h1 className={styles.title}>Projects</h1>
+        <FormattedMessage className={styles.title} as="h1" message={'main.title'} />
         <ul className={styles.wrapper}>
           <ConfirmationModal
             isOpen={Boolean(choosedId)}
