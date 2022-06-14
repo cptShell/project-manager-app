@@ -1,12 +1,8 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import update from 'immutability-helper';
 import {
   column as columnActions,
   board as boardActions,
-  task as taskActions,
   user as userActions,
 } from '~/store/actions';
 import { AppRoute, DataStatus } from '~/common/enums/enums';
@@ -14,19 +10,11 @@ import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { Modal } from '../common/modal/modal';
 import { CreateColumnForm } from './components/column-creating-form';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
-import {
-  ColumnDto,
-  FullBoardDto,
-  FullColumnDto,
-  TaskPosition,
-  UpdateTaskDto,
-  UserDto,
-} from '~/common/types/types';
+import { FullBoardDto, FullColumnDto, UserDto } from '~/common/types/types';
 import { FormattedMessage } from '../common/common';
 import { Column } from './components/column/column';
 import { NotFound } from '../not-found-page/not-found-page';
 import { Loader } from '../common/loader/loader';
-import { TaskUpdatePayload } from '~/store/task/common';
 import plusImg from '~/assets/images/plus.svg';
 import arrowImg from '~/assets/images/back-arrow.svg';
 import styles from './styles.module.scss';
@@ -61,99 +49,6 @@ export const Board: FC = () => {
       setColumns(currentBoard.columns);
     }
   };
-
-  const dropColumn = (dropIndex: number): void => {
-    const targetColumn = columns[dropIndex];
-    const createColumnResponseDto: ColumnDto = {
-      ...targetColumn,
-      order: dropIndex + 1,
-    };
-    const columnResponse = {
-      boardId: board?.id || '',
-      createColumnResponseDto,
-    };
-
-    dispatch(columnActions.update(columnResponse));
-  };
-
-  const dropTask = (dropPosition: TaskPosition): void => {
-    if (!board) {
-      return;
-    }
-
-    const { columnX: columnIndex, taskY: taskIndex } = dropPosition;
-    const targetColumn = columns[columnIndex];
-    const updatedColumnId = targetColumn.id;
-    const targetTask = targetColumn.tasks[taskIndex];
-    const prevColumn = board.columns.find((column) => {
-      return column.tasks.findIndex((task) => task.id === targetTask.id) !== -1;
-    });
-
-    const updateTaskResponseDto: UpdateTaskDto = {
-      title: targetTask.title,
-      order: dropPosition.taskY + 1,
-      description: targetTask.description,
-      userId: targetTask.userId,
-      boardId: board.id,
-      columnId: updatedColumnId,
-    };
-
-    const taskResponse: TaskUpdatePayload = {
-      columnId: prevColumn?.id || '',
-      boardId: board.id,
-      taskId: targetTask.id,
-      updateTaskResponseDto,
-    };
-
-    dispatch(taskActions.updateTask(taskResponse));
-  };
-
-  const moveColumn = useCallback((dragIndex: number, hoverIndex: number) => {
-    setColumns((prevColumns: Array<FullColumnDto>) =>
-      update(prevColumns, {
-        $splice: [
-          [dragIndex, 1],
-          [hoverIndex, 0, prevColumns[dragIndex] as FullColumnDto],
-        ],
-      }),
-    );
-  }, []);
-
-  const moveTask = useCallback(
-    (dragPosition: TaskPosition, hoverPosition: TaskPosition) => {
-      setColumns((prevColumns: Array<FullColumnDto>) => {
-        const targetTasks = prevColumns[dragPosition.columnX].tasks;
-        const insertedTask = targetTasks[dragPosition.taskY];
-
-        if (dragPosition.columnX === hoverPosition.columnX) {
-          return update(prevColumns, {
-            [dragPosition.columnX]: {
-              tasks: {
-                $splice: [
-                  [dragPosition.taskY, 1],
-                  [hoverPosition.taskY, 0, targetTasks[dragPosition.taskY]],
-                ],
-              },
-            },
-          });
-        }
-
-        return update(prevColumns, {
-          [dragPosition.columnX]: {
-            tasks: {
-              $splice: [[dragPosition.taskY, 1]],
-            },
-          },
-          [hoverPosition.columnX]: {
-            tasks: {
-              $splice: [[hoverPosition.taskY, 0, insertedTask]],
-            },
-          },
-        });
-      });
-    },
-    [],
-  );
 
   useEffect(() => {
     updateColumns();
@@ -190,100 +85,93 @@ export const Board: FC = () => {
   }
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <main className={styles.main}>
-        <ConfirmationModal
-          message={'modals.confirmation.deleteColumn'}
-          isOpen={Boolean(choosedId)}
-          onClose={handleCloseConfirmation}
-          onConfirm={handleConfirm}
-        />
-        <div className={styles['board-header']}>
-          <div
-            className={styles['back-to-main-container']}
-            onClick={handleReturn}
-          >
-            <img
-              className={styles['back-to-main-icon']}
-              src={arrowImg}
-              alt="back arrow"
+    <main className={styles.main}>
+      <ConfirmationModal
+        message={'modals.confirmation.deleteColumn'}
+        isOpen={Boolean(choosedId)}
+        onClose={handleCloseConfirmation}
+        onConfirm={handleConfirm}
+      />
+      <div className={styles['board-header']}>
+        <div
+          className={styles['back-to-main-container']}
+          onClick={handleReturn}
+        >
+          <img
+            className={styles['back-to-main-icon']}
+            src={arrowImg}
+            alt="back arrow"
+          />
+          <FormattedMessage
+            className={styles['back-to-main']}
+            as="h3"
+            message="board.buttons.backToMainPage"
+          />
+        </div>
+        <div className={styles['board-header-top']}>
+          <h1 className={styles['board-title']}>{board.title}</h1>
+          <div className={styles['board-filter-container']}>
+            <span>Only my tasks</span>
+            <input
+              type="checkbox"
+              checked={isOnlyMyTasks}
+              onChange={handleChangeFilter}
             />
-            <FormattedMessage
-              className={styles['back-to-main']}
-              as="h3"
-              message="board.buttons.backToMainPage"
-            />
-          </div>
-          <div className={styles['board-header-top']}>
-            <h1 className={styles['board-title']}>{board.title}</h1>
-            <div className={styles['board-filter-container']}>
-              <span>Only my tasks</span>
-              <input
-                type="checkbox"
-                checked={isOnlyMyTasks}
-                onChange={handleChangeFilter}
-              />
-            </div>
           </div>
         </div>
-        <section className={styles.section}>
-          <div className={styles['column-wrapper']}>
-            {[...columns].map((column, index) => {
-              const handleDeleteColumn = (): void => {
-                const deleteIndex = columns.findIndex(
-                  (item) => item.id === column.id,
+      </div>
+      <section className={styles.section}>
+        <div className={styles['column-wrapper']}>
+          {[...columns].map((column) => {
+            const handleDeleteColumn = (): void => {
+              const deleteIndex = columns.findIndex(
+                (item) => item.id === column.id,
+              );
+
+              if (deleteIndex !== -1) {
+                const updatedColumns = [...columns];
+                const [{ id: columnId }] = updatedColumns.splice(
+                  deleteIndex,
+                  1,
                 );
 
-                if (deleteIndex !== -1) {
-                  const updatedColumns = [...columns];
-                  const [{ id: columnId }] = updatedColumns.splice(
-                    deleteIndex,
-                    1,
-                  );
+                dispatch(columnActions.removeColumn({ boardId, columnId }));
+                setColumns(updatedColumns);
+              }
+            };
 
-                  dispatch(columnActions.removeColumn({ boardId, columnId }));
-                  setColumns(updatedColumns);
-                }
-              };
-
-              return (
-                <Column
-                  key={column.id}
-                  item={column}
-                  boardId={boardId}
-                  moveColumn={moveColumn}
-                  dropColumn={dropColumn}
-                  moveTask={moveTask}
-                  dropTask={dropTask}
-                  columnIndex={index}
-                  handleDeleteColumn={handleDeleteColumn}
-                  updateColumns={updateColumns}
-                  usersMap={usersMap}
-                  filter={{ onlyMyTasks: isOnlyMyTasks }}
-                />
-              );
-            })}
-            <div
-              className={styles['add-column-wrapper']}
-              onClick={handleToggleModal}
-            >
-              <img
-                className={styles['add-column-img']}
-                src={plusImg}
-                alt="plus"
+            return (
+              <Column
+                key={column.id}
+                item={column}
+                boardId={boardId}
+                handleDeleteColumn={handleDeleteColumn}
+                updateColumns={updateColumns}
+                usersMap={usersMap}
+                filter={{ onlyMyTasks: isOnlyMyTasks }}
               />
-              <FormattedMessage as="h3" message="board.buttons.addColumn" />
-            </div>
-          </div>
-          <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
-            <CreateColumnForm
-              id={boardId}
-              onClose={handleToggleModal}
-              updateColumns={updateColumns}
+            );
+          })}
+          <div
+            className={styles['add-column-wrapper']}
+            onClick={handleToggleModal}
+          >
+            <img
+              className={styles['add-column-img']}
+              src={plusImg}
+              alt="plus"
             />
-          </Modal>
-        </section>
-      </main>
-    </DndProvider>
+            <FormattedMessage as="h3" message="board.buttons.addColumn" />
+          </div>
+        </div>
+        <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
+          <CreateColumnForm
+            id={boardId}
+            onClose={handleToggleModal}
+            updateColumns={updateColumns}
+          />
+        </Modal>
+      </section>
+    </main>
   );
 };

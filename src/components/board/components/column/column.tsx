@@ -1,16 +1,11 @@
-import { FC, useRef, useState } from 'react';
+import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDrag, useDrop } from 'react-dnd';
-import { Identifier, XYCoord } from 'dnd-core';
 import { joiResolver } from '@hookform/resolvers/joi';
 import {
   BoardFilter,
   ColumnDto,
   CreateColumnDto,
-  DragColumnItem,
-  DragTaskItem,
   FullColumnDto,
-  TaskPosition,
   UserDto,
 } from '~/common/types/types';
 import { column as columnActions, task as taskActions } from '~/store/actions';
@@ -19,7 +14,6 @@ import { Modal } from '~/components/common/modal/modal';
 import { TaskCreatingForm } from '../task-creating-form';
 import { ConfirmationModal } from '~/components/common/confirmation-modal/confirmation-modal';
 import { TaskLink } from '../task-link/task-link';
-import { ItemType } from '~/common/enums/enums';
 import { createColumn } from '~/validation-schemas/validation-schemas';
 import bucketImg from '~/assets/images/delete-bucket.svg';
 import addImg from '~/assets/images/add.svg';
@@ -32,31 +26,21 @@ type FormData = {
 };
 
 type Props = {
-  moveColumn: (dragIndex: number, hoverIndex: number) => void;
-  moveTask: (dragPosition: TaskPosition, hoverPosition: TaskPosition) => void;
   item: FullColumnDto;
   boardId: string;
-  columnIndex: number;
-  dropColumn: (dropIndex: number) => void;
-  dropTask: (dropTask: TaskPosition) => void;
   handleDeleteColumn: () => void;
-  updateColumns: () => void;
   usersMap: Map<string, UserDto>;
   filter: BoardFilter;
+  updateColumns: () => void;
 };
 
 export const Column: FC<Props> = ({
   item,
   boardId,
-  moveColumn,
-  moveTask,
-  columnIndex,
-  dropColumn,
-  dropTask,
   handleDeleteColumn,
-  updateColumns,
   usersMap,
   filter,
+  updateColumns,
 }) => {
   const { id: columnId, tasks } = item;
   const dispatch = useAppDispatch();
@@ -67,113 +51,10 @@ export const Column: FC<Props> = ({
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [title, setTitle] = useState(item.title);
-  const columnRef = useRef<HTMLDivElement>(null);
   const { register, handleSubmit, reset } = useForm<CreateColumnDto>({
     resolver: joiResolver(createColumn),
     mode: 'onChange',
   });
-
-  const [{ handlerId: taskColumnHandlerId }, dropOnColumn] = useDrop<
-    DragTaskItem,
-    void,
-    { handlerId: Identifier | null }
-  >({
-    accept: ItemType.TASK,
-    collect(monitor) {
-      return {
-        handlerId: monitor.getHandlerId(),
-      };
-    },
-    hover(item: DragTaskItem) {
-      if (tasks.length) {
-        return;
-      }
-
-      const newTaskPostion: TaskPosition = {
-        columnX: columnIndex,
-        taskY: 0,
-      };
-      const currentPosition = item.position;
-
-      moveTask(currentPosition, newTaskPostion);
-
-      item.position = newTaskPostion;
-    },
-    drop() {
-      if (tasks.length) {
-        return;
-      }
-
-      const dropPosition: TaskPosition = {
-        columnX: columnIndex,
-        taskY: 0,
-      };
-
-      dropTask(dropPosition);
-    },
-  });
-
-  const [{ handlerId }, drop] = useDrop<
-    DragColumnItem,
-    void,
-    { handlerId: Identifier | null }
-  >({
-    accept: ItemType.COLUMN,
-    collect(monitor) {
-      return {
-        handlerId: monitor.getHandlerId(),
-      };
-    },
-    hover(item: DragColumnItem, monitor) {
-      if (!columnRef.current) {
-        return;
-      }
-      const dragIndex = item.index;
-      const hoverIndex = columnIndex;
-
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-
-      const hoverBoundingRect = columnRef.current?.getBoundingClientRect();
-      const deadZoneX = (hoverBoundingRect.right - hoverBoundingRect.left) / 3;
-      const clientOffset = monitor.getClientOffset();
-      const hoverClientX = (clientOffset as XYCoord).x - hoverBoundingRect.left;
-
-      if (dragIndex < hoverIndex && hoverClientX < deadZoneX) {
-        return;
-      }
-
-      if (dragIndex > hoverIndex && hoverClientX > deadZoneX) {
-        return;
-      }
-
-      moveColumn(dragIndex, hoverIndex);
-
-      item.index = hoverIndex;
-    },
-    drop() {
-      if (!columnRef.current) {
-        return;
-      }
-
-      dropColumn(columnIndex);
-    },
-  });
-
-  const [{ isDragging }, drag] = useDrag({
-    type: ItemType.COLUMN,
-    item: () => {
-      return { id: item.id, index: columnIndex };
-    },
-    collect: (monitor) => {
-      return {
-        isDragging: monitor.isDragging(),
-      };
-    },
-  });
-
-  const opacity = isDragging ? 0.5 : 1;
 
   const handleToggleModal = (): void => {
     setIsModalOpen(!isModalOpen);
@@ -221,15 +102,8 @@ export const Column: FC<Props> = ({
     e.stopPropagation();
   };
 
-  drag(drop(columnRef));
-
   return (
-    <div
-      style={{ opacity }}
-      className={styles['column-item']}
-      data-handler-id={handlerId}
-      ref={columnRef}
-    >
+    <div className={styles['column-item']}>
       {isEdit ? (
         <div className={styles['column-header']}>
           <div className={styles['title-wrapper']}>
@@ -283,21 +157,10 @@ export const Column: FC<Props> = ({
           </div>
         </div>
       )}
-      <div
-        className={styles['task-list-wrapper']}
-        data-handler-id={taskColumnHandlerId}
-      >
-        <ul
-          style={{ minHeight: '150px' }}
-          className={styles['task-list']}
-          ref={dropOnColumn}
-        >
-          {tasks.map((task, index) => {
+      <div className={styles['task-list-wrapper']}>
+        <ul style={{ minHeight: '150px' }} className={styles['task-list']}>
+          {tasks.map((task) => {
             const { id } = task;
-            const taskPosition: TaskPosition = {
-              columnX: columnIndex,
-              taskY: index,
-            };
 
             const handleDeleteTask = async (): Promise<void> => {
               await dispatch(
@@ -318,13 +181,10 @@ export const Column: FC<Props> = ({
                 key={id}
                 data={task}
                 onClick={handleDeleteTask}
-                moveTask={moveTask}
-                dropTask={dropTask}
-                taskPosition={taskPosition}
                 columnId={columnId}
                 boardId={boardId}
-                updateColumns={updateColumns}
                 taskOwner={taskOwner}
+                updateColumns={updateColumns}
               />
             );
           })}
