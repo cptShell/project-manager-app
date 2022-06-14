@@ -34,21 +34,24 @@ import styles from './styles.module.scss';
 export const Board: FC = () => {
   const navigate = useNavigate();
   const { id: boardId } = useParams();
-  const { board, status } = useAppSelector(({ boards }) => ({
-    board: boards.currentBoard,
-    status: boards.currentBoardStatus,
-  }));
-  const usersMap: Map<string, UserDto> = useAppSelector(({ users }) =>
-    users.registeredUsers.reduce((result, user) => {
+  const { board, status, usersMap } = useAppSelector((state) => ({
+    board: state.boards.currentBoard,
+    status: state.boards.currentBoardStatus,
+    usersMap: state.users.registeredUsers.reduce((result, user) => {
       return result.set(user.id, user);
-    }, new Map()),
-  );
+    }, new Map<string, UserDto>()),
+  }));
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [choosedId, setChoosedId] = useState('');
   const [columns, setColumns] = useState<Array<FullColumnDto>>(
     board?.columns || [],
   );
+  const [isOnlyMyTasks, setIsOnlyMyTasks] = useState<boolean>(false);
+
+  const handleChangeFilter = (): void => {
+    setIsOnlyMyTasks(!isOnlyMyTasks);
+  };
 
   const updateColumns = async (): Promise<void> => {
     if (boardId) {
@@ -211,11 +214,21 @@ export const Board: FC = () => {
               message="board.buttons.backToMainPage"
             />
           </div>
-          <h1 className={styles['board-title']}>{board.title}</h1>
+          <div className={styles['board-header-top']}>
+            <h1 className={styles['board-title']}>{board.title}</h1>
+            <div className={styles['board-filter-container']}>
+              <span>Only my tasks</span>
+              <input
+                type="checkbox"
+                checked={isOnlyMyTasks}
+                onChange={handleChangeFilter}
+              />
+            </div>
+          </div>
         </div>
         <section className={styles.section}>
           <div className={styles['column-wrapper']}>
-            {columns.map((column, index) => {
+            {[...columns].map((column, index) => {
               const handleDeleteColumn = (): void => {
                 const deleteIndex = columns.findIndex(
                   (item) => item.id === column.id,
@@ -246,6 +259,7 @@ export const Board: FC = () => {
                   handleDeleteColumn={handleDeleteColumn}
                   updateColumns={updateColumns}
                   usersMap={usersMap}
+                  filter={{ onlyMyTasks: isOnlyMyTasks }}
                 />
               );
             })}
