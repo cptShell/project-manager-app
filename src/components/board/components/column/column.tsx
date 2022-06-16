@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Droppable } from 'react-beautiful-dnd';
 import { joiResolver } from '@hookform/resolvers/joi';
 import {
   BoardFilter,
@@ -8,7 +9,7 @@ import {
   FullColumnDto,
   UserDto,
 } from '~/common/types/types';
-import { column as columnActions, task as taskActions } from '~/store/actions';
+import { column as columnActions } from '~/store/actions';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { Modal } from '~/components/common/modal/modal';
 import { TaskCreatingForm } from '../task-creating-form';
@@ -157,39 +158,38 @@ export const Column: FC<Props> = ({
           </div>
         </div>
       )}
-      <div className={styles['task-list-wrapper']}>
-        <ul style={{ minHeight: '150px' }} className={styles['task-list']}>
-          {tasks.map((task) => {
-            const { id } = task;
+      <Droppable droppableId={`${item.id}`}>
+        {(provided): JSX.Element => (
+          <div
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className={styles['task-list-wrapper']}
+          >
+            <ul style={{ minHeight: '150px' }} className={styles['task-list']}>
+              {tasks.map((task, index) => {
+                const taskOwner = usersMap.get(task.userId);
 
-            const handleDeleteTask = async (): Promise<void> => {
-              await dispatch(
-                taskActions.removeTask({ boardId, columnId, taskId: id }),
-              );
+                if (filter.onlyMyTasks && task.userId !== currentUser?.id) {
+                  return;
+                }
 
-              updateColumns();
-            };
-
-            const taskOwner = usersMap.get(task.userId);
-
-            if (filter.onlyMyTasks && task.userId !== currentUser?.id) {
-              return;
-            }
-
-            return (
-              <TaskLink
-                key={id}
-                data={task}
-                onClick={handleDeleteTask}
-                columnId={columnId}
-                boardId={boardId}
-                taskOwner={taskOwner}
-                updateColumns={updateColumns}
-              />
-            );
-          })}
-        </ul>
-      </div>
+                return (
+                  <TaskLink
+                    key={task.id}
+                    taskIndex={index}
+                    data={task}
+                    columnId={columnId}
+                    boardId={boardId}
+                    taskOwner={taskOwner}
+                    updateColumns={updateColumns}
+                  />
+                );
+              })}
+              {provided.placeholder}
+            </ul>
+          </div>
+        )}
+      </Droppable>
       <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
         <TaskCreatingForm
           boardId={boardId}
