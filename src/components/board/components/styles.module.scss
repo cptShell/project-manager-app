@@ -56,3 +56,9 @@
   padding: 13px;
   border: none;
 }
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

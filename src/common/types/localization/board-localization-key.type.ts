@@ -16,6 +16,7 @@ export type BoardLocalizationKey = {
   taskCreatingForm: {
     title: string;
     inputs: {
+      owner: string;
       title: string;
       description: string;
     };

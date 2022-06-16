@@ -25,26 +25,12 @@
 }
 
 .form-label {
-  height: 72px;
+  height: 95px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   text-transform: capitalize;
   line-height: 17px;
-
-  span {
-    color: var(--color-purple-300);
-    font-weight: var(--font-weight-600);
-    margin-bottom: 5px;
-  }
-
-  input {
-    height: 50px;
-    background: var(--color-purple-200);
-    border-radius: 3px;
-    border: none;
-    padding: 0 15px;
-  }
 }
 
 .form-button {

@@ -36,12 +36,7 @@ export const Main: FC = () => {
   return (
     <main className={styles.main}>
       <div className={styles['outer-wrapper']}>
-        <FormattedMessage
-          as="h1"
-          className={styles.title}
-          message="main.title"
-        />
-
+        <FormattedMessage className={styles.title} as="h1" message={'main.title'} />
         <ul className={styles.wrapper}>
           <ConfirmationModal
             isOpen={Boolean(choosedId)}
@@ -64,7 +59,9 @@ export const Main: FC = () => {
                 key={id}
               >
                 <div className={styles['board-top']}>
-                  <h3 className={styles['board-title']}>{title}</h3>
+                  <h3 title={title} className={styles['board-title']}>
+                    {title}
+                  </h3>
                   <img
                     className={styles['board-img']}
                     src={bucketImg}

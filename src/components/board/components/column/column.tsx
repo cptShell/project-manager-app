@@ -4,15 +4,17 @@ import { useDrag, useDrop } from 'react-dnd';
 import { Identifier, XYCoord } from 'dnd-core';
 import { joiResolver } from '@hookform/resolvers/joi';
 import {
+  BoardFilter,
   ColumnDto,
   CreateColumnDto,
   DragColumnItem,
   DragTaskItem,
   FullColumnDto,
   TaskPosition,
+  UserDto,
 } from '~/common/types/types';
 import { column as columnActions, task as taskActions } from '~/store/actions';
-import { useAppDispatch } from '~/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { Modal } from '~/components/common/modal/modal';
 import { TaskCreatingForm } from '../task-creating-form';
 import { ConfirmationModal } from '~/components/common/confirmation-modal/confirmation-modal';
@@ -39,6 +41,8 @@ type Props = {
   dropTask: (dropTask: TaskPosition) => void;
   handleDeleteColumn: () => void;
   updateColumns: () => void;
+  usersMap: Map<string, UserDto>;
+  filter: BoardFilter;
 };
 
 export const Column: FC<Props> = ({
@@ -51,9 +55,14 @@ export const Column: FC<Props> = ({
   dropTask,
   handleDeleteColumn,
   updateColumns,
+  usersMap,
+  filter,
 }) => {
   const { id: columnId, tasks } = item;
   const dispatch = useAppDispatch();
+  const { currentUser } = useAppSelector(({ auth }) => ({
+    currentUser: auth.user,
+  }));
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -298,6 +307,12 @@ export const Column: FC<Props> = ({
               updateColumns();
             };
 
+            const taskOwner = usersMap.get(task.userId);
+
+            if (filter.onlyMyTasks && task.userId !== currentUser?.id) {
+              return;
+            }
+
             return (
               <TaskLink
                 key={id}
@@ -309,6 +324,7 @@ export const Column: FC<Props> = ({
                 columnId={columnId}
                 boardId={boardId}
                 updateColumns={updateColumns}
+                taskOwner={taskOwner}
               />
             );
           })}
