@@ -8,7 +8,6 @@ type Props = {
   avatar: string;
   name: AppLocalizationKey;
   about: AppLocalizationKey;
-  contribution: AppLocalizationKey;
 };
 
 export const MemberCard: FC<Props> = ({

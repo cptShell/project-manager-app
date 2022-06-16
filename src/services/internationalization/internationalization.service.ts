@@ -1,6 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next, I18nextProvider } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import { i18nextPlugin } from 'translation-check';
 import { AppLanguage } from '~/common/enums/enums';
 import { ENMessagesMap, RUMessagesMap } from '~/locales/locales';
 
@@ -12,6 +13,7 @@ export class Internationalization {
     i18n
       .use(initReactI18next)
       .use(LanguageDetector)
+      .use(i18nextPlugin)
       .init({
         fallbackLng: AppLanguage.EN,
         initImmediate: false,

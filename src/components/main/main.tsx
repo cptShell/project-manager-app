@@ -5,10 +5,10 @@ import { useAppSelector, useAppDispatch } from '~/hooks/hooks';
 import { board as boardActions } from '~/store/actions';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
 import { BoardCreatingForm } from './components/board-creating-form';
+import { FormattedMessage } from '../common/common';
 import styles from './styles.module.scss';
 import bucketImg from '~/assets/images/delete-bucket.svg';
 import plusImg from '~/assets/images/plus.svg';
-import { FormattedMessage } from '../common/common';
 
 export const Main: FC = () => {
   const boards = useAppSelector((state) => state.boards.boards);
