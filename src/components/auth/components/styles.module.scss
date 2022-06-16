@@ -13,23 +13,22 @@
 .form-wrapper {
   display: flex;
   flex-direction: column;
-  row-gap: 15px;
   max-width: 400px;
   width: 100%;
 
   h1 {
-    font-size: var(--font-size-600);
+    font-size: var(--font-size-400);
     font-weight: var(--font-weight-600);
     text-align: center;
   }
 }
 
 .form-label {
-  height: 95px;
+  height: 89px;
   display: flex;
+  margin-bottom: 5px;
   flex-direction: column;
   flex-grow: 1;
-  text-transform: capitalize;
   line-height: 17px;
 }
 
@@ -38,9 +37,10 @@
   padding: 13px;
   border: none;
   border-radius: 3px;
-  margin-top: 5px;
+  margin-top: 10px;
   background: var(--color-purple-300);
   color: var(--color-white);
+  cursor: pointer;
 }
 
 .message-container {
@@ -53,4 +53,10 @@
   color: var(--color-purple-300);
   text-decoration: underline;
   cursor: pointer;
+}
+
+.title {
+  color: var(--color-purple-300);
+  font-weight: var(--font-weight-600);
+  margin: 5px;
 }

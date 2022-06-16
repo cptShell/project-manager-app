@@ -7,6 +7,7 @@ import { FormattedMessage, TextInput } from '~/components/common/common';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { user as userActions } from '~/store/actions';
 import { signUpUser } from '~/validation-schemas/validation-schemas';
+import Avatar from '~/assets/images/avatar.svg';
 import styles from './styles.module.scss';
 
 export const EditForm: FC = () => {
@@ -17,7 +18,7 @@ export const EditForm: FC = () => {
   }));
   const dispatch = useAppDispatch();
 
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [isEditMode, setIsEditMode] = useState(false);
   const { register, handleSubmit, formState } = useForm<SignUpUserDto>({
     resolver: joiResolver(signUpUser),
     defaultValues: {
@@ -37,12 +38,12 @@ export const EditForm: FC = () => {
 
       dispatch(userActions.editAuthenticatedUser(payload));
     }
-    setIsDisabled(true);
+    setIsEditMode(false);
   };
 
-  const handleDisabled = (e: MouseEvent<HTMLButtonElement>): void => {
+  const handleEditable = (e: MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
-    setIsDisabled(false);
+    setIsEditMode(true);
   };
 
   return (
@@ -50,42 +51,63 @@ export const EditForm: FC = () => {
       className={styles['form-wrapper']}
       onSubmit={handleSubmit(handleEditUser)}
     >
-      <FormattedMessage as="h1" message="profile.editForm.title" />
-      <TextInput
-        disabled={isDisabled}
-        title={'auth.inputs.name'}
-        formRegisterValues={register(InputName.NAME)}
-        errorMessage={nameError?.message}
-        className={styles['form-label']}
-      />
-      <TextInput
-        disabled={isDisabled}
-        title={'auth.inputs.login'}
-        formRegisterValues={register(InputName.LOGIN)}
-        errorMessage={loginError?.message}
-        className={styles['form-label']}
-      />
-      <TextInput
-        disabled={isDisabled}
-        title={'auth.inputs.password'}
-        formRegisterValues={register(InputName.PASSWORD)}
-        errorMessage={passwordError?.message}
-        className={styles['form-label']}
-      />
+      <div className={styles['avatar-wrapper']}>
+        <img src={Avatar} alt="user avatar" />
+      </div>
 
-      {isDisabled ? (
-        <button onClick={handleDisabled} className={styles['form-button']}>
-          <FormattedMessage
-            as="span"
-            message="profile.editForm.buttons.editUser"
-          />
-        </button>
+      {!isEditMode ? (
+        <>
+          <div className={styles['info-wrapper']}>
+            <p>
+              <FormattedMessage
+                as="span"
+                message="profile.userData.currentName"
+                className={styles['title-info']}
+              />
+              <span>{name}</span>
+            </p>
+            <p>
+              <FormattedMessage
+                as="span"
+                message="profile.userData.currentLogin"
+                className={styles['title-info']}
+              />
+              <span>{login}</span>
+            </p>
+          </div>
+          <button onClick={handleEditable} className={styles['form-button']}>
+            <FormattedMessage
+              as="span"
+              message="profile.editForm.buttons.editUser"
+            />
+          </button>
+        </>
       ) : (
-        <FormattedMessage
-          as="button"
-          message="profile.editForm.buttons.saveUser"
-          className={styles['form-button']}
-        />
+        <>
+          <TextInput
+            title={'auth.inputs.name'}
+            formRegisterValues={register(InputName.NAME)}
+            errorMessage={nameError?.message}
+            className={styles['form-label']}
+          />
+          <TextInput
+            title={'auth.inputs.login'}
+            formRegisterValues={register(InputName.LOGIN)}
+            errorMessage={loginError?.message}
+            className={styles['form-label']}
+          />
+          <TextInput
+            title={'auth.inputs.password'}
+            formRegisterValues={register(InputName.PASSWORD)}
+            errorMessage={passwordError?.message}
+            className={styles['form-label']}
+          />
+          <FormattedMessage
+            as="button"
+            message="profile.editForm.buttons.saveUser"
+            className={styles['form-button']}
+          />
+        </>
       )}
     </form>
   );

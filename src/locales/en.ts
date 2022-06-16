@@ -102,7 +102,6 @@ export const ENMessagesMap: AppLocalizationMap = {
   profile: {
     title: 'User Settings',
     userData: {
-      currentId: 'Current Id:',
       currentName: 'Name:',
       currentLogin: 'Login:',
     },
@@ -180,6 +179,7 @@ export const ENMessagesMap: AppLocalizationMap = {
       passwordRequired: 'Password is required',
       passwordMinLength: `Password must be at least ${UserAuthValidationRule.PASSWORD_MIN_LENGTH} characters`,
       passwordMaxLength: `Password must be max ${UserAuthValidationRule.PASSWORD_MAX_LENGTH} characters`,
+      loginAlphanum: 'Login must only contain a-Z and 0-9',
     },
   },
 };
