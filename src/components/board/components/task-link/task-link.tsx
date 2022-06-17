@@ -16,6 +16,7 @@ type Props = {
   updateColumns: () => void;
   taskOwner: UserDto | undefined;
   taskIndex: number;
+  isDragging: boolean;
 };
 
 export const TaskLink: FC<Props> = ({
@@ -25,6 +26,7 @@ export const TaskLink: FC<Props> = ({
   taskOwner,
   updateColumns,
   taskIndex,
+  isDragging,
 }) => {
   const { id, title, description } = data;
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
@@ -52,7 +54,11 @@ export const TaskLink: FC<Props> = ({
   };
 
   return (
-    <Draggable draggableId={`${taskIndex}-${title}`} index={taskIndex}>
+    <Draggable
+      draggableId={`${taskIndex}-${title}`}
+      index={taskIndex}
+      isDragDisabled={isDragging}
+    >
       {(provided, snapshot): JSX.Element => {
         return (
           <div

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Droppable } from 'react-beautiful-dnd';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { joiResolver } from '@hookform/resolvers/joi';
 import {
   BoardFilter,
@@ -33,6 +33,8 @@ type Props = {
   usersMap: Map<string, UserDto>;
   filter: BoardFilter;
   updateColumns: () => void;
+  columnIndex: number;
+  isDragging: boolean;
 };
 
 export const Column: FC<Props> = ({
@@ -42,6 +44,8 @@ export const Column: FC<Props> = ({
   usersMap,
   filter,
   updateColumns,
+  columnIndex,
+  isDragging,
 }) => {
   const { id: columnId, tasks } = item;
   const dispatch = useAppDispatch();
@@ -104,106 +108,127 @@ export const Column: FC<Props> = ({
   };
 
   return (
-    <div className={styles['column-item']}>
-      {isEdit ? (
-        <div className={styles['column-header']}>
-          <div className={styles['title-wrapper']}>
-            <div className={styles['title-before-edit']}>
-              <img
-                className={styles['cancel']}
-                src={cancelImg}
-                alt="cancel"
-                onClick={handleDeclineEdit}
-              />
-              <img
-                className={styles['accept']}
-                src={acceptImg}
-                alt="accept"
-                onClick={submit}
-              />
+    <Draggable
+      draggableId={`${item.id}`}
+      index={columnIndex}
+      isDragDisabled={isDragging}
+    >
+      {(provided, snapshot): JSX.Element => (
+        <div
+          ref={provided.innerRef}
+          data-snapshot={snapshot}
+          {...provided.draggableProps}
+          className={styles['column-item']}
+        >
+          {isEdit ? (
+            <div className={styles['column-header']}>
+              <div className={styles['title-wrapper']}>
+                <div className={styles['title-before-edit']}>
+                  <img
+                    className={styles['cancel']}
+                    src={cancelImg}
+                    alt="cancel"
+                    onClick={handleDeclineEdit}
+                  />
+                  <img
+                    className={styles['accept']}
+                    src={acceptImg}
+                    alt="accept"
+                    onClick={submit}
+                  />
+                </div>
+                <form onSubmit={handleSubmit(handleAcceptEdit)}>
+                  <input
+                    {...register('title')}
+                    defaultValue={title}
+                    className={styles['input-edit']}
+                    type="text"
+                    placeholder={title}
+                  />
+                </form>
+              </div>
             </div>
-            <form onSubmit={handleSubmit(handleAcceptEdit)}>
-              <input
-                {...register('title')}
-                defaultValue={title}
-                className={styles['input-edit']}
-                type="text"
-                placeholder={title}
-              />
-            </form>
-          </div>
-        </div>
-      ) : (
-        <div className={styles['column-header']} onClick={handleEditOpen}>
-          <div className={styles['title-wrapper']}>
-            <div className={styles['title-before']} />
-            <h3 title={title} className={styles.title}>
-              {title}
-            </h3>
-            <div className={styles['title-after']}>{item.tasks.length}</div>
-            <div className={styles['control-wrapper']}>
-              <img
-                className={styles['add-task']}
-                src={addImg}
-                alt="add task"
-                onClick={handleAddTask}
-              />
-              <img
-                className={styles['delete-column']}
-                src={bucketImg}
-                alt="delete column"
-                onClick={handleOpenConfirmation}
-              />
+          ) : (
+            <div
+              {...provided.dragHandleProps}
+              className={styles['column-header']}
+              onClick={handleEditOpen}
+            >
+              <div className={styles['title-wrapper']}>
+                <div className={styles['title-before']} />
+                <h3 title={title} className={styles.title}>
+                  {title}
+                </h3>
+                <div className={styles['title-after']}>{item.tasks.length}</div>
+                <div className={styles['control-wrapper']}>
+                  <img
+                    className={styles['add-task']}
+                    src={addImg}
+                    alt="add task"
+                    onClick={handleAddTask}
+                  />
+                  <img
+                    className={styles['delete-column']}
+                    src={bucketImg}
+                    alt="delete column"
+                    onClick={handleOpenConfirmation}
+                  />
+                </div>
+              </div>
             </div>
-          </div>
+          )}
+          <Droppable type="task" droppableId={`${item.id}`}>
+            {(provided): JSX.Element => (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className={styles['task-list-wrapper']}
+              >
+                <ul
+                  style={{ minHeight: '150px' }}
+                  className={styles['task-list']}
+                >
+                  {tasks.map((task, index) => {
+                    const taskOwner = usersMap.get(task.userId);
+
+                    if (filter.onlyMyTasks && task.userId !== currentUser?.id) {
+                      return;
+                    }
+
+                    return (
+                      <TaskLink
+                        key={task.id}
+                        taskIndex={index}
+                        data={task}
+                        columnId={columnId}
+                        boardId={boardId}
+                        taskOwner={taskOwner}
+                        updateColumns={updateColumns}
+                        isDragging={isDragging}
+                      />
+                    );
+                  })}
+                  {provided.placeholder}
+                </ul>
+              </div>
+            )}
+          </Droppable>
+          <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
+            <TaskCreatingForm
+              boardId={boardId}
+              columnId={columnId}
+              onClose={handleToggleModal}
+              updateColumns={updateColumns}
+            />
+          </Modal>
+          <ConfirmationModal
+            message={'modals.confirmation.deleteColumn'}
+            isOpen={confirmationModalOpen}
+            onClose={handleCloseConfirmation}
+            onConfirm={handleDeleteColumn}
+          />
         </div>
       )}
-      <Droppable droppableId={`${item.id}`}>
-        {(provided): JSX.Element => (
-          <div
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            className={styles['task-list-wrapper']}
-          >
-            <ul style={{ minHeight: '150px' }} className={styles['task-list']}>
-              {tasks.map((task, index) => {
-                const taskOwner = usersMap.get(task.userId);
-
-                if (filter.onlyMyTasks && task.userId !== currentUser?.id) {
-                  return;
-                }
-
-                return (
-                  <TaskLink
-                    key={task.id}
-                    taskIndex={index}
-                    data={task}
-                    columnId={columnId}
-                    boardId={boardId}
-                    taskOwner={taskOwner}
-                    updateColumns={updateColumns}
-                  />
-                );
-              })}
-              {provided.placeholder}
-            </ul>
-          </div>
-        )}
-      </Droppable>
-      <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
-        <TaskCreatingForm
-          boardId={boardId}
-          columnId={columnId}
-          onClose={handleToggleModal}
-          updateColumns={updateColumns}
-        />
-      </Modal>
-      <ConfirmationModal
-        message={'modals.confirmation.deleteColumn'}
-        isOpen={confirmationModalOpen}
-        onClose={handleCloseConfirmation}
-        onConfirm={handleDeleteColumn}
-      />
-    </div>
+    </Draggable>
   );
 };

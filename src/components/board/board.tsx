@@ -1,32 +1,26 @@
 import { FC, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import update from 'immutability-helper';
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import {
   column as columnActions,
   board as boardActions,
   user as userActions,
   task as taskActions,
 } from '~/store/actions';
-import { AppRoute, DataStatus } from '~/common/enums/enums';
+import { AppRoute, DataStatus, ItemType } from '~/common/enums/enums';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { Modal } from '../common/modal/modal';
 import { CreateColumnForm } from './components/column-creating-form';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
-import {
-  FullBoardDto,
-  FullColumnDto,
-  UpdateTaskDto,
-  UserDto,
-} from '~/common/types/types';
+import { FullBoardDto, FullColumnDto, UserDto } from '~/common/types/types';
 import { FormattedMessage } from '../common/common';
 import { Column } from './components/column/column';
 import { NotFound } from '../not-found-page/not-found-page';
 import { Loader } from '../common/loader/loader';
+import { moveColumn, moveTask } from './common/helper-functions';
 import plusImg from '~/assets/images/plus.svg';
 import arrowImg from '~/assets/images/back-arrow.svg';
 import styles from './styles.module.scss';
-import { TaskUpdatePayload } from '~/store/task/common';
 
 export const Board: FC = () => {
   const navigate = useNavigate();
@@ -44,7 +38,8 @@ export const Board: FC = () => {
   const [columns, setColumns] = useState<Array<FullColumnDto>>(
     board?.columns || [],
   );
-  const [isOnlyMyTasks, setIsOnlyMyTasks] = useState<boolean>(false);
+  const [isOnlyMyTasks, setIsOnlyMyTasks] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   const handleChangeFilter = (): void => {
     setIsOnlyMyTasks(!isOnlyMyTasks);
@@ -93,69 +88,42 @@ export const Board: FC = () => {
     return <Loader />;
   }
 
-  const handleDragEnd = ({ source, destination }: DropResult): void => {
-    if (!destination) {
+  const handleDragEnd = (dropResult: DropResult): void => {
+    const { source, destination: target, type } = dropResult;
+
+    if (!target) {
       return;
     }
 
-    const sourceId = source.droppableId;
-    const targetId = destination.droppableId;
-    const sourceColumn = columns.find((column) => column.id === sourceId);
-    const sourceTask = sourceColumn?.tasks[source.index];
-    const targetTask = sourceColumn?.tasks[destination.index];
+    let newColumns, taskPayload, columnPayload;
+    const id = board.id;
 
-    if (!sourceTask || !targetTask) {
-      return;
+    switch (type) {
+      case ItemType.TASK:
+        [newColumns, columnPayload] = moveTask(columns, id, source, target);
+
+        setColumns(newColumns);
+        if (columnPayload) {
+          dispatch(taskActions.updateTask(columnPayload));
+        }
+        break;
+      case ItemType.COLUMN:
+        [newColumns, taskPayload] = moveColumn(columns, id, source, target);
+
+        setColumns(newColumns);
+        dispatch(columnActions.update(taskPayload));
+        break;
     }
 
-    const sourceIndex = columns.findIndex((column) => column.id === sourceId);
-    const targetIndex = columns.findIndex((column) => column.id === targetId);
-    let result: Array<FullColumnDto>;
+    setIsDragging(false);
+  };
 
-    if (sourceIndex !== targetIndex) {
-      result = update(columns, {
-        [sourceIndex]: {
-          tasks: { $splice: [[source.index, 1]] },
-        },
-        [targetIndex]: {
-          tasks: { $splice: [[destination.index, 0, sourceTask]] },
-        },
-      });
-    } else {
-      result = update(columns, {
-        [sourceIndex]: {
-          tasks: {
-            $splice: [
-              [source.index, 1],
-              [destination.index, 0, sourceTask],
-            ],
-          },
-        },
-      });
-    }
-
-    const updateTaskResponseDto: UpdateTaskDto = {
-      title: sourceTask.title,
-      description: sourceTask.description,
-      order: targetTask.order,
-      userId: sourceTask.userId,
-      boardId: board.id,
-      columnId: targetId,
-    };
-
-    const taskResponse: TaskUpdatePayload = {
-      columnId: sourceId,
-      boardId: board.id,
-      taskId: sourceTask.id,
-      updateTaskResponseDto,
-    };
-
-    setColumns(result);
-    dispatch(taskActions.updateTask(taskResponse));
+  const handleDragStart = (): void => {
+    setIsDragging(true);
   };
 
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
+    <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
       <main className={styles.main}>
         <ConfirmationModal
           message={'modals.confirmation.deleteColumn'}
@@ -192,49 +160,66 @@ export const Board: FC = () => {
           </div>
         </div>
         <section className={styles.section}>
-          <div className={styles['column-wrapper']}>
-            {[...columns].map((column) => {
-              const handleDeleteColumn = (): void => {
-                const deleteIndex = columns.findIndex(
-                  (item) => item.id === column.id,
-                );
+          <Droppable
+            type="column"
+            droppableId={`${boardId}`}
+            direction="horizontal"
+          >
+            {(provided): JSX.Element => (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className={styles['column-wrapper']}
+              >
+                {[...columns].map((column, index): JSX.Element => {
+                  const handleDeleteColumn = (): void => {
+                    const deleteIndex = columns.findIndex(
+                      (item) => item.id === column.id,
+                    );
 
-                if (deleteIndex !== -1) {
-                  const updatedColumns = [...columns];
-                  const [{ id: columnId }] = updatedColumns.splice(
-                    deleteIndex,
-                    1,
+                    if (deleteIndex !== -1) {
+                      const updatedColumns = [...columns];
+                      const [{ id: columnId }] = updatedColumns.splice(
+                        deleteIndex,
+                        1,
+                      );
+
+                      dispatch(
+                        columnActions.removeColumn({ boardId, columnId }),
+                      );
+                      setColumns(updatedColumns);
+                    }
+                  };
+
+                  return (
+                    <Column
+                      key={column.id}
+                      item={column}
+                      boardId={boardId}
+                      handleDeleteColumn={handleDeleteColumn}
+                      updateColumns={updateColumns}
+                      usersMap={usersMap}
+                      filter={{ onlyMyTasks: isOnlyMyTasks }}
+                      columnIndex={index}
+                      isDragging={isDragging}
+                    />
                   );
-
-                  dispatch(columnActions.removeColumn({ boardId, columnId }));
-                  setColumns(updatedColumns);
-                }
-              };
-
-              return (
-                <Column
-                  key={column.id}
-                  item={column}
-                  boardId={boardId}
-                  handleDeleteColumn={handleDeleteColumn}
-                  updateColumns={updateColumns}
-                  usersMap={usersMap}
-                  filter={{ onlyMyTasks: isOnlyMyTasks }}
-                />
-              );
-            })}
-            <div
-              className={styles['add-column-wrapper']}
-              onClick={handleToggleModal}
-            >
-              <img
-                className={styles['add-column-img']}
-                src={plusImg}
-                alt="plus"
-              />
-              <FormattedMessage as="h3" message="board.buttons.addColumn" />
-            </div>
-          </div>
+                })}
+                {provided.placeholder}
+                <div
+                  className={styles['add-column-wrapper']}
+                  onClick={handleToggleModal}
+                >
+                  <img
+                    className={styles['add-column-img']}
+                    src={plusImg}
+                    alt="plus"
+                  />
+                  <FormattedMessage as="h3" message="board.buttons.addColumn" />
+                </div>
+              </div>
+            )}
+          </Droppable>
           <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
             <CreateColumnForm
               id={boardId}
