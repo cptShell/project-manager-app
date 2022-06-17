@@ -15,7 +15,6 @@ const signInUser = Joi.object<SignInUserDto>({
       'string.empty': UserAuthValidationMessage.LOGIN_REQUIRED,
       'string.min': UserAuthValidationMessage.LOGIN_MIN_LENGTH,
       'string.max': UserAuthValidationMessage.LOGIN_MAX_LENGTH,
-
     }),
   password: Joi.string()
     .trim()
