@@ -8,4 +8,5 @@ export const UserAuthValidationMessage = {
   PASSWORD_REQUIRED: 'validationMessages.user.passwordRequired',
   PASSWORD_MIN_LENGTH: 'validationMessages.user.passwordMinLength',
   PASSWORD_MAX_LENGTH: 'validationMessages.user.passwordMaxLength',
+  LOGIN_ALPHANUM: 'validationMessages.user.loginAlphanum',
 } as const;

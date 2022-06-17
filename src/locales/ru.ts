@@ -102,7 +102,6 @@ export const RUMessagesMap: AppLocalizationMap = {
   profile: {
     title: 'Настройки пользователя',
     userData: {
-      currentId: 'Текущий Id:',
       currentName: 'Имя:',
       currentLogin: 'Имя пользователя:',
     },
@@ -180,6 +179,7 @@ export const RUMessagesMap: AppLocalizationMap = {
       passwordRequired: 'Пароль обязателен',
       passwordMinLength: `Длинна должна быть не менее ${UserAuthValidationRule.PASSWORD_MIN_LENGTH} символов`,
       passwordMaxLength: `Длинна должна быть не более ${UserAuthValidationRule.PASSWORD_MAX_LENGTH} символов`,
+      loginAlphanum: 'Имя пользователя должно содержать только a-Z и 0-9',
     },
   },
 };
