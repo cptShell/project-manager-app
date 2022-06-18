@@ -38,13 +38,6 @@ export const ColumnList: FC<Props> = ({ board, usersMap, filter }) => {
     }
   };
 
-  console.log(
-    columns.reduce(
-      (res, column) => res.concat([column.title, column.order]),
-      [] as Array<[string, number]>,
-    ),
-  );
-
   const handleToggleModal = (): void => {
     setIsModalOpen(!isModalOpen);
   };
