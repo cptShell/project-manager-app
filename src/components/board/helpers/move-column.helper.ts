@@ -18,11 +18,19 @@ export const moveColumn = (
     ],
   });
 
+  const result = newColumns.reduce((result, _, index) => {
+    return update(result, {
+      [index]: {
+        order: { $set: index + 1 },
+      },
+    });
+  }, newColumns);
+
   const createColumnResponseDto = {
     ...sourceColumn,
     order: targetColumn.order,
   };
   const payload: ColumnResponse = { boardId, createColumnResponseDto };
 
-  return [newColumns, payload];
+  return [result, payload];
 };

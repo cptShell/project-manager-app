@@ -2,7 +2,7 @@ import { DraggableLocation } from 'react-beautiful-dnd';
 import update from 'immutability-helper';
 import { FullColumnDto, UpdateTaskDto } from '~/common/types/types';
 import { TaskUpdatePayload } from '~/store/task/common';
-import { orderTasks } from './order-tasks';
+import { orderTasks } from './order-tasks.helper';
 
 export const moveTask = (
   columns: Array<FullColumnDto>,

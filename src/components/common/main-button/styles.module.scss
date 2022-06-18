@@ -1,0 +1,22 @@
+.back-to-main-container {
+  position: absolute;
+  top: 2%;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  margin-right: auto;
+}
+
+.back-to-main-container:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.back-to-main-icon {
+  width: 25px;
+  height: 25px;
+  border-radius: 6px;
+}

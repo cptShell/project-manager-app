@@ -27,19 +27,6 @@
   gap: 5px;
 }
 
-.back-to-main-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  opacity: 0.5;
-  transition: opacity 0.2s;
-}
-
-.back-to-main-container:hover {
-  opacity: 1;
-  cursor: pointer;
-}
-
 .board-title {
   font-size: var(--font-size-600);
 }
@@ -47,12 +34,6 @@
 .board-title,
 .back-to-main {
   margin: 0;
-}
-
-.back-to-main-icon {
-  width: 25px;
-  height: 25px;
-  border-radius: 6px;
 }
 
 .item-wrapper {
