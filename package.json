@@ -36,7 +36,6 @@
   },
   "devDependencies": {
     "@ls-lint/ls-lint": "1.11.0",
-    "@types/lodash": "4.14.182",
     "@types/react": "18.0.0",
     "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-dom": "18.0.0",
