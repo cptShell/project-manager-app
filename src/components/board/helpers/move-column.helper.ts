@@ -1,6 +1,6 @@
 import { DraggableLocation } from 'react-beautiful-dnd';
-import { ColumnResponse, FullColumnDto } from '~/common/types/types';
 import update from 'immutability-helper';
+import { ColumnResponse, FullColumnDto } from '~/common/types/types';
 
 export const moveColumn = (
   columns: Array<FullColumnDto>,

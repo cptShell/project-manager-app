@@ -22,10 +22,10 @@ export const moveTask = (
     return [columns, null];
   }
 
-  let result: Array<FullColumnDto>;
+  let updatedColumns: Array<FullColumnDto>;
 
   if (sourceIndex !== targetIndex) {
-    result = update(columns, {
+    updatedColumns = update(columns, {
       [sourceIndex]: {
         tasks: { $splice: [[source.index, 1]] },
       },
@@ -34,7 +34,7 @@ export const moveTask = (
       },
     });
   } else {
-    result = update(columns, {
+    updatedColumns = update(columns, {
       [sourceIndex]: {
         tasks: {
           $splice: [
@@ -48,7 +48,10 @@ export const moveTask = (
 
   const indexes = [sourceIndex, targetIndex];
 
-  result = indexes.reduce((acc, index) => orderTasks(acc, index), result);
+  const result = indexes.reduce(
+    (acc, index) => orderTasks(acc, index),
+    updatedColumns,
+  );
 
   const updateTaskResponseDto: UpdateTaskDto = {
     title: sourceTask.title,

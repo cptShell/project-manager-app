@@ -1,5 +1,5 @@
-import { FullColumnDto } from '~/common/types/types';
 import update from 'immutability-helper';
+import { FullColumnDto } from '~/common/types/types';
 
 export const orderTasks = (
   columns: Array<FullColumnDto>,
