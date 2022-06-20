@@ -53,9 +53,7 @@ export const Board: FC = () => {
     updateColumns();
 
     return () => {
-      const resetFunc = (): void => setColumns(null);
-
-      dispatch(boardActions.reset(resetFunc));
+      dispatch(boardActions.reset());
     };
   }, []);
 

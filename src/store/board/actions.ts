@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AsyncThunkConfig,
   CreateBoardDto,
@@ -57,9 +57,4 @@ export const removeBoard = createAsyncThunk<string, string, AsyncThunkConfig>(
   },
 );
 
-export const reset = createAsyncThunk<void, () => void, AsyncThunkConfig>(
-  ActionType.RESET,
-  async (resetBoard) => {
-    resetBoard();
-  },
-);
+export const reset = createAction(ActionType.RESET);

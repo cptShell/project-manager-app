@@ -137,7 +137,7 @@ export const reducer = createReducer(initialState, (builder) => {
       targetBoard.title = action.payload.title;
     }
   });
-  builder.addCase(reset.fulfilled, (state) => {
+  builder.addCase(reset, (state) => {
     state.currentBoard = null;
   });
 });
