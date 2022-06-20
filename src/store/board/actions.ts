@@ -56,3 +56,10 @@ export const removeBoard = createAsyncThunk<string, string, AsyncThunkConfig>(
     return payload;
   },
 );
+
+export const reset = createAsyncThunk<void, () => void, AsyncThunkConfig>(
+  ActionType.RESET,
+  async (resetBoard) => {
+    resetBoard();
+  },
+);

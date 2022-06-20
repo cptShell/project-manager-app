@@ -3,7 +3,7 @@ import { DataStatus } from '~/common/enums/enums';
 import { BoardDto, FullBoardDto } from '~/common/types/types';
 import { createColumn, removeColumn } from '../column/actions';
 import { createTask, removeTask, updateTask } from '../task/actions';
-import { getAll, create, update, getById, removeBoard } from './actions';
+import { getAll, create, update, getById, removeBoard, reset } from './actions';
 
 type State = {
   boards: Array<BoardDto>;
@@ -136,5 +136,8 @@ export const reducer = createReducer(initialState, (builder) => {
     if (targetBoard) {
       targetBoard.title = action.payload.title;
     }
+  });
+  builder.addCase(reset.fulfilled, (state) => {
+    state.currentBoard = null;
   });
 });

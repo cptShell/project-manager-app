@@ -8,7 +8,7 @@ import {
 import { DataStatus } from '~/common/enums/enums';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
-import { UserDto } from '~/common/types/types';
+import { FullBoardDto, FullColumnDto, UserDto } from '~/common/types/types';
 import { MainButton } from '../common/common';
 import { NotFound } from '../not-found-page/not-found-page';
 import { Loader } from '../common/loader/loader';
@@ -26,6 +26,9 @@ export const Board: FC = () => {
     }, new Map<string, UserDto>()),
   }));
   const dispatch = useAppDispatch();
+  const [columns, setColumns] = useState<Array<FullColumnDto> | null>(
+    board?.columns || null,
+  );
   const [choosedId, setChoosedId] = useState('');
   const [onlyMyTasks, setOnlyMyTasks] = useState(false);
 
@@ -35,7 +38,10 @@ export const Board: FC = () => {
 
   const updateColumns = async (): Promise<void> => {
     if (boardId) {
-      dispatch(boardActions.getById(boardId));
+      const data = await dispatch(boardActions.getById(boardId)).unwrap();
+      const currentBoard = data as FullBoardDto;
+
+      setColumns(currentBoard.columns);
     }
   };
 
@@ -45,6 +51,12 @@ export const Board: FC = () => {
 
   useEffect(() => {
     updateColumns();
+
+    return () => {
+      const resetFunc = (): void => setColumns(null);
+
+      dispatch(boardActions.reset(resetFunc));
+    };
   }, []);
 
   const handleCloseConfirmation = (): void => {
@@ -61,7 +73,7 @@ export const Board: FC = () => {
     return <NotFound />;
   }
 
-  if (!boardId || !board || !usersMap.size) {
+  if (!board || !boardId || !columns || !usersMap.size) {
     return <Loader />;
   }
 
@@ -83,7 +95,14 @@ export const Board: FC = () => {
           />
         </div>
       </div>
-      <ColumnList board={board} usersMap={usersMap} filter={{ onlyMyTasks }} />
+      <ColumnList
+        boardId={boardId}
+        usersMap={usersMap}
+        filter={{ onlyMyTasks }}
+        columns={columns}
+        updateColumns={updateColumns}
+        setColumns={setColumns}
+      />
     </main>
   );
 };
