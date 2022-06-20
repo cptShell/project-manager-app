@@ -9,6 +9,8 @@ import styles from './styles.module.scss';
 import bucketImg from '~/assets/images/delete-bucket.svg';
 import plusImg from '~/assets/images/plus.svg';
 import { FormattedMessage } from '../common/common';
+import { useForm } from 'react-hook-form';
+import { SearchData, SearchResultsMain } from '~/common/types/types';
 
 export const Main: FC = () => {
   const boards = useAppSelector((state) => state.boards.boards);
@@ -16,6 +18,8 @@ export const Main: FC = () => {
   const navigate = useNavigate();
   const [choosedId, setChoosedId] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [searchResults, setsearchResults] = useState<SearchResultsMain[]>([]);
+  const { register, handleSubmit } = useForm<SearchData>();
 
   useEffect(() => {
     dispatch(boardActions.getAll());
@@ -33,10 +37,44 @@ export const Main: FC = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleSearch = async (payload: SearchData): Promise<void> => {
+    const { targetName } = payload;
+    if (targetName) {
+      const results: SearchResultsMain[] = [];
+      boards.map((el) => {
+        const { title, id } = el;
+        const regExp = new RegExp(targetName, 'i');
+        if (regExp.test(title)) {
+          results.push({ title: title, id: id });
+        }
+      });
+      setsearchResults(results);
+    } else {
+      setsearchResults([]);
+    }
+  };
+
   return (
     <main className={styles.main}>
       <div className={styles['outer-wrapper']}>
-        <FormattedMessage className={styles.title} as="h1" message={'main.title'} />
+        <form className={styles['main-header']} onChange={handleSubmit(handleSearch)}>
+          <FormattedMessage className={styles.title} as="h1" message={'main.title'} />
+          <div className={styles['search-container']}>
+            <input type="text" {...register('targetName')} />
+            <ul className={styles['search-results']}>
+              {searchResults.map(({ title, id }) => {
+                const handleClick = (): void => {
+                  navigate(`${AppRoute.BOARD}/${id}`);
+                };
+                return (
+                  <li className={styles['search-results-item']} onClick={handleClick} >
+                    <span>{title}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </form>
         <ul className={styles.wrapper}>
           <ConfirmationModal
             isOpen={Boolean(choosedId)}
@@ -59,9 +97,7 @@ export const Main: FC = () => {
                 key={id}
               >
                 <div className={styles['board-top']}>
-                  <h3 title={title} className={styles['board-title']}>
-                    {title}
-                  </h3>
+                  <h3 className={styles['board-title']}>{title}</h3>
                   <img
                     className={styles['board-img']}
                     src={bucketImg}

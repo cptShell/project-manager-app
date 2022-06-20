@@ -9,7 +9,6 @@ import {
   UserDto,
 } from '~/common/types/types';
 import { ConfirmationModal } from '~/components/common/confirmation-modal/confirmation-modal';
-import { Modal } from '~/components/common/modal/modal';
 import { Task } from '../task';
 import styles from './styles.module.scss';
 import bucketImg from '~/assets/images/delete-bucket.svg';
@@ -140,16 +139,15 @@ export const TaskLink: FC<Props> = ({
         onConfirm={onClick}
       />
       {taskOwner && (
-        <Modal isOpen={isOpen} onClose={handleModalClose}>
-          <Task
-            item={data}
-            boardId={boardId}
-            columnId={columnId}
-            updateColumns={updateColumns}
-            handleModalClose={handleModalClose}
-            taskOwner={taskOwner}
-          />
-        </Modal>
+        <Task
+          isOpen={isOpen}
+          item={data}
+          boardId={boardId}
+          columnId={columnId}
+          updateColumns={updateColumns}
+          handleModalClose={handleModalClose}
+          taskOwner={taskOwner}
+        />
       )}
       <li className={styles['column-item']} key={id} onClick={handleModalOpen}>
         <div className={styles['column-top']}>

@@ -1,0 +1,14 @@
+.column-item {
+  list-style: none;
+  padding: 10px;
+  margin: 8px;
+  border-radius: 5px;
+  background-color: var(--color-gray-100);
+  opacity: 0.8;
+}
+
+.column-item:hover {
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  opacity: 1;
+}

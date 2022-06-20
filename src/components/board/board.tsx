@@ -18,6 +18,9 @@ import {
   ColumnDto,
   FullBoardDto,
   FullColumnDto,
+  SearchData,
+  SearchResultsBoard,
+  TaskDto,
   TaskPosition,
   UpdateTaskDto,
   UserDto,
@@ -30,6 +33,8 @@ import { TaskUpdatePayload } from '~/store/task/common';
 import plusImg from '~/assets/images/plus.svg';
 import arrowImg from '~/assets/images/back-arrow.svg';
 import styles from './styles.module.scss';
+import { useForm } from 'react-hook-form';
+import { SearchItem } from './components/search-item/search-item';
 
 export const Board: FC = () => {
   const navigate = useNavigate();
@@ -48,6 +53,8 @@ export const Board: FC = () => {
     board?.columns || [],
   );
   const [isOnlyMyTasks, setIsOnlyMyTasks] = useState<boolean>(false);
+  const [searchResults, setsearchResults] = useState<SearchResultsBoard[]>([]);
+  const { register, handleSubmit } = useForm<SearchData>();
 
   const handleChangeFilter = (): void => {
     setIsOnlyMyTasks(!isOnlyMyTasks);
@@ -189,6 +196,31 @@ export const Board: FC = () => {
     return <Loader />;
   }
 
+  const handleSearch = async (payload: SearchData): Promise<void> => {
+    const { targetName } = payload;
+    if (targetName) {
+      const results: SearchResultsBoard[] = [];
+      columns.map((e) => {
+        const { tasks, id: columnId } = e;
+        tasks.map((el) => {
+          const { title, userId, id: taskId } = el;
+          const regExp = new RegExp(targetName, 'i');
+          if (regExp.test(title)) {
+            results.push({
+              taskId: taskId,
+              columnId: columnId,
+              userId: userId,
+              task: el,
+            });
+          }
+        });
+      });
+      setsearchResults(results);
+    } else {
+      setsearchResults([]);
+    }
+  };
+
   return (
     <DndProvider backend={HTML5Backend}>
       <main className={styles.main}>
@@ -199,22 +231,46 @@ export const Board: FC = () => {
           onConfirm={handleConfirm}
         />
         <div className={styles['board-header']}>
-          <div
-            className={styles['back-to-main-container']}
-            onClick={handleReturn}
-          >
-            <img
-              className={styles['back-to-main-icon']}
-              src={arrowImg}
-              alt="back arrow"
-            />
-            <FormattedMessage
-              className={styles['back-to-main']}
-              as="h3"
-              message="board.buttons.backToMainPage"
-            />
-          </div>
           <div className={styles['board-header-top']}>
+            <div
+              className={styles['back-to-main-container']}
+              onClick={handleReturn}
+            >
+              <img
+                className={styles['back-to-main-icon']}
+                src={arrowImg}
+                alt="back arrow"
+              />
+              <FormattedMessage
+                className={styles['back-to-main']}
+                as="h3"
+                message="board.buttons.backToMainPage"
+              />
+            </div>
+            <form className={styles['search-container']} onChange={handleSubmit(handleSearch)}>
+              <input
+                className={styles['search-input']}
+                type="text" {...register('targetName')}
+                placeholder="Search task"
+                autoComplete="off"
+              />
+              <ul className={styles['search-results']}>
+                {searchResults.map(({ taskId, columnId, task, userId }) => {
+                  return (
+                    <SearchItem
+                      key={taskId}
+                      data={task as TaskDto}
+                      columnId={columnId}
+                      boardId={boardId}
+                      updateColumns={updateColumns}
+                      taskOwner={usersMap.get(userId)}
+                    />
+                  );
+                })}
+              </ul>
+            </form>
+          </div>
+          <div className={styles['board-header-bottom']}>
             <h1 className={styles['board-title']}>{board.title}</h1>
             <div className={styles['board-filter-container']}>
               <span>Only my tasks</span>
