@@ -55,7 +55,7 @@ export const TaskLink: FC<Props> = ({
 
   return (
     <Draggable
-      draggableId={`${data.id}`}
+      draggableId={data.id}
       index={taskIndex}
       isDragDisabled={isDragging}
     >

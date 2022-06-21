@@ -5,4 +5,5 @@ export enum ActionType {
   DELETE = 'board/delete',
   UPDATE = 'board/update',
   RESET = 'board/reset',
+  UPDATE_COLUMNS = 'board/update-columns',
 }
