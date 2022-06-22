@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { column as columnActions } from '~/store/actions';
@@ -15,6 +14,7 @@ import addImg from '~/assets/images/add.svg';
 import cancelImg from '~/assets/images/cancel.svg';
 import acceptImg from '~/assets/images/accept.svg';
 import styles from '../styles.module.scss';
+import { useAppDispatch } from '~/hooks/hooks';
 
 type Props = {
   item: FullColumnDto;
@@ -33,7 +33,7 @@ export const ColumnHeading: FC<Props> = ({
   handleAddTask,
   handleOpenConfirmation,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { register, handleSubmit, reset } = useForm<CreateColumnDto>({
     resolver: joiResolver(createColumn),
     mode: 'onChange',

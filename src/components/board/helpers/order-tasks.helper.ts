@@ -1,16 +1,15 @@
 import update from 'immutability-helper';
-import { FullColumnDto } from '~/common/types/types';
+import { FullColumnDto, TaskDto } from '~/common/types/types';
 
 export const orderTasks = (
   columns: Array<FullColumnDto>,
   targetIndex: number,
 ): Array<FullColumnDto> => {
   const tasks = columns[targetIndex].tasks;
-  const orderedTasks = tasks.reduce((result, _, targetIndex) => {
-    return update(result, {
-      [targetIndex]: { order: { $set: targetIndex + 1 } },
-    });
-  }, tasks);
+  const orderedTasks = tasks.reduce((result, task, targetIndex) => {
+    const newTask: TaskDto = { ...task, order: targetIndex + 1 };
+    return result.concat(newTask);
+  }, <Array<TaskDto>>[]);
 
   return update(columns, {
     [targetIndex]: {

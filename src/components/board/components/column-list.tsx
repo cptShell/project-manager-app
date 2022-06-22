@@ -1,11 +1,7 @@
 import { FC, useState } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
-import {
-  column as columnActions,
-  board as boardActions,
-  task as taskActions,
-} from '~/store/actions';
-import { BoardFilter, FullBoardDto, UserDto } from '~/common/types/types';
+import { column as columnActions, task as taskActions } from '~/store/actions';
+import { BoardFilter, FullColumnDto, UserDto } from '~/common/types/types';
 import { useAppDispatch } from '~/hooks/hooks';
 import { Modal } from '~/components/common/modal/modal';
 import { CreateColumnForm } from './column-creating-form';
@@ -17,26 +13,25 @@ import plusImg from '~/assets/images/plus.svg';
 import styles from '../styles.module.scss';
 
 type Props = {
-  board: FullBoardDto;
+  boardId: string;
   usersMap: Map<string, UserDto>;
   filter: BoardFilter;
+  columns: Array<FullColumnDto>;
+  updateColumns: () => void;
+  setColumns: (columns: Array<FullColumnDto>) => void;
 };
 
-export const ColumnList: FC<Props> = ({ board, usersMap, filter }) => {
+export const ColumnList: FC<Props> = ({
+  boardId,
+  columns,
+  usersMap,
+  filter,
+  updateColumns,
+  setColumns,
+}) => {
   const dispatch = useAppDispatch();
-  const [columns, setColumns] = useState(board.columns);
   const [isDragging, setIsDragging] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { id: boardId } = board;
-
-  const updateColumns = async (): Promise<void> => {
-    if (boardId) {
-      const data = await dispatch(boardActions.getById(boardId)).unwrap();
-      const currentBoard = data as FullBoardDto;
-
-      setColumns(currentBoard.columns);
-    }
-  };
 
   const handleToggleModal = (): void => {
     setIsModalOpen(!isModalOpen);
@@ -50,22 +45,22 @@ export const ColumnList: FC<Props> = ({ board, usersMap, filter }) => {
     }
 
     let newColumns, taskPayload, columnPayload;
-    const id = board.id;
+    const id = boardId;
 
     switch (type) {
       case ItemType.TASK:
-        [newColumns, columnPayload] = moveTask(columns, id, source, target);
+        [newColumns, taskPayload] = moveTask(columns, id, source, target);
 
         setColumns(newColumns);
-        if (columnPayload) {
-          dispatch(taskActions.updateTask(columnPayload));
+        if (taskPayload) {
+          dispatch(taskActions.updateTask(taskPayload));
         }
         break;
       case ItemType.COLUMN:
-        [newColumns, taskPayload] = moveColumn(columns, id, source, target);
+        [newColumns, columnPayload] = moveColumn(columns, id, source, target);
 
         setColumns(newColumns);
-        dispatch(columnActions.update(taskPayload));
+        dispatch(columnActions.update(columnPayload));
         break;
     }
 
