@@ -63,9 +63,6 @@ export const Welcome: FC = () => {
               avatar={TEAM_MEMBERS_PAYLOAD[i].avatar}
               name={TEAM_MEMBERS_PAYLOAD[i].name as AppLocalizationKey}
               about={TEAM_MEMBERS_PAYLOAD[i].aboutMe as AppLocalizationKey}
-              contribution={
-                TEAM_MEMBERS_PAYLOAD[i].contribution as AppLocalizationKey
-              }
               key={`teamCard${i}`}
             />
           ))}

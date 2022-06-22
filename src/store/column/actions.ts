@@ -4,17 +4,13 @@ import {
   CreateColumnDto,
   ColumnDto,
   FullColumnDto,
+  ColumnResponse,
 } from '~/common/types/types';
 import { ActionType } from './common';
 
 type ColumnCreatePayload = {
   id: string;
   createColumnDto: CreateColumnDto;
-};
-
-type ColumnResponse = {
-  boardId: string;
-  createColumnResponseDto: ColumnDto;
 };
 
 type ColumnIdPayload = {

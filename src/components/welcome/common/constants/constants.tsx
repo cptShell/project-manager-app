@@ -28,18 +28,15 @@ export const TEAM_MEMBERS_PAYLOAD: Array<TeamMemberItem> = [
     avatar: img0,
     name: 'welcome.teamMembers.item0.name',
     aboutMe: 'welcome.teamMembers.item0.aboutMe',
-    contribution: 'welcome.teamMembers.item0.contribution',
   },
   {
     avatar: img1,
     name: 'welcome.teamMembers.item1.name',
     aboutMe: 'welcome.teamMembers.item1.aboutMe',
-    contribution: 'welcome.teamMembers.item1.contribution',
   },
   {
     avatar: img2,
     name: 'welcome.teamMembers.item2.name',
     aboutMe: 'welcome.teamMembers.item2.aboutMe',
-    contribution: 'welcome.teamMembers.item2.contribution',
   },
 ];
