@@ -7,6 +7,7 @@ import { ConfirmationModal } from '~/components/common/confirmation-modal/confir
 import { Task } from '../task';
 import styles from './styles.module.scss';
 import bucketImg from '~/assets/images/delete-bucket.svg';
+import { Modal } from '~/components/common/modal/modal';
 
 type Props = {
   data: TaskDto;
@@ -73,15 +74,16 @@ export const TaskLink: FC<Props> = ({
               onConfirm={handleDeleteTask}
             />
             {taskOwner && (
-              <Task
-                isOpen={isOpen}
-                item={data}
-                boardId={boardId}
-                columnId={columnId}
-                updateColumns={updateColumns}
-                handleModalClose={handleModalClose}
-                taskOwner={taskOwner}
-              />
+              <Modal isOpen={isOpen} onClose={handleModalClose}>
+                <Task
+                  item={data}
+                  boardId={boardId}
+                  columnId={columnId}
+                  updateColumns={updateColumns}
+                  handleModalClose={handleModalClose}
+                  taskOwner={taskOwner}
+                />
+              </Modal>
             )}
             <li
               className={styles['column-item']}

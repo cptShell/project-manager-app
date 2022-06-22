@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { InputName } from '~/common/enums/enums';
 import { TaskDto, UpdateTaskDto, UserDto } from '~/common/types/types';
 import { FormattedMessage, TextInput } from '~/components/common/common';
-import { Modal } from '~/components/common/modal/modal';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { task as taskActions } from '~/store/actions';
 import { TaskUpdatePayload } from '~/store/task/common';
@@ -12,7 +11,6 @@ import { editTask } from '~/validation-schemas/validation-schemas';
 import styles from './styles.module.scss';
 
 type Props = {
-  isOpen: boolean;
   item: TaskDto;
   columnId: string;
   boardId: string;
@@ -28,7 +26,6 @@ type FormData = {
 };
 
 export const Task: FC<Props> = ({
-  isOpen,
   item,
   columnId,
   boardId,
@@ -99,74 +96,72 @@ export const Task: FC<Props> = ({
   const { title, description } = getValues();
 
   return (
-    <Modal isOpen={isOpen} onClose={handleModalClose}>
-      <form className={styles['wrapper']} onSubmit={handleSubmit(onSubmit)}>
+    <form className={styles['wrapper']} onSubmit={handleSubmit(onSubmit)}>
+      <div className={styles.label}>
+        <FormattedMessage
+          className={styles['description-title']}
+          as="span"
+          message={'board.taskCreatingForm.inputs.owner'}
+        />
+        {isOwnerEdit ? (
+          <select {...register(InputName.OWNER)}>
+            {registeredUsers.map(({ id, name }) => {
+              return (
+                <option key={id} value={id}>
+                  {name}
+                </option>
+              );
+            })}
+          </select>
+        ) : (
+          <p onClick={handleOwnerEdit}>{taskOwner?.name || 'add owner'}</p>
+        )}
+      </div>
+      {isTitleEdit ? (
+        <TextInput
+          className={styles['title']}
+          title="board.taskCreatingForm.inputs.title"
+          formRegisterValues={register(InputName.TITLE)}
+        />
+      ) : (
         <div className={styles.label}>
           <FormattedMessage
             className={styles['description-title']}
             as="span"
-            message={'board.taskCreatingForm.inputs.owner'}
+            message={'board.taskCreatingForm.inputs.title'}
           />
-          {isOwnerEdit ? (
-            <select {...register(InputName.OWNER)}>
-              {registeredUsers.map(({ id, name }) => {
-                return (
-                  <option key={id} value={id}>
-                    {name}
-                  </option>
-                );
-              })}
-            </select>
-          ) : (
-            <p onClick={handleOwnerEdit}>{taskOwner?.name || 'add owner'}</p>
-          )}
+          <p className={styles['title-readable']} onClick={handleTitleEdit}>
+            {title}
+          </p>
         </div>
-        {isTitleEdit ? (
-          <TextInput
-            className={styles['title']}
-            title="board.taskCreatingForm.inputs.title"
-            formRegisterValues={register(InputName.TITLE)}
+      )}
+      <div className={styles.label}>
+        <FormattedMessage
+          className={styles['description-title']}
+          as="span"
+          message={'board.taskCreatingForm.inputs.description'}
+        />
+        {isDescriptionEdit ? (
+          <textarea
+            className={styles['description-writable']}
+            title="board.taskCreatingForm.inputs.description"
+            {...register(InputName.DESCRIPTION)}
           />
         ) : (
-          <div className={styles.label}>
-            <FormattedMessage
-              className={styles['description-title']}
-              as="span"
-              message={'board.taskCreatingForm.inputs.title'}
-            />
-            <p className={styles['title-readable']} onClick={handleTitleEdit}>
-              {title}
-            </p>
-          </div>
+          <p
+            className={styles['description-readable']}
+            onClick={handleDescriptionEdit}
+          >
+            {description}
+          </p>
         )}
-        <div className={styles.label}>
-          <FormattedMessage
-            className={styles['description-title']}
-            as="span"
-            message={'board.taskCreatingForm.inputs.description'}
-          />
-          {isDescriptionEdit ? (
-            <textarea
-              className={styles['description-writable']}
-              title="board.taskCreatingForm.inputs.description"
-              {...register(InputName.DESCRIPTION)}
-            />
-          ) : (
-            <p
-              className={styles['description-readable']}
-              onClick={handleDescriptionEdit}
-            >
-              {description}
-            </p>
-          )}
-        </div>
+      </div>
 
-        <FormattedMessage
-          className={styles['button']}
-          as="button"
-          message="board.taskCreatingForm.buttons.editTask"
-        />
-      </form>
-    </Modal>
+      <FormattedMessage
+        className={styles['button']}
+        as="button"
+        message="board.taskCreatingForm.buttons.editTask"
+      />
+    </form>
   );
 };

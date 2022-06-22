@@ -3,6 +3,7 @@ import {
   TaskDto,
   UserDto,
 } from '~/common/types/types';
+import { Modal } from '~/components/common/modal/modal';
 import { Task } from '../task';
 import styles from './styles.module.scss';
 
@@ -35,15 +36,16 @@ export const SearchItem: FC<Props> = ({
   return (
     <>
       {taskOwner && (
-        <Task
-          isOpen={isOpen}
-          item={data}
-          boardId={boardId}
-          columnId={columnId}
-          updateColumns={updateColumns}
-          handleModalClose={handleModalClose}
-          taskOwner={taskOwner}
-        />
+        <Modal isOpen={isOpen} onClose={handleModalClose}>
+          <Task
+            item={data}
+            boardId={boardId}
+            columnId={columnId}
+            updateColumns={updateColumns}
+            handleModalClose={handleModalClose}
+            taskOwner={taskOwner}
+          />
+        </Modal>
       )}
       <li className={styles['search-item']} key={id} onClick={handleModalOpen}>
         <span>{title}</span>
