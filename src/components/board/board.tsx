@@ -8,14 +8,14 @@ import {
 import { DataStatus } from '~/common/enums/enums';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
-import { UserDto } from '~/common/types/types';
+import { FullColumnDto, UserDto } from '~/common/types/types';
 import { MainButton } from '../common/common';
 import { NotFound } from '../not-found-page/not-found-page';
 import { Loader } from '../common/loader/loader';
 import { FilterContainer } from './components/filter-container/filter-container';
 import { ColumnList } from './components/column-list';
-import styles from './styles.module.scss';
 import { SearchBar } from './components/search-bar/search-bar';
+import styles from './styles.module.scss';
 
 export const Board: FC = () => {
   const { id: boardId } = useParams();
@@ -29,7 +29,9 @@ export const Board: FC = () => {
   const dispatch = useAppDispatch();
   const [choosedId, setChoosedId] = useState('');
   const [onlyMyTasks, setOnlyMyTasks] = useState(false);
-  const [columns, setColumns] = useState(board?.columns || []);
+  const [columns, setColumns] = useState<Array<FullColumnDto>>(
+    board?.columns || [],
+  );
 
   const handleChangeFilter = (): void => {
     setOnlyMyTasks(!onlyMyTasks);
@@ -80,8 +82,6 @@ export const Board: FC = () => {
   if (!board || !boardId || !usersMap.size) {
     return <Loader />;
   }
-
-  console.log(board?.columns, columns);
 
   return (
     <main className={styles.main}>

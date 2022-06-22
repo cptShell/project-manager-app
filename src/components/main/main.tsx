@@ -63,7 +63,9 @@ export const Main: FC = () => {
                 key={id}
               >
                 <div className={styles['board-top']}>
-                  <h3 className={styles['board-title']}>{title}</h3>
+                  <h3 title={title} className={styles['board-title']}>
+                    {title}
+                  </h3>
                   <img
                     className={styles['board-img']}
                     src={bucketImg}
