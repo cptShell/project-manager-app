@@ -8,10 +8,7 @@ import {
 import { DataStatus } from '~/common/enums/enums';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
-import {
-  FullBoardDto,
-  UserDto,
-} from '~/common/types/types';
+import { UserDto } from '~/common/types/types';
 import { MainButton } from '../common/common';
 import { NotFound } from '../not-found-page/not-found-page';
 import { Loader } from '../common/loader/loader';
@@ -40,12 +37,19 @@ export const Board: FC = () => {
 
   const updateColumns = async (): Promise<void> => {
     if (boardId) {
-      const data = await dispatch(boardActions.getById(boardId)).unwrap();
-      const currentBoard = data as FullBoardDto;
-
-      setColumns(currentBoard.columns);
+      dispatch(boardActions.updateColumns(boardId));
     }
   };
+
+  useEffect(() => {
+    if (boardId) {
+      dispatch(boardActions.getById(boardId));
+    }
+  }, []);
+
+  useEffect(() => {
+    setColumns(board?.columns || []);
+  }, [board?.columns]);
 
   useEffect(() => {
     dispatch(userActions.getUsers());
@@ -53,6 +57,10 @@ export const Board: FC = () => {
 
   useEffect(() => {
     updateColumns();
+
+    return () => {
+      dispatch(boardActions.reset());
+    };
   }, []);
 
   const handleCloseConfirmation = (): void => {
@@ -69,9 +77,11 @@ export const Board: FC = () => {
     return <NotFound />;
   }
 
-  if (!boardId || !board || !usersMap.size) {
+  if (!board || !boardId || !usersMap.size) {
     return <Loader />;
   }
+
+  console.log(board?.columns, columns);
 
   return (
     <main className={styles.main}>
@@ -95,12 +105,12 @@ export const Board: FC = () => {
         </div>
       </div>
       <ColumnList
-        columns={columns}
-        setColumns={setColumns}
+        boardId={boardId}
         usersMap={usersMap}
         filter={{ onlyMyTasks }}
-        boardId={board.id}
+        columns={columns}
         updateColumns={updateColumns}
+        setColumns={setColumns}
       />
     </main>
   );

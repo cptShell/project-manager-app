@@ -1,9 +1,6 @@
 import { FC, useState } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
-import {
-  column as columnActions,
-  task as taskActions,
-} from '~/store/actions';
+import { column as columnActions, task as taskActions } from '~/store/actions';
 import { BoardFilter, FullColumnDto, UserDto } from '~/common/types/types';
 import { useAppDispatch } from '~/hooks/hooks';
 import { Modal } from '~/components/common/modal/modal';
@@ -16,15 +13,22 @@ import plusImg from '~/assets/images/plus.svg';
 import styles from '../styles.module.scss';
 
 type Props = {
-  columns: Array<FullColumnDto>;
+  boardId: string;
   usersMap: Map<string, UserDto>;
   filter: BoardFilter;
-  boardId: string;
+  columns: Array<FullColumnDto>;
   updateColumns: () => void;
   setColumns: (columns: Array<FullColumnDto>) => void;
 };
 
-export const ColumnList: FC<Props> = ({ columns, usersMap, filter, boardId, updateColumns, setColumns }) => {
+export const ColumnList: FC<Props> = ({
+  boardId,
+  columns,
+  usersMap,
+  filter,
+  updateColumns,
+  setColumns,
+}) => {
   const dispatch = useAppDispatch();
   const [isDragging, setIsDragging] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,18 +49,18 @@ export const ColumnList: FC<Props> = ({ columns, usersMap, filter, boardId, upda
 
     switch (type) {
       case ItemType.TASK:
-        [newColumns, columnPayload] = moveTask(columns, id, source, target);
+        [newColumns, taskPayload] = moveTask(columns, id, source, target);
 
         setColumns(newColumns);
-        if (columnPayload) {
-          dispatch(taskActions.updateTask(columnPayload));
+        if (taskPayload) {
+          dispatch(taskActions.updateTask(taskPayload));
         }
         break;
       case ItemType.COLUMN:
-        [newColumns, taskPayload] = moveColumn(columns, id, source, target);
+        [newColumns, columnPayload] = moveColumn(columns, id, source, target);
 
         setColumns(newColumns);
-        dispatch(columnActions.update(taskPayload));
+        dispatch(columnActions.update(columnPayload));
         break;
     }
 

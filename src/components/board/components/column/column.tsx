@@ -74,7 +74,7 @@ export const Column: FC<Props> = ({
             handleAddTask={handleAddTask}
             handleOpenConfirmation={handleOpenConfirmation}
           />
-          <Droppable type="task" droppableId={`${item.id}`}>
+          <Droppable type="task" droppableId={item.id}>
             {(provided): JSX.Element => (
               <div
                 {...provided.droppableProps}

@@ -45,7 +45,7 @@ export const SearchItem: FC<Props> = ({
           taskOwner={taskOwner}
         />
       )}
-      <li className={styles['column-item']} key={id} onClick={handleModalOpen}>
+      <li className={styles['search-item']} key={id} onClick={handleModalOpen}>
         <span>{title}</span>
       </li>
     </>

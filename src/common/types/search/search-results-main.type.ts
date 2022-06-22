@@ -1,4 +1,4 @@
-export type SearchResultsMain = {
+export type SearchItemMain = {
   title: string;
   id: string;
 };

@@ -1,18 +1,13 @@
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { SearchData, TaskDto, UserDto } from '~/common/types/types';
+import { SearchData, SearchItemBoard, TaskDto, UserDto } from '~/common/types/types';
 import { useAppSelector } from '~/hooks/hooks';
 import { SearchItem } from '../search-item/search-item';
 import styles from './styles.module.scss';
 
 type Props = {
   updateColumns: () => void;
-};
-
-type SearchDataItem = {
-  columnId: string,
-  task: TaskDto
 };
 
 export const SearchBar: FC<Props> = ({ updateColumns }) => {
@@ -23,37 +18,36 @@ export const SearchBar: FC<Props> = ({ updateColumns }) => {
     }, new Map<string, UserDto>()),
     tasks: state.boards.currentBoard?.columns.reduce((acc, column) => {
       const { tasks } = column;
-      const searchDataItems: Array<SearchDataItem> = tasks.map((task) => ({
+      const searchDataItems: Array<SearchItemBoard> = tasks.map((task) => ({
         columnId: column.id,
         task,
       }));
       return acc.concat(...searchDataItems);
-    }, [] as Array<SearchDataItem>) || [],
+    }, [] as Array<SearchItemBoard>) || [],
   }));
 
-  const [searchResults, setsearchResults] = useState<Array<SearchDataItem>>([]);
+  const [searchResults, setSearchResults] = useState<Array<SearchItemBoard>>([]);
   const { register, handleSubmit } = useForm<SearchData>();
 
   const handleSearch = (payload: SearchData): void => {
     const { targetName } = payload;
     if (targetName) {
       const regExp = new RegExp(targetName, 'i');
-      const results = tasks.filter(({ task }) => {
-        return regExp.test(task.title);
-      });
-      setsearchResults(results);
+      const results = tasks.filter(({ task }) => regExp.test(task.title));
+      setSearchResults(results);
       return;
     }
-    setsearchResults([]);
+    setSearchResults([]);
   };
 
   return (
     <form className={styles['search-container']} onChange={handleSubmit(handleSearch)}>
       <input
         className={styles['search-input']}
-        type="text" {...register('targetName')}
+        type="text"
         placeholder="Search task"
         autoComplete="off"
+        {...register('targetName')}
       />
       <ul className={styles['search-results']}>
         {searchResults.map(({ columnId, task }) => {
