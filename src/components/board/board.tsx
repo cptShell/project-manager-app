@@ -14,6 +14,7 @@ import { NotFound } from '../not-found-page/not-found-page';
 import { Loader } from '../common/loader/loader';
 import { FilterContainer } from './components/filter-container/filter-container';
 import { ColumnList } from './components/column-list';
+import { SearchBar } from './components/search-bar/search-bar';
 import styles from './styles.module.scss';
 
 export const Board: FC = () => {
@@ -26,11 +27,11 @@ export const Board: FC = () => {
     }, new Map<string, UserDto>()),
   }));
   const dispatch = useAppDispatch();
+  const [choosedId, setChoosedId] = useState('');
+  const [onlyMyTasks, setOnlyMyTasks] = useState(false);
   const [columns, setColumns] = useState<Array<FullColumnDto>>(
     board?.columns || [],
   );
-  const [choosedId, setChoosedId] = useState('');
-  const [onlyMyTasks, setOnlyMyTasks] = useState(false);
 
   const handleChangeFilter = (): void => {
     setOnlyMyTasks(!onlyMyTasks);
@@ -82,8 +83,6 @@ export const Board: FC = () => {
     return <Loader />;
   }
 
-  console.log(board?.columns, columns);
-
   return (
     <main className={styles.main}>
       <ConfirmationModal
@@ -93,8 +92,11 @@ export const Board: FC = () => {
         onConfirm={handleConfirm}
       />
       <div className={styles['board-header']}>
-        <MainButton />
         <div className={styles['board-header-top']}>
+          <MainButton />
+          <SearchBar updateColumns={updateColumns} />
+        </div>
+        <div className={styles['board-header-bottom']}>
           <h1 className={styles['board-title']}>{board.title}</h1>
           <FilterContainer
             handleChangeFilter={handleChangeFilter}
