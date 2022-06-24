@@ -1,7 +1,6 @@
 export type ProfileLocalizationKey = {
   title: string;
   userData: {
-    currentId: string;
     currentName: string;
     currentLogin: string;
   };

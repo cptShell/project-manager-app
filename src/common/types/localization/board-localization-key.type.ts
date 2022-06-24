@@ -1,5 +1,4 @@
 export type BoardLocalizationKey = {
-  title: string;
   buttons: {
     addColumn: string;
     deleteColumn: string;

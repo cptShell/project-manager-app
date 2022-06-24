@@ -2,10 +2,16 @@
   flex-grow: 1;
 }
 
-.title {
-  margin: 0 auto;
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   max-width: 1145px;
-  padding: 30px 20px;
+  margin: 0 auto;
+  padding: 15px 20px;
+}
+
+.title {
   font-size: var(--font-size-600);
 }
 

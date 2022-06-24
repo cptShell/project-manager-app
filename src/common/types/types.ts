@@ -9,3 +9,4 @@ export * from './task/task';
 export * from './drag-item/drag-item';
 export * from './task-position/task-position';
 export * from './notification/notification';
+export * from './search/search';
