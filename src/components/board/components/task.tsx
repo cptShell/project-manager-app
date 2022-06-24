@@ -36,7 +36,6 @@ export const Task: FC<Props> = ({
   const dispatch = useAppDispatch();
   const [isTitleEdit, setIsTitleEdit] = useState(false);
   const [isDescriptionEdit, setIsDescriptionEdit] = useState(false);
-  const [isOwnerEdit, setIsOwnerEdit] = useState(false);
   const registeredUsers = useAppSelector(({ users }) => users.registeredUsers);
   const { register, handleSubmit, getValues } = useForm<FormData>({
     resolver: joiResolver(editTask),
@@ -51,7 +50,6 @@ export const Task: FC<Props> = ({
   const closeEditMode = (): void => {
     setIsTitleEdit(false);
     setIsDescriptionEdit(false);
-    setIsOwnerEdit(false);
   };
 
   const handleTitleEdit = (): void => {
@@ -61,10 +59,6 @@ export const Task: FC<Props> = ({
   const handleDescriptionEdit = (): void => {
     closeEditMode();
     setIsDescriptionEdit(true);
-  };
-  const handleOwnerEdit = (): void => {
-    closeEditMode();
-    setIsOwnerEdit(true);
   };
 
   const onSubmit = async ({
@@ -103,19 +97,17 @@ export const Task: FC<Props> = ({
           as="span"
           message={'board.taskCreatingForm.inputs.owner'}
         />
-        {isOwnerEdit ? (
-          <select {...register(InputName.OWNER)}>
-            {registeredUsers.map(({ id, name }) => {
-              return (
-                <option key={id} value={id}>
-                  {name}
-                </option>
-              );
-            })}
-          </select>
-        ) : (
-          <p onClick={handleOwnerEdit}>{taskOwner?.name || 'add owner'}</p>
-        )}
+        <select
+          className={styles['owner-select']}
+          {...register(InputName.OWNER)}>
+          {registeredUsers.map(({ id, name }) => {
+            return (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            );
+          })}
+        </select>
       </div>
       {isTitleEdit ? (
         <TextInput

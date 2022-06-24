@@ -62,3 +62,18 @@
   flex-direction: column;
   gap: 5px;
 }
+
+.owner-select {
+  height: 24px;
+  appearance: none;
+  border: 0;
+  outline: none;
+  font-size: var(--font-size-200);
+  padding: 3px 0;
+  cursor: pointer;
+}
+
+.owner-select:hover,
+.owner-select option:hover .owner-select {
+  outline: auto;
+}
