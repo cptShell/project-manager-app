@@ -156,7 +156,6 @@ export const Task: FC<Props> = ({
           </p>
         )}
       </div>
-
       <FormattedMessage
         className={styles['button']}
         as="button"

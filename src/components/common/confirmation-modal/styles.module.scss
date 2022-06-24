@@ -30,5 +30,13 @@
     padding: 15px;
     gap: 10px;
     color: var(--color-white);
+    opacity: 0.9;
+    transition: opacity 0.2s;
+  }
+
+  button:hover {
+    cursor: pointer;
+    box-shadow: var(--shadow-hover);
+    opacity: 1;
   }
 }
