@@ -1,10 +1,12 @@
 import { FC } from 'react';
+import { joiResolver } from '@hookform/resolvers/joi';
 import { useForm } from 'react-hook-form';
 import { task as taskActions } from '~/store/actions';
 import { InputName } from '~/common/enums/enums';
 import { FormattedMessage, TextInput } from '~/components/common/common';
 import { CreateTaskDto } from '~/common/types/types';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
+import { createTask } from '~/validation-schemas/validation-schemas';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -20,7 +22,9 @@ export const TaskCreatingForm: FC<Props> = ({
   onClose,
   updateColumns,
 }) => {
-  const { register, handleSubmit, reset } = useForm<CreateTaskDto>();
+  const { register, handleSubmit, reset } = useForm<CreateTaskDto>({
+    resolver: joiResolver(createTask),
+  });
   const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.auth.user?.id);
 
@@ -60,7 +64,7 @@ export const TaskCreatingForm: FC<Props> = ({
           message={'board.taskCreatingForm.inputs.description'}
         />
         <textarea
-          className={styles['description']}
+          className={styles['description-writable']}
           {...register(InputName.DESCRIPTION)}
         />
       </div>
