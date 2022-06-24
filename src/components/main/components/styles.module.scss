@@ -45,4 +45,12 @@
   color: var(--color-white);
   padding: 13px;
   border: none;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+}
+
+button:hover {
+  cursor: pointer;
+  box-shadow: var(--shadow-hover);
+  opacity: 1;
 }
