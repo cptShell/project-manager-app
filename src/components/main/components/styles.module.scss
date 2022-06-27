@@ -49,7 +49,7 @@
   transition: opacity 0.2s;
 }
 
-button:hover {
+.button:hover {
   cursor: pointer;
   box-shadow: var(--shadow-hover);
   opacity: 1;
