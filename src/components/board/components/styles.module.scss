@@ -52,19 +52,17 @@
 }
 
 .button {
-  background: var(--color-purple-300);
+  background-color: var(--color-purple-300);
   border-radius: 3px;
   color: var(--color-white);
   padding: 13px;
   border: none;
-  opacity: 0.9;
-  transition: opacity 0.2s;
+  transition: background-color 0.2s;
 }
 
 .button:hover {
   cursor: pointer;
-  box-shadow: var(--shadow-hover);
-  opacity: 1;
+  background-color: var(--color-purple-400);
 }
 
 .label {

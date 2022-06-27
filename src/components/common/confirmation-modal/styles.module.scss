@@ -24,19 +24,16 @@
   button {
     min-width: 160px;
     width: 100%;
-    background: var(--color-purple-300);
+    background-color: var(--color-purple-300);
     border-radius: 3px;
     border: none;
     padding: 15px;
     gap: 10px;
     color: var(--color-white);
-    opacity: 0.9;
-    transition: opacity 0.2s;
+    transition: background-color 0.2s;
   }
 
   button:hover {
     cursor: pointer;
-    box-shadow: var(--shadow-hover);
-    opacity: 1;
   }
 }

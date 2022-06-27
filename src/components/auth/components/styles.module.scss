@@ -38,16 +38,14 @@
   border: none;
   border-radius: 3px;
   margin-top: 10px;
-  background: var(--color-purple-300);
+  background-color: var(--color-purple-300);
   color: var(--color-white);
-  opacity: 0.9;
-  transition: opacity box-shadow 0.2s;
+  transition: background-color 0.2s;
 }
 
 .form-button:hover {
   cursor: pointer;
-  box-shadow: var(--shadow-hover);
-  opacity: 1;
+  background-color: var(--color-purple-400);
 }
 
 .message-container {
