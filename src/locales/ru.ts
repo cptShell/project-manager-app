@@ -79,6 +79,7 @@ export const RUMessagesMap: AppLocalizationMap = {
         deleteTask: 'Удалить задание',
       },
     },
+    filterTitle: 'Только мои задачи',
   },
   auth: {
     titles: {

@@ -38,4 +38,5 @@ export type BoardLocalizationKey = {
       deleteTask: string;
     };
   };
+  filterTitle: string;
 };

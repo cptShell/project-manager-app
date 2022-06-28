@@ -79,6 +79,7 @@ export const ENMessagesMap: AppLocalizationMap = {
         deleteTask: 'Delete task',
       },
     },
+    filterTitle: 'Only my tasks',
   },
   auth: {
     titles: {
