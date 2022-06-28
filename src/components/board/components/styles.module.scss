@@ -70,3 +70,15 @@
   flex-direction: column;
   gap: 5px;
 }
+
+.owner-select {
+  height: 50px;
+  appearance: none;
+  border: 0;
+  outline: none;
+  font-size: var(--font-size-200);
+  padding: 0 15px;
+  background: var(--color-purple-200);
+  border-radius: 5px;
+  cursor: pointer;
+}
