@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { BoardFilter } from '~/common/types/types';
+import { FormattedMessage } from '~/components/common/common';
 import styles from '../../styles.module.scss';
 
 type Props = {
@@ -12,7 +13,7 @@ export const FilterContainer: FC<Props> = ({ filter, handleChangeFilter }) => {
 
   return (
     <div className={styles['board-filter-container']}>
-      <span>Only my tasks</span>
+      <FormattedMessage as="span" message="board.filterTitle" />
       <input
         type="checkbox"
         checked={onlyMyTasks}
