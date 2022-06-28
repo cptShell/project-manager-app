@@ -29,13 +29,15 @@
 }
 
 .description-writable {
-  background: var(--color-purple-200);
-  border-radius: 3px;
-  padding: 16px 20px;
-  border: none;
-  resize: none;
+  font-family: Inter, sans-serif;
   width: 100%;
   min-height: 90px;
+  border-radius: 3px;
+  padding: 13px;
+  border: none;
+  resize: none;
+  background: var(--color-purple-200);
+  outline-color: var(--color-purple-300);
 }
 
 .title-readable,
@@ -44,11 +46,17 @@
 }
 
 .button {
-  background: var(--color-purple-300);
+  background-color: var(--color-purple-300);
   border-radius: 3px;
   color: var(--color-white);
   padding: 13px;
   border: none;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: var(--color-purple-400);
 }
 
 .label {
@@ -61,4 +69,16 @@
   font-size: var(--font-size-100);
   color: var(--color-red);
   font-weight: var(--font-weight-500);
+}
+
+.owner-select {
+  height: 50px;
+  appearance: none;
+  border: 0;
+  outline: none;
+  font-size: var(--font-size-200);
+  padding: 0 15px;
+  background: var(--color-purple-200);
+  border-radius: 5px;
+  cursor: pointer;
 }

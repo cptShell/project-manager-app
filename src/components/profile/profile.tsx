@@ -29,7 +29,9 @@ export const Profile: FC = () => {
 
   return (
     <div className={styles['wrapper']}>
-      <MainButton />
+      <div className={styles['back-to-main-wrapper']}>
+        <MainButton />
+      </div>
       <EditForm />
       <FormattedMessage
         onClick={handleShowModal}

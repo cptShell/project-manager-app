@@ -27,7 +27,6 @@
 .board-item,
 .add-board-board {
   list-style: none;
-  max-width: 438px;
   min-height: 175px;
   box-shadow: var(--shadow);
   border-radius: 3px;
@@ -54,10 +53,10 @@
 }
 
 .board-title {
+  max-width: 235px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 250px;
   padding: 10px;
   margin: 0;
   font-size: var(--font-size-400);
@@ -73,6 +72,7 @@
 }
 
 .board-bottom {
+  max-width: fit-content;
   padding: 10px;
   font-size: var(--font-size-100);
   color: var(--color-gray-300);

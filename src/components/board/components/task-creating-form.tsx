@@ -1,13 +1,13 @@
 import { FC } from 'react';
+import { joiResolver } from '@hookform/resolvers/joi';
 import { useForm } from 'react-hook-form';
 import { task as taskActions } from '~/store/actions';
 import { InputName } from '~/common/enums/enums';
 import { FormattedMessage, TextInput } from '~/components/common/common';
 import { AppLocalizationKey, CreateTaskDto } from '~/common/types/types';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
-import styles from './styles.module.scss';
-import { joiResolver } from '@hookform/resolvers/joi';
 import { createTask } from '~/validation-schemas/validation-schemas';
+import styles from './styles.module.scss';
 
 type Props = {
   boardId: string;
