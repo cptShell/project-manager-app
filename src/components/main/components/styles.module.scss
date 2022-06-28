@@ -40,9 +40,15 @@
 }
 
 .button {
-  background: var(--color-purple-300);
+  background-color: var(--color-purple-300);
   border-radius: 3px;
   color: var(--color-white);
   padding: 13px;
   border: none;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: var(--color-purple-400);
 }
