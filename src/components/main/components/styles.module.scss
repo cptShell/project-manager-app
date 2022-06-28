@@ -13,7 +13,6 @@
   display: flex;
   row-gap: 5px;
   flex-direction: column;
-  color: var(--color-purple-300);
   font-weight: var(--font-weight-600);
 
   input {
@@ -45,4 +44,10 @@
   color: var(--color-white);
   padding: 13px;
   border: none;
+}
+
+.error {
+  font-size: var(--font-size-100);
+  color: var(--color-red);
+  font-weight: var(--font-weight-500);
 }

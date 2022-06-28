@@ -56,6 +56,7 @@ export const BoardCreatingForm: FC<Props> = ({ isOpen, onClose }) => {
           />
           {Boolean(descriptionError?.message) && (
             <FormattedMessage
+              className={styles['error']}
               as="span"
               message={descriptionError?.message as AppLocalizationKey}
             />

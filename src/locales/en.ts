@@ -1,5 +1,6 @@
 import {
   BoardValidationRule,
+  TaskValidationRule,
   UserAuthValidationRule,
 } from '~/common/enums/enums';
 import { AppLocalizationMap } from '~/common/types/types';
@@ -180,6 +181,12 @@ export const ENMessagesMap: AppLocalizationMap = {
       passwordMinLength: `Password must be at least ${UserAuthValidationRule.PASSWORD_MIN_LENGTH} characters`,
       passwordMaxLength: `Password must be max ${UserAuthValidationRule.PASSWORD_MAX_LENGTH} characters`,
       loginAlphanum: 'Login must only contain a-Z and 0-9',
+    },
+    task: {
+      titleRequired: 'Title is required',
+      titleMaxLength: `Title must be max ${TaskValidationRule.TITLE_MAX_LENGTH} characters`,
+      descriptionRequired: 'Description cannot be empty',
+      descriptionMaxLength: `Description must be max ${TaskValidationRule.DESCRIPTION_MAX_LENGTH} characters`,
     },
   },
 };

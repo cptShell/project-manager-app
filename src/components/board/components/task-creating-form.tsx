@@ -3,9 +3,11 @@ import { useForm } from 'react-hook-form';
 import { task as taskActions } from '~/store/actions';
 import { InputName } from '~/common/enums/enums';
 import { FormattedMessage, TextInput } from '~/components/common/common';
-import { CreateTaskDto } from '~/common/types/types';
+import { AppLocalizationKey, CreateTaskDto } from '~/common/types/types';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import styles from './styles.module.scss';
+import { joiResolver } from '@hookform/resolvers/joi';
+import { createTask } from '~/validation-schemas/validation-schemas';
 
 type Props = {
   boardId: string;
@@ -20,7 +22,10 @@ export const TaskCreatingForm: FC<Props> = ({
   onClose,
   updateColumns,
 }) => {
-  const { register, handleSubmit, reset } = useForm<CreateTaskDto>();
+  const { register, handleSubmit, reset, formState } = useForm<CreateTaskDto>({
+    resolver: joiResolver(createTask),
+  });
+  const { title: titleError, description: descriptionError } = formState.errors;
   const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.auth.user?.id);
 
@@ -52,6 +57,7 @@ export const TaskCreatingForm: FC<Props> = ({
         className={styles['title']}
         title="board.taskCreatingForm.inputs.title"
         formRegisterValues={register(InputName.TITLE)}
+        errorMessage={titleError?.message}
       />
       <div>
         <FormattedMessage
@@ -60,9 +66,16 @@ export const TaskCreatingForm: FC<Props> = ({
           message={'board.taskCreatingForm.inputs.description'}
         />
         <textarea
-          className={styles['description']}
+          className={styles['description-writable']}
           {...register(InputName.DESCRIPTION)}
         />
+        {Boolean(descriptionError?.message) && (
+          <FormattedMessage
+            className={styles['error']}
+            as="span"
+            message={descriptionError?.message as AppLocalizationKey}
+          />
+        )}
       </div>
 
       <FormattedMessage

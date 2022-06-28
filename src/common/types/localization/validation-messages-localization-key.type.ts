@@ -17,4 +17,10 @@ export type ValidationMessagesLocalizationKey = {
     passwordMaxLength: string;
     loginAlphanum: string;
   };
+  task: {
+    titleRequired: string;
+    titleMaxLength: string;
+    descriptionRequired: string;
+    descriptionMaxLength: string;
+  };
 };
