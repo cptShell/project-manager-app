@@ -1,5 +1,6 @@
 import {
   BoardValidationRule,
+  TaskValidationRule,
   UserAuthValidationRule,
 } from '~/common/enums/enums';
 import { AppLocalizationMap } from '~/common/types/types';
@@ -181,6 +182,12 @@ export const RUMessagesMap: AppLocalizationMap = {
       passwordMinLength: `Длинна должна быть не менее ${UserAuthValidationRule.PASSWORD_MIN_LENGTH} символов`,
       passwordMaxLength: `Длинна должна быть не более ${UserAuthValidationRule.PASSWORD_MAX_LENGTH} символов`,
       loginAlphanum: 'Имя пользователя должно содержать только a-Z и 0-9',
+    },
+    task: {
+      titleRequired: 'Название обязательно',
+      titleMaxLength: `Длинна должна быть не более ${TaskValidationRule.TITLE_MAX_LENGTH} символов`,
+      descriptionRequired: 'Описание обязательно',
+      descriptionMaxLength: `Длинна должна быть не более ${TaskValidationRule.DESCRIPTION_MAX_LENGTH} символов`,
     },
   },
 };
