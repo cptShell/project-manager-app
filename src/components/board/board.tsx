@@ -13,7 +13,7 @@ import { MainButton } from '../common/common';
 import { NotFound } from '../not-found-page/not-found-page';
 import { Loader } from '../common/loader/loader';
 import { FilterContainer } from './components/filter-container/filter-container';
-import { ColumnList } from './components/column-list';
+import { ColumnList } from './components/column-list/column-list';
 import { SearchBar } from './components/search-bar/search-bar';
 import styles from './styles.module.scss';
 

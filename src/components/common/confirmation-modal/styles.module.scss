@@ -18,22 +18,9 @@
 
 .buttons-container {
   display: flex;
-  flex-direction: row-reverse;
   gap: 20px;
 
   button {
     min-width: 160px;
-    width: 100%;
-    background-color: var(--color-purple-300);
-    border-radius: 3px;
-    border: none;
-    padding: 15px;
-    gap: 10px;
-    color: var(--color-white);
-    transition: background-color 0.2s;
-  }
-
-  button:hover {
-    cursor: pointer;
   }
 }

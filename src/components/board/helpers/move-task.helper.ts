@@ -52,7 +52,6 @@ export const moveTask = (
     (acc, index) => orderTasks(acc, index),
     updatedColumns,
   );
-  console.log(updatedColumns, result);
 
   const updateTaskResponseDto: UpdateTaskDto = {
     title: resultTask.title,

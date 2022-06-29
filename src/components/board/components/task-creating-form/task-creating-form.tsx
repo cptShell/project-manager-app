@@ -3,11 +3,13 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { useForm } from 'react-hook-form';
 import { task as taskActions } from '~/store/actions';
 import { InputName } from '~/common/enums/enums';
-import { FormattedMessage, TextInput } from '~/components/common/common';
-import { AppLocalizationKey, CreateTaskDto } from '~/common/types/types';
+import { TextInput } from '~/components/common/common';
+import { CreateTaskDto } from '~/common/types/types';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { createTask } from '~/validation-schemas/validation-schemas';
 import styles from './styles.module.scss';
+import { Button } from '~/components/common/button/button';
+import { Textarea } from '~/components/common/input/textarea/textarea';
 
 type Props = {
   boardId: string;
@@ -60,28 +62,15 @@ export const TaskCreatingForm: FC<Props> = ({
         errorMessage={titleError?.message}
       />
       <div>
-        <FormattedMessage
-          className={styles['description-title']}
-          as="span"
-          message={'board.taskCreatingForm.inputs.description'}
+        <Textarea
+          className={styles['title']}
+          title="board.taskCreatingForm.inputs.description"
+          formRegisterValues={register(InputName.DESCRIPTION)}
+          errorMessage={descriptionError?.message}
         />
-        <textarea
-          className={styles['description-writable']}
-          {...register(InputName.DESCRIPTION)}
-        />
-        {Boolean(descriptionError?.message) && (
-          <FormattedMessage
-            className={styles['error']}
-            as="span"
-            message={descriptionError?.message as AppLocalizationKey}
-          />
-        )}
       </div>
-
-      <FormattedMessage
-        className={styles['button']}
-        as="button"
-        message="board.taskCreatingForm.buttons.createTask"
+      <Button
+        title={'board.taskCreatingForm.buttons.createTask'}
       />
     </form>
   );

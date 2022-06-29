@@ -3,6 +3,7 @@ import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { InputName } from '~/common/enums/enums';
 import { TaskDto, UpdateTaskDto, UserDto } from '~/common/types/types';
+import { Button } from '~/components/common/button/button';
 import { FormattedMessage, TextInput } from '~/components/common/common';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { task as taskActions } from '~/store/actions';
@@ -148,10 +149,8 @@ export const Task: FC<Props> = ({
           </p>
         )}
       </div>
-      <FormattedMessage
-        className={styles['button']}
-        as="button"
-        message="board.taskCreatingForm.buttons.editTask"
+      <Button
+        title={'board.taskCreatingForm.buttons.editTask'}
       />
     </form>
   );

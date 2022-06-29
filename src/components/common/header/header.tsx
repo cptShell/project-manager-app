@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { AppRoute } from '~/common/enums/enums';
-import { BoardCreatingForm } from '~/components/main/components/board-creating-form';
+import { BoardCreatingForm } from '~/components/common/board-creating-form/board-creating-form';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
 import { FormattedMessage } from '../common';

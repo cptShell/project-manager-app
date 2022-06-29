@@ -3,7 +3,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { BoardFilter, FullColumnDto, UserDto } from '~/common/types/types';
 import { useAppSelector } from '~/hooks/hooks';
 import { Modal } from '~/components/common/modal/modal';
-import { TaskCreatingForm } from '../task-creating-form';
+import { TaskCreatingForm } from '../task-creating-form/task-creating-form';
 import { ConfirmationModal } from '~/components/common/confirmation-modal/confirmation-modal';
 import { TaskLink } from '../task-link/task-link';
 import { ColumnHeading } from './components/column-heading';
