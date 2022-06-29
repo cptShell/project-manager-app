@@ -5,7 +5,7 @@ import { AppLocalizationKey } from '~/common/types/types';
 
 type Props = {
   title: AppLocalizationKey,
-  onClick?: () => void | ((e: MouseEvent<HTMLButtonElement>) => void),
+  onClick?: (e?: MouseEvent) => void,
   className?: string
 };
 

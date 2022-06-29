@@ -78,7 +78,7 @@ export const EditForm: FC = () => {
           </div>
           <Button
             title={'profile.editForm.buttons.editUser'}
-            onClick={handleEditable}
+            onClick={handleEditable as (e?: MouseEvent) => void}
             className={styles['form-button']}
           />
         </>
