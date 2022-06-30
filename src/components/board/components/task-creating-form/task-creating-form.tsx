@@ -61,14 +61,12 @@ export const TaskCreatingForm: FC<Props> = ({
         formRegisterValues={register(InputName.TITLE)}
         errorMessage={titleError?.message}
       />
-      <div>
-        <Textarea
-          className={styles['title']}
-          title="board.taskCreatingForm.inputs.description"
-          formRegisterValues={register(InputName.DESCRIPTION)}
-          errorMessage={descriptionError?.message}
-        />
-      </div>
+      <Textarea
+        className={styles['title']}
+        title="board.taskCreatingForm.inputs.description"
+        formRegisterValues={register(InputName.DESCRIPTION)}
+        errorMessage={descriptionError?.message}
+      />
       <Button
         title={'board.taskCreatingForm.buttons.createTask'}
       />

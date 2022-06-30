@@ -17,32 +17,11 @@
 
   input {
     background: var(--color-purple-200);
+    font-weight: var(--font-weight-400);
     border-radius: 3px;
     padding: 13px;
     border: none;
   }
-}
-
-.description-title {
-  color: var(--color-purple-300);
-  font-weight: var(--font-weight-600);
-}
-
-.description-writable {
-  font-family: Inter, sans-serif;
-  width: 100%;
-  min-height: 90px;
-  border-radius: 3px;
-  padding: 13px;
-  border: none;
-  resize: none;
-  background: var(--color-purple-200);
-  outline-color: var(--color-purple-300);
-}
-
-.title-readable,
-.description-readable {
-  overflow-wrap: break-word;
 }
 
 .label {
@@ -59,6 +38,10 @@
   font-size: var(--font-size-200);
   padding: 0 15px;
   background: var(--color-purple-200);
-  border-radius: 5px;
+  border-radius: 3px;
   cursor: pointer;
+}
+
+.owner-select:focus-within {
+  outline: 3px solid var(--color-purple-300);
 }
