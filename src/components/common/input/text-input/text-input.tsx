@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { InputType } from '~/common/enums/enums';
 import { AppLocalizationKey } from '~/common/types/types';
-import { FormattedMessage } from '../common';
+import { FormattedMessage } from '~/components/common/formatted-message/formatted-message';
 import styles from './styles.module.scss';
 
 type Props = {

@@ -9,6 +9,7 @@ import { user as userActions } from '~/store/actions';
 import { signUpUser } from '~/validation-schemas/validation-schemas';
 import Avatar from '~/assets/images/avatar.svg';
 import styles from './styles.module.scss';
+import { Button } from '~/components/common/button/button';
 
 export const EditForm: FC = () => {
   const { id, name, login } = useAppSelector(({ auth }) => ({
@@ -75,12 +76,11 @@ export const EditForm: FC = () => {
               <span>{login}</span>
             </p>
           </div>
-          <button onClick={handleEditable} className={styles['form-button']}>
-            <FormattedMessage
-              as="span"
-              message="profile.editForm.buttons.editUser"
-            />
-          </button>
+          <Button
+            title={'profile.editForm.buttons.editUser'}
+            onClick={handleEditable}
+            className={styles['form-button']}
+          />
         </>
       ) : (
         <>
@@ -102,9 +102,8 @@ export const EditForm: FC = () => {
             errorMessage={passwordError?.message}
             className={styles['form-label']}
           />
-          <FormattedMessage
-            as="button"
-            message="profile.editForm.buttons.saveUser"
+          <Button
+            title={'profile.editForm.buttons.saveUser'}
             className={styles['form-button']}
           />
         </>

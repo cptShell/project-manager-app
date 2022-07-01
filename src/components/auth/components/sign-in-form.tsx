@@ -9,6 +9,7 @@ import { auth as authActions } from '~/store/actions';
 import { FormattedMessage, TextInput } from '~/components/common/common';
 import { AppRoute, InputName } from '~/common/enums/enums';
 import styles from './styles.module.scss';
+import { Button } from '~/components/common/button/button';
 
 export const SignInForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -45,9 +46,10 @@ export const SignInForm: FC = () => {
           formRegisterValues={register(InputName.PASSWORD)}
           errorMessage={passwordError?.message}
         />
-        <button className={styles['form-button']}>
-          <FormattedMessage as="span" message="auth.buttons.signIn" />
-        </button>
+        <Button
+          className={styles['form-button']}
+          title={'auth.buttons.signIn'}
+        />
       </form>
       <div className={styles['message-container']}>
         <FormattedMessage as="span" message="auth.messages.dontHave" />

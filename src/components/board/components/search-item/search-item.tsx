@@ -4,7 +4,7 @@ import {
   UserDto,
 } from '~/common/types/types';
 import { Modal } from '~/components/common/modal/modal';
-import { Task } from '../task';
+import { Task } from '../task/task';
 import styles from './styles.module.scss';
 
 type Props = {

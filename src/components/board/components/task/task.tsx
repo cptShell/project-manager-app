@@ -1,9 +1,11 @@
 import { joiResolver } from '@hookform/resolvers/joi';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { InputName } from '~/common/enums/enums';
 import { TaskDto, UpdateTaskDto, UserDto } from '~/common/types/types';
+import { Button } from '~/components/common/button/button';
 import { FormattedMessage, TextInput } from '~/components/common/common';
+import { Textarea } from '~/components/common/input/textarea/textarea';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { task as taskActions } from '~/store/actions';
 import { TaskUpdatePayload } from '~/store/task/common';
@@ -34,10 +36,8 @@ export const Task: FC<Props> = ({
   taskOwner,
 }) => {
   const dispatch = useAppDispatch();
-  const [isTitleEdit, setIsTitleEdit] = useState(false);
-  const [isDescriptionEdit, setIsDescriptionEdit] = useState(false);
   const registeredUsers = useAppSelector(({ users }) => users.registeredUsers);
-  const { register, handleSubmit, getValues } = useForm<FormData>({
+  const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: joiResolver(editTask),
     defaultValues: {
       userId: taskOwner?.id,
@@ -47,19 +47,7 @@ export const Task: FC<Props> = ({
     mode: 'onChange',
   });
 
-  const closeEditMode = (): void => {
-    setIsTitleEdit(false);
-    setIsDescriptionEdit(false);
-  };
-
-  const handleTitleEdit = (): void => {
-    closeEditMode();
-    setIsTitleEdit(true);
-  };
-  const handleDescriptionEdit = (): void => {
-    closeEditMode();
-    setIsDescriptionEdit(true);
-  };
+  const { title: titleError, description: descriptionError } = formState.errors;
 
   const onSubmit = async ({
     title,
@@ -87,8 +75,6 @@ export const Task: FC<Props> = ({
     handleModalClose();
   };
 
-  const { title, description } = getValues();
-
   return (
     <form className={styles['wrapper']} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.label}>
@@ -109,49 +95,20 @@ export const Task: FC<Props> = ({
           })}
         </select>
       </div>
-      {isTitleEdit ? (
-        <TextInput
-          className={styles['title']}
-          title="board.taskCreatingForm.inputs.title"
-          formRegisterValues={register(InputName.TITLE)}
-        />
-      ) : (
-        <div className={styles.label}>
-          <FormattedMessage
-            className={styles['description-title']}
-            as="span"
-            message={'board.taskCreatingForm.inputs.title'}
-          />
-          <p className={styles['title-readable']} onClick={handleTitleEdit}>
-            {title}
-          </p>
-        </div>
-      )}
-      <div className={styles.label}>
-        <FormattedMessage
-          className={styles['description-title']}
-          as="span"
-          message={'board.taskCreatingForm.inputs.description'}
-        />
-        {isDescriptionEdit ? (
-          <textarea
-            className={styles['description-writable']}
-            title="board.taskCreatingForm.inputs.description"
-            {...register(InputName.DESCRIPTION)}
-          />
-        ) : (
-          <p
-            className={styles['description-readable']}
-            onClick={handleDescriptionEdit}
-          >
-            {description}
-          </p>
-        )}
-      </div>
-      <FormattedMessage
-        className={styles['button']}
-        as="button"
-        message="board.taskCreatingForm.buttons.editTask"
+      <TextInput
+        className={styles['title']}
+        title="board.taskCreatingForm.inputs.title"
+        formRegisterValues={register(InputName.TITLE)}
+        errorMessage={titleError?.message}
+      />
+      <Textarea
+        className={styles.label}
+        title="board.taskCreatingForm.inputs.description"
+        formRegisterValues={register(InputName.DESCRIPTION)}
+        errorMessage={descriptionError?.message}
+      />
+      <Button
+        title={'board.taskCreatingForm.buttons.editTask'}
       />
     </form>
   );

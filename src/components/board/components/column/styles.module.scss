@@ -4,18 +4,18 @@
   gap: 20px;
   height: 100%;
   min-width: 355px;
+  max-width: 355px;
   background: var(--color-gray-100);
   padding: 20px;
   margin-right: 15px;
+  margin-bottom: 10px;
   border-radius: 3px;
-  opacity: 0.8;
   overflow-wrap: break-word;
-  transition: opacity 0.2s, box-shadow 0.2s;
+  transition: box-shadow 0.2s;
 }
 
 .column-item:hover {
   box-shadow: var(--shadow);
-  opacity: 1;
 }
 
 .column-header {
@@ -104,7 +104,8 @@
 }
 
 .task-list-wrapper {
-  height: calc(100vh - 460px);
+  min-height: calc(100vh - 515px);
+  max-height: 500px;
   display: flex;
   flex-direction: column;
 }
