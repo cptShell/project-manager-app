@@ -1,0 +1,28 @@
+.title {
+  color: var(--color-purple-300);
+  font-weight: var(--font-weight-600);
+  margin-bottom: 5px;
+}
+
+.input {
+  font-family: Inter, sans-serif;
+  font-size: var(--font-size-100);
+  width: 100%;
+  min-height: 90px;
+  border-radius: 3px;
+  padding: 13px;
+  border: none;
+  resize: none;
+  background: var(--color-purple-200);
+  outline-color: var(--color-purple-300);
+}
+
+.input-error {
+  outline-color: var(--color-red);
+}
+
+.error {
+  font-size: var(--font-size-100);
+  color: var(--color-red);
+  font-weight: var(--font-weight-500);
+}

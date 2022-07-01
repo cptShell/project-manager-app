@@ -1,0 +1,38 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 0 20px 10px;
+}
+
+.board-header {
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 25px 0;
+}
+
+.board-header-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.board-header-bottom {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 30px;
+  width: 100%;
+}
+
+.board-title {
+  font-size: var(--font-size-600);
+}
+
+.board-title,
+.back-to-main {
+  margin: 0;
+}

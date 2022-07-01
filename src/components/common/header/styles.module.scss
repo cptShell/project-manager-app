@@ -1,0 +1,148 @@
+.header {
+  width: 100%;
+  min-height: 88px;
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-gray-200);
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  justify-content: center;
+  transition: all ease 0.3s;
+}
+
+.minimized {
+  min-height: 58px;
+  margin-bottom: 30px;
+  opacity: 0.85;
+}
+
+.header-container {
+  max-width: 1145px;
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  opacity: 0.8;
+}
+
+.create-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  opacity: 0.8;
+  transition: opacity ease 200ms;
+}
+
+.create-wrapper:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.create-board-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.create-board-span {
+  color: var(--color-purple-300);
+  font-weight: var(--font-weight-500);
+}
+
+.header-right {
+  display: flex;
+  gap: 50px;
+}
+
+.user {
+  min-width: 130px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.user-name {
+  padding-right: 10px;
+}
+
+.avatar-img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50px;
+}
+
+.arrow-img {
+  width: 18px;
+  height: 18px;
+  border-radius: 50px;
+  transform: rotate(-90deg);
+  transition: transform 0.2s;
+}
+
+.user:hover .arrow-img {
+  transform: rotate(-180deg);
+}
+
+.user-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+}
+
+.user-menu-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-white);
+  box-shadow: var(--shadow);
+  padding: 10px;
+  gap: 10px;
+}
+
+.user-menu-option:hover {
+  box-shadow: var(--shadow-hover);
+  cursor: pointer;
+}
+
+.user-menu-span {
+  padding: 5px 0;
+}
+
+.edit-img,
+.log-out-img {
+  width: 25px;
+  height: 25px;
+}
+
+.user:hover .user-menu {
+  display: block;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+  opacity: 0.8;
+  transition: opacity ease 200ms;
+}
+
+.logo:hover {
+  opacity: 1;
+  cursor: pointer;
+}

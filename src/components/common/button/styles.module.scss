@@ -1,0 +1,15 @@
+.button {
+  min-width: fit-content;
+  width: 100%;
+  background-color: var(--color-purple-300);
+  border-radius: 3px;
+  border: none;
+  padding: 13px;
+  color: var(--color-white);
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: var(--color-purple-400);
+}
