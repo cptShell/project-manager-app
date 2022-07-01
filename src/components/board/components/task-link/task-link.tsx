@@ -4,7 +4,7 @@ import { task as taskActions } from '~/store/actions';
 import { Draggable } from 'react-beautiful-dnd';
 import { TaskDto, UserDto } from '~/common/types/types';
 import { ConfirmationModal } from '~/components/common/confirmation-modal/confirmation-modal';
-import { Task } from '../task';
+import { Task } from '../task/task';
 import styles from './styles.module.scss';
 import bucketImg from '~/assets/images/delete-bucket.svg';
 import { Modal } from '~/components/common/modal/modal';

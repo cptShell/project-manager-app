@@ -1,0 +1,16 @@
+.board-filter-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.board-filter-container:hover {
+  opacity: 1;
+}
+
+.input {
+  accent-color: var(--color-purple-300);
+}

@@ -4,13 +4,13 @@ import { column as columnActions, task as taskActions } from '~/store/actions';
 import { BoardFilter, FullColumnDto, UserDto } from '~/common/types/types';
 import { useAppDispatch } from '~/hooks/hooks';
 import { Modal } from '~/components/common/modal/modal';
-import { CreateColumnForm } from './column-creating-form';
-import { Column } from './column/column';
+import { CreateColumnForm } from '../column-creating-form/column-creating-form';
+import { Column } from '../column/column';
 import { FormattedMessage } from '~/components/common/common';
-import { moveColumn, moveTask } from '../helpers/helpers';
+import { moveColumn, moveTask } from '../../helpers/helpers';
 import { ItemType } from '~/common/enums/enums';
 import plusImg from '~/assets/images/plus.svg';
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 
 type Props = {
   boardId: string;

@@ -4,10 +4,11 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { CreateColumnDto } from '~/common/types/types';
 import { createColumn } from '~/validation-schemas/validation-schemas';
 import { InputName } from '~/common/enums/enums';
-import { FormattedMessage, TextInput } from '~/components/common/common';
+import { TextInput } from '~/components/common/common';
 import { useAppDispatch } from '~/hooks/hooks';
 import { column as columnActions } from '~/store/actions';
 import styles from './styles.module.scss';
+import { Button } from '~/components/common/button/button';
 
 type Props = {
   id: string;
@@ -42,10 +43,8 @@ export const CreateColumnForm: FC<Props> = ({ id, onClose, updateColumns }) => {
         formRegisterValues={register(InputName.TITLE)}
         errorMessage={titleError?.message}
       />
-      <FormattedMessage
-        className={styles['button']}
-        as="button"
-        message="board.columnCreatingForm.buttons.createColumn"
+      <Button
+        title={'board.columnCreatingForm.buttons.createColumn'}
       />
     </form>
   );

@@ -3,8 +3,7 @@ import { useForm } from 'react-hook-form';
 import { CreateBoardDto } from '~/common/types/types';
 import { useAppDispatch } from '~/hooks/hooks';
 import { board as boardActions } from '~/store/actions';
-import { Button } from './button';
-import styles from '../styles.module.scss';
+import { Button } from '~/components/common/button/button';
 
 type Props = {
   title: string;
@@ -28,7 +27,7 @@ export const BoardItem: FC<Props> = ({ title, id }) => {
   });
 
   return (
-    <div className={styles['item-wrapper']}>
+    <div>
       {writableMode ? (
         <>
           <form onSubmit={handleTitleUpdate}>
